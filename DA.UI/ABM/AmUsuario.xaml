@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="DA.UI.ABM.AmUsuario"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:DA.UI"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
+             xmlns:ss="clr-namespace:DA.SS;assembly=DA.SS"
+             mc:Ignorable="d"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"    
+             Background="White"
+             >
+    <UserControl.DataContext>
+        <viewModel:AmUsuarioViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <ss:ValoresNoNulos x:Key="ValoresNoNulos" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid >
+        <StackPanel Margin="5" Orientation="Vertical">
+
+            <materialDesign:ColorZone
+                Mode="PrimaryDark" Padding="10" CornerRadius="4"
+                materialDesign:ShadowAssist.ShadowDepth="Depth2" Margin="2">
+                <StackPanel
+                    Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="AccountsAddOutline" Width="30" Height="30" Margin="0 5 10 0"/>
+                    <TextBlock Name="txtTituloUsuario" Tag="txtTituloUsuario"  HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Usuario" Margin="0 10 10 0"></TextBlock>
+                </StackPanel>
+            </materialDesign:ColorZone>
+            <StackPanel Orientation="Vertical">
+                <GroupBox Header="Información Personal" Margin="5">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="txtNombre" Margin="0 0 10 10" Width="150" materialDesign:HintAssist.Hint="Nombre"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <TextBox.Text>
+                                    <Binding
+                                        Path="Nombre"
+                                        UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <ss:ValorNoNulo ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Name="txtApellido" Margin="0 0 10 10" Width="150" materialDesign:HintAssist.Hint="Apellido"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <Binding
+                                    Path="Apellido"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <ss:ValorNoNulo ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox Name="cmbDeporte" Tag="cmbSeleccioneIdioma" HorizontalAlignment="Left"  Margin="0 10 10 0" VerticalAlignment="Center" Width="150"  materialDesign:HintAssist.Hint="Seleccione Idioma"
+                                      ItemsSource="{Binding Idiomas}" 
+                                      SelectedItem="{Binding IdiomaSeleccionado}"
+                                      DisplayMemberPath="Descripcion" Height="28"
+                                      IsSynchronizedWithCurrentItem="True" />
+               
+                        </StackPanel>
+                
+                    </StackPanel>
+
+                </GroupBox>
+                <GroupBox Header="Información de la cuenta" Tag="gbInfoCuenta" Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBox Name="txtNombreUsu" Margin="0 0 0 0" Tag="txtNombreUsu" Width="150" materialDesign:HintAssist.Hint="Nombre Usuario" materialDesign:HintAssist.IsFloating="True" >
+                            <Binding
+                                Path="NombreUsuario"
+                                UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <ss:ValorNoNulo ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox Name="cmbPerfiles" Tag="cmbPerfiles" HorizontalAlignment="Left"  Margin="0 15 0 0" VerticalAlignment="Center" Width="150"  materialDesign:HintAssist.Hint="Seleccione un perfil"
+                                      ItemsSource="{Binding PermisosComponentes}" 
+                                      SelectedItem="{Binding PermisosComponenteSeleccionado}"
+                                      DisplayMemberPath="Descripcion" Height="28"
+                                      IsSynchronizedWithCurrentItem="True" />
+               
+                        </StackPanel>
+                        
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <PasswordBox Name="txtPassword" Password=""   Margin="5 1 0 0" Tag="txtPassword" Width="150" materialDesign:HintAssist.Hint="Contraseña" materialDesign:HintAssist.IsFloating="True" >
+                            
+                        </PasswordBox>
+                        <PasswordBox Name="txtPasswordVal" Password=""   Margin="5 9 0 0" Tag="txtPassword" Width="150" materialDesign:HintAssist.Hint="Repita Contraseña" materialDesign:HintAssist.IsFloating="True" >
+                        </PasswordBox>
+                    </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        
+            
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button Name="btnAceptar" Content="Aceptar" Margin="0 5 0 0" 
+                            Command="{Binding RunGuardar}"
+                            Style="{DynamicResource MaterialDesignFlatButton}" Click="btnAceptar_Click_1"  >
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValoresNoNulos}">
+                                <Binding ElementName="txtNombreUsu" Path="Text" />
+                                <Binding ElementName="txtNombre" Path="Text" />
+                                <Binding ElementName="txtApellido" Path="Text" />
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Button Name="btnCerrar" Tag="btnCerrar" Content="Cerrar"
+                            Command="{Binding RunCerrar}"
+                            Margin="0 5 0 0" Style="{DynamicResource MaterialDesignFlatButton}">
+                    </Button>
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

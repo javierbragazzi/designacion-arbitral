@@ -1,0 +1,161 @@
+﻿<UserControl x:Class="DA.UI.Principales.AdmBackup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DA.UI.Principales"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:abm="clr-namespace:DA.UI.ABM"
+             xmlns:ss="clr-namespace:DA.SS;assembly=DA.SS"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="650" IsVisibleChanged="UserControl_IsVisibleChanged"
+       >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <Grid Grid.Row="0">
+            <TextBlock Text="Resguardar" Tag="Backup" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="40 20 40 10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15"></ColumnDefinition>
+                        <ColumnDefinition Width="420"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon Grid.Column="0" 
+                                             Margin="0,15,0,0" 
+                                             VerticalAlignment="Center" 
+                                             HorizontalAlignment="Center" 
+                                             Kind="FolderOpen" 
+                                             Foreground="{Binding ElementName=txtDirectorio, Path=BorderBrush}" />
+
+                    <TextBox Grid.Column="1" 
+                             Grid.Row="0" 
+                             VerticalAlignment="Center"  
+                             materialDesign:HintAssist.Hint="Directorio"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                             TextWrapping="Wrap"   
+                             Name="txtDirectorio" 
+                             Tag="txtHintDirectorio"
+                             Margin="5,0,0,0"
+                             IsEnabled="False" TextChanged="TxtDirectorio_TextChanged" >
+                            <TextBox.Text>
+                                <Binding
+                                    Path="Directorio"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <ss:ValorNoNulo ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <Button Grid.Column="2"  
+                            x:Name="btnExaminar" 
+                            Tag="btnExaminar" 
+                            Content="Examinar" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            Width="115" 
+                            
+                            Style="{StaticResource MaterialDesignOutlinedButton}" Click="BtnExaminar_Click"/>
+                </Grid>
+            </StackPanel>
+
+        </Grid>
+       
+        <Grid Grid.Row="2">
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="40 20 40 10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15"></ColumnDefinition>
+                        <ColumnDefinition Width="420"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon Grid.Column="0" 
+                                             Margin="0,15,0,0" 
+                                             VerticalAlignment="Center" 
+                                             HorizontalAlignment="Center" 
+                                             Kind="File" 
+                                             Foreground="{Binding ElementName=txtNombreArchivo, Path=BorderBrush}" />
+
+                    <TextBox Grid.Column="1" 
+                             Grid.Row="0" 
+                             VerticalAlignment="Center"  
+                             materialDesign:HintAssist.Hint="Nombre de archivo"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                             TextWrapping="Wrap"   
+                             Name="txtNombreArchivo" 
+                             Tag="txtHintNombreArchivo"
+                             TextChanged="TxtNombreArchivo_OnTextChanged"
+                             Margin="5,0,0,0">
+                        <TextBox.Text>
+                            <Binding
+                                Path="NombreArchivo"
+                                UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <ss:ValorNoNulo ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+
+
+                </Grid>
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="40 20 40 10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="550"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0"  
+                            x:Name="btnBackup" 
+                            Tag="btnBackup" 
+                            Content="Backup" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            IsEnabled="False"
+                            Width="121" Click="BtnBackup_Click" 
+                 
+                            >
+                  </Button>
+          
+
+                </Grid>
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

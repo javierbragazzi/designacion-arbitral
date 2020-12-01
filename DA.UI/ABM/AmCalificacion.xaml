@@ -1,0 +1,401 @@
+﻿<UserControl x:Class="DA.UI.ABM.AmCalificacion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ss="clr-namespace:DA.SS;assembly=DA.SS"
+             mc:Ignorable="d"
+             xmlns:ui="clr-namespace:DA.UI"
+             xmlns:principales="clr-namespace:DA.UI.Principales"
+             xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"    
+             Background="White"
+             >
+    <UserControl.DataContext>
+        <viewModel:AmCalificacionViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid >
+        <StackPanel Margin="5" Orientation="Vertical">
+
+            <materialDesign:ColorZone
+                Mode="PrimaryDark" Padding="10" CornerRadius="4"
+                materialDesign:ShadowAssist.ShadowDepth="Depth2" Margin="2">
+                <StackPanel
+                    Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Numeric" Width="30" Height="30" Margin="0 5 10 0" VerticalAlignment="Center"/>
+                    <TextBlock Name="txtTitulo" Text="Calificación" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Margin="0 10 10 0"></TextBlock>
+                </StackPanel>
+            </materialDesign:ColorZone>
+              <StackPanel Orientation="Vertical">
+                <GroupBox Header="Árbitro" FontSize="20" Margin="5">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel>
+                            <ComboBox HorizontalAlignment="Left" FontSize="15" Margin="3 3 3 3" VerticalAlignment="Center" Width="230" 
+                                      materialDesign:HintAssist.Hint="Seleccione un árbitro"
+                                      ui:SelectionChangedBehaviour.Command="{Binding SelectedItemChangedCommand}"
+                                      ItemsSource="{Binding Arbitros}" 
+                                      SelectedItem="{Binding ArbitroSeleccionado}"
+                                      DisplayMemberPath="NombreCompletoTipoArbitro"
+                                      Height="30"/>
+              
+                        </StackPanel>
+                    </StackPanel>
+
+                </GroupBox>
+     
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Visibility="{Binding Visibilidad}" >
+                <GroupBox Header="Criterios de evaluación" FontSize="20" Margin="5">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <Border Margin="5" Padding="5" 
+                                BorderBrush="BlueViolet" BorderThickness="3,3,3,3" CornerRadius="3"
+                                VerticalAlignment="Top">
+                       
+                                <StackPanel>
+                                <TextBlock Margin="3"
+                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
+                                    Aplicación e interpretación de las reglas de juego
+                                </TextBlock>
+                                    <materialDesign:RatingBar
+                                        Max="10"
+                                        Value="{Binding ReglasPuntajePrincipal, Mode=TwoWay}"
+                                        Orientation="Horizontal" 
+                                        Visibility="{Binding VisibilidadPrincipal}"
+                                        >
+                                        <materialDesign:RatingBar.ValueItemTemplate>
+                                            <DataTemplate
+                                                DataType="System:Int32">
+                                                <Grid>
+                                                    <materialDesign:PackIcon
+                                                        Kind="Star"
+                                                        Height="40"
+                                                        Width="35" />
+                                                    <TextBlock
+                                                        Text="{Binding}"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="9"
+                                                        Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </materialDesign:RatingBar.ValueItemTemplate>
+                                    </materialDesign:RatingBar>
+                                    <materialDesign:RatingBar
+                                        Max="10"
+                                        Value="{Binding ReglasPuntajeAsistente, Mode=TwoWay}"
+                                        
+                                        Orientation="Horizontal" 
+                                        Visibility="{Binding VisibilidadAsistente}"
+                                    >
+                                        <materialDesign:RatingBar.ValueItemTemplate>
+                                            <DataTemplate
+                                                DataType="System:Int32">
+                                                <Grid>
+                                                    <materialDesign:PackIcon
+                                                        Kind="Star"
+                                                        Height="40"
+                                                        Width="35" />
+                                                    <TextBlock
+                                                        Text="{Binding}"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="9"
+                                                        Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </materialDesign:RatingBar.ValueItemTemplate>
+                                    </materialDesign:RatingBar>
+                                </StackPanel>
+                   
+                        </Border>
+                            <Border Margin="5" Padding="5" 
+                                BorderBrush="BlueViolet" BorderThickness="3,3,3,3" CornerRadius="3"
+                                VerticalAlignment="Top">
+                       
+                                <StackPanel>
+                                <TextBlock Margin="3"
+                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
+                                    Control disciplinario
+                                </TextBlock>
+                                    <materialDesign:RatingBar
+                                        Max="10"
+                                        Value="{Binding DisciplinaPuntajePrincipal, Mode=TwoWay}"
+                                        Visibility="{Binding VisibilidadPrincipal}"
+                                        Orientation="Horizontal">
+                                        <materialDesign:RatingBar.ValueItemTemplate>
+                                            <DataTemplate
+                                                DataType="System:Int32">
+                                                <Grid>
+                                                    <materialDesign:PackIcon
+                                                        Kind="Star"
+                                                        Height="40"
+                                                        Width="35" />
+                                                    <TextBlock
+                                                        Text="{Binding}"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="9"
+                                                        Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </materialDesign:RatingBar.ValueItemTemplate>
+                                    </materialDesign:RatingBar>
+                                    <materialDesign:RatingBar
+                                        Max="10"
+                                        Value="{Binding DisciplinaPuntajeAsistente, Mode=TwoWay}"
+                                        Orientation="Horizontal" 
+                                        Visibility="{Binding VisibilidadAsistente}"
+                                    >
+                                        <materialDesign:RatingBar.ValueItemTemplate>
+                                            <DataTemplate
+                                                DataType="System:Int32">
+                                                <Grid>
+                                                    <materialDesign:PackIcon
+                                                        Kind="Star"
+                                                        Height="40"
+                                                        Width="35" />
+                                                    <TextBlock
+                                                        Text="{Binding}"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="9"
+                                                        Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </materialDesign:RatingBar.ValueItemTemplate>
+                                    </materialDesign:RatingBar>
+                                </StackPanel>
+                   
+                        </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Margin="5" Padding="5" 
+                                    BorderBrush="BlueViolet" BorderThickness="3,3,3,3" CornerRadius="3"
+                                    VerticalAlignment="Top">
+                           
+                                    <StackPanel>
+                                    <TextBlock Margin="3"
+                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
+                                        Condición física
+                                    </TextBlock>
+                                        <materialDesign:RatingBar
+                                            Max="10"
+                                            Value="{Binding CondicionPuntajePrincipal, Mode=TwoWay}"
+                                            Visibility="{Binding VisibilidadPrincipal}"
+                                            Orientation="Horizontal">
+                                            <materialDesign:RatingBar.ValueItemTemplate>
+                                                <DataTemplate
+                                                    DataType="System:Int32">
+                                                    <Grid>
+                                                        <materialDesign:PackIcon
+                                                            Kind="Star"
+                                                            Height="40"
+                                                            Width="35" />
+                                                        <TextBlock
+                                                            Text="{Binding}"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="9"
+                                                            Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </materialDesign:RatingBar.ValueItemTemplate>
+                                        </materialDesign:RatingBar>
+                                        <materialDesign:RatingBar
+                                            Max="10"
+                                            Value="{Binding CondicionPuntajeAsistente, Mode=TwoWay}"
+                                            Orientation="Horizontal" 
+                                            Visibility="{Binding VisibilidadAsistente}"
+                                        >
+                                            <materialDesign:RatingBar.ValueItemTemplate>
+                                                <DataTemplate
+                                                    DataType="System:Int32">
+                                                    <Grid>
+                                                        <materialDesign:PackIcon
+                                                            Kind="Star"
+                                                            Height="40"
+                                                            Width="35" />
+                                                        <TextBlock
+                                                            Text="{Binding}"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="9"
+                                                            Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </materialDesign:RatingBar.ValueItemTemplate>
+                                        </materialDesign:RatingBar>
+                                    </StackPanel>
+                       
+                            </Border>
+                            <Border Margin="5" Padding="5" 
+                                    BorderBrush="BlueViolet" BorderThickness="3,3,3,3" CornerRadius="3"
+                                    VerticalAlignment="Top">
+                           
+                                    <StackPanel>
+                                    <TextBlock Margin="3"
+                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
+                                        Capacidad para anticiparse a las jugadas
+                                    </TextBlock>
+                                        <materialDesign:RatingBar
+                                            Max="10"
+                                            Value="{Binding JugadasPuntajePrincipal, Mode=TwoWay}"
+                                            Visibility="{Binding VisibilidadPrincipal}"
+                                            Orientation="Horizontal">
+                                            <materialDesign:RatingBar.ValueItemTemplate>
+                                                <DataTemplate
+                                                    DataType="System:Int32">
+                                                    <Grid>
+                                                        <materialDesign:PackIcon
+                                                            Kind="Star"
+                                                            Height="40"
+                                                            Width="35" />
+                                                        <TextBlock
+                                                            Text="{Binding}"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="9"
+                                                            Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </materialDesign:RatingBar.ValueItemTemplate>
+                                        </materialDesign:RatingBar>
+                                        <materialDesign:RatingBar
+                                            Max="10"
+                                            Value="{Binding JugadasPuntajeAsistente, Mode=TwoWay}"
+                                            Orientation="Horizontal" 
+                                            Visibility="{Binding VisibilidadAsistente}"
+                                        >
+                                            <materialDesign:RatingBar.ValueItemTemplate>
+                                                <DataTemplate
+                                                    DataType="System:Int32">
+                                                    <Grid>
+                                                        <materialDesign:PackIcon
+                                                            Kind="Star"
+                                                            Height="40"
+                                                            Width="35" />
+                                                        <TextBlock
+                                                            Text="{Binding}"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="9"
+                                                            Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </materialDesign:RatingBar.ValueItemTemplate>
+                                        </materialDesign:RatingBar>
+                                    </StackPanel>
+                       
+                            </Border>
+                        </StackPanel>
+               
+                    </StackPanel>
+
+                </GroupBox>
+                <GroupBox Header="Dificultad del partido" FontSize="20" Margin="5">
+                   <Border Margin="5" Padding="5" 
+                                BorderBrush="BlueViolet" BorderThickness="3,3,3,3" CornerRadius="3"
+                                VerticalAlignment="Top">
+                       
+                                <StackPanel>
+                                <TextBlock Margin="3" Text="        Fácil    Normal   Difícil   Muy difícil"
+                                           TextAlignment="Center"
+                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
+                                    
+                                </TextBlock>
+                                    <materialDesign:RatingBar
+                                        Max="4"
+                                        HorizontalAlignment="Center"
+                                        Visibility="{Binding VisibilidadPrincipal}"
+                                        Value="{Binding DificultadPuntajePrincipal, Mode=TwoWay}"
+                                        Orientation="Horizontal">
+                                        <materialDesign:RatingBar.ValueItemTemplate>
+                                            <DataTemplate
+                                                DataType="System:Int32">
+                                                <Grid>
+                                                    <materialDesign:PackIcon
+                                                        Kind="Octagram"
+                                                        Height="50"
+                                                        Width="60" />
+                                                    <TextBlock
+                                                        Text="{Binding}"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="10"
+                                                        Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </materialDesign:RatingBar.ValueItemTemplate>
+                                    </materialDesign:RatingBar>
+                                    <materialDesign:RatingBar
+                                        Max="4"
+                                        HorizontalAlignment="Center"
+                                        Value="{Binding DificultadPuntajeAsistente, Mode=TwoWay}"
+                                        Orientation="Horizontal" 
+                                        Visibility="{Binding VisibilidadAsistente}"
+                                    >
+                                        <materialDesign:RatingBar.ValueItemTemplate>
+                                            <DataTemplate
+                                                DataType="System:Int32">
+                                                <Grid>
+                                                    <materialDesign:PackIcon
+                                                        Kind="Octagram"
+                                                        Height="50"
+                                                        Width="60" />
+                                                    <TextBlock
+                                                        Text="{Binding}"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="10"
+                                                        Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </materialDesign:RatingBar.ValueItemTemplate>
+                                    </materialDesign:RatingBar>
+                                </StackPanel>
+                   
+                        </Border>
+                    
+                </GroupBox>
+            </StackPanel>
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button Name="btnAceptar" Content="Aceptar" Margin="0 5 0 0" 
+                            Command="{Binding RunGuardar}"
+                            Style="{DynamicResource MaterialDesignFlatButton}" 
+                            IsEnabled="{Binding Habilitado}">
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Button Name="btnCancelar" Content="Cerrar"
+                            Command="{Binding RunCancelar}"
+                            Margin="0 5 0 0" Style="{DynamicResource MaterialDesignFlatButton}">
+                    </Button>
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>
