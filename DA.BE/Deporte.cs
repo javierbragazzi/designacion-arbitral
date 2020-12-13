@@ -1,4 +1,6 @@
-﻿namespace DA.BE
+﻿using System;
+
+namespace DA.BE
 {
     [Tabla("Deporte")]
     public class Deporte : EntidadBase

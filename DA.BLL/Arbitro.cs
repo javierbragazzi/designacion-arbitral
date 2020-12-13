@@ -7,16 +7,10 @@ namespace DA.BLL
 {
     public class Arbitro
     {
-        /// <summary>
-        /// Dal manager Arbitro
-        /// </summary>
         private readonly DAL.Arbitro _dalManagerArbitro = new DAL.Arbitro();
-
-   
         private readonly BLL.Bitacora _bllBitacora = new BLL.Bitacora();
         private readonly BLL.Deporte _bllDeporte = new BLL.Deporte();
         private readonly BLL.Nivel _bllNivel = new BLL.Nivel();
-
 
         /// <summary>
         /// Agrega un nuevo Arbitro al sistema.
@@ -223,13 +217,13 @@ namespace DA.BLL
             {
                 if (partido.Equipo1.Equals(team))
                 {
-                    Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " dirigio equipo " + partido.Equipo1.Nombre + ".");
+                    Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " dirigió a " + partido.Equipo1.Nombre + " equipo en la última fecha.");
                     Logger.Log.Info("---------------------------------------");
                     return true;
                 }
                 if (partido.Equipo2.Equals(team))
                 {
-                    Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " dirigio equipo " + partido.Equipo2.Nombre + ".");
+                    Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " dirigió a " + partido.Equipo2.Nombre + " equipo en la última fecha.");
                     Logger.Log.Info("---------------------------------------");
                     return true;
                 }
@@ -246,25 +240,25 @@ namespace DA.BLL
                 {
                     if (partidoViejo.Equipo1.Equals(partido.Equipo1))
                     {
-                        Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " dirigio equipo " + partido.Equipo1.Nombre + " en los ultimos 15 dias.");
+                        Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " dirigió a " + partido.Equipo1.Nombre + " en los últimos 15 días.");
                         Logger.Log.Info("---------------------------------------");
                         return true;
                     }
                     if (partidoViejo.Equipo1.Equals(partido.Equipo2))
                     {
-                        Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " dirigio equipo " + partido.Equipo2.Nombre + " en los ultimos 15 dias.");
+                        Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " dirigió a " + partido.Equipo2.Nombre + " en los últimos 15 días.");
                         Logger.Log.Info("---------------------------------------");
                         return true;
                     }
                     if (partidoViejo.Equipo2.Equals(partido.Equipo1))
                     {
-                        Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " dirigio equipo " + partido.Equipo1.Nombre + " en los ultimos 15 dias.");
+                        Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " dirigió a " + partido.Equipo1.Nombre + " en los últimos 15 dias.");
                         Logger.Log.Info("---------------------------------------");
                         return true;
                     }
                     if (partidoViejo.Equipo2.Equals(partido.Equipo2))
                     {
-                        Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " dirigio equipo " + partido.Equipo2.Nombre + " en los ultimos 15 dias.");
+                        Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " dirigió a " + partido.Equipo2.Nombre + " en los últimos 15 dias.");
                         Logger.Log.Info("---------------------------------------");
                         return true;
                     }
@@ -315,21 +309,21 @@ namespace DA.BLL
         }
         private Resultado ValidarTituloValidoDeArgentina(BE.Arbitro arbitro)
         {
-            if (arbitro.TituloValidoArgentina == true)
+            if (arbitro.PoseeTituloValidoArgentina == true)
                 return new Resultado(false, "Posee titulo válido para Argentina.");
 
             return new Resultado(true, "No posee titulo válido para Argentina.");
         }
         private Resultado ValidarExamenTeorico(BE.Arbitro arbitro)
         {
-            if (arbitro.ExamenTeorico == true)
+            if (arbitro.ExamenTeoricoAprobado == true)
                 return new Resultado(false, "Examen Teórico aprobado.");
 
             return new Resultado(true, "Examen Teórico reprobado.");
         }
         private Resultado ValidarExamenFisico(BE.Arbitro arbitro)
         {
-            if (arbitro.ExamenFisico == true)
+            if (arbitro.ExamenFisicoAprobado == true)
                 return new Resultado(false, "Examen Físico aprobado.");
 
             return new Resultado(true, "Examen Físico reprobado.");

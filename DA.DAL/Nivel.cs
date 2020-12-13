@@ -130,18 +130,18 @@ namespace DA.DAL
                     Apellido = arbitro.Apellido,
                     Deporte = arbitro.Deporte,
                     DNI=arbitro.DNI,
-                    Estado = arbitro.Estado,
-                    ExamenFisico = arbitro.ExamenFisico,
-                    ExamenTeorico = arbitro.ExamenTeorico,
+                    Habilitado = arbitro.Habilitado,
+                    ExamenFisicoAprobado = arbitro.ExamenFisicoAprobado,
+                    ExamenTeoricoAprobado = arbitro.ExamenTeoricoAprobado,
                     FechaNacimiento= arbitro.FechaNacimiento,
                     Genero=arbitro.Genero,
                     Id=arbitro.Id,
-                    LicenciaInternacional=arbitro.LicenciaInternacional,
+                    PoseeLicenciaInternacional=arbitro.PoseeLicenciaInternacional,
                     Nivel = arbitro.Nivel,
                     Nombre = arbitro.Nombre,
                     NotaAFA = arbitro.NotaAFA,
                     Ranking = arbitro.Ranking,
-                    TituloValidoArgentina = arbitro.TituloValidoArgentina,
+                    PoseeTituloValidoArgentina = arbitro.PoseeTituloValidoArgentina,
                     UltimosEquiposDirigidos = arbitro.UltimosEquiposDirigidos,
                     UltimosPartidosDirigidos = arbitro.UltimosPartidosDirigidos
                 };
@@ -155,14 +155,14 @@ namespace DA.DAL
         {
             if (arbitro.AniosExperiencia >= 6 &&
                 arbitro.NotaAFA > 9 &&
-                arbitro.LicenciaInternacional == true)
+                arbitro.PoseeLicenciaInternacional == true)
             {
                 return new BE.Nivel() { Id = 1, NombreNivel = "Nivel 1", Deporte= new BE.Deporte() { Id = 1}  };
             }
 
             if (arbitro.AniosExperiencia >= 4 &&
                 arbitro.NotaAFA >= 8 &&
-                arbitro.LicenciaInternacional == true)
+                arbitro.PoseeLicenciaInternacional == true)
             {
                 return new BE.Nivel() { Id = 2, NombreNivel = "Nivel 2", Deporte = new BE.Deporte() { Id = 1 } };
             }

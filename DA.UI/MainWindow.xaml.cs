@@ -162,22 +162,22 @@ namespace DA.UI
 
         private void ItemCampeonatos_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            MostrarEnConstruccion();
         }
 
         private void ItemCategorias_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            MostrarEnConstruccion();
         }
 
         private void ItemEquipos_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            MostrarEnConstruccion();
         }
 
         private void ItemPartidos_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            MostrarEnConstruccion();
         }
 
         private void ItemRealizarDesignación_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -476,6 +476,20 @@ namespace DA.UI
         private void HacerVisibleAsignacionNivel(object sender, RoutedEventArgs e)
         {
             itemAsignarNiveles.Visibility = Visibility.Visible;
+        }
+
+        private void MostrarEnConstruccion()
+        {
+            if (_userControlActual != null)
+            {
+                _userControlActual.Visibility = Visibility.Collapsed;
+            }
+
+            _userControlActual = EnConstruccion;
+
+            EnConstruccion.Visibility = Visibility.Visible;
+
+            MenuToggleButton.IsChecked = false;
         }
 
         private void CmbIdioma_SelectionChanged(object sender, SelectionChangedEventArgs e)

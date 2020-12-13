@@ -183,7 +183,7 @@ namespace DA.UI.ViewModel
             {
                 foreach (KeyValuePair<Arbitro, TipoArbitro> arbitroYTipo in Partido.ArbitrosYTipos)
                 {
-                    arbitroYTipo.Key.NombreCompletoTipoArbitro += arbitroYTipo.Key.NombreCompleto + " - " +arbitroYTipo.Value.Descripcion;
+                    arbitroYTipo.Key.NombreCompletoTipoArbitro += arbitroYTipo.Key.ObtenerNombreCompleto() + " - " +arbitroYTipo.Value.Descripcion;
                     Arbitros.Add(arbitroYTipo.Key);
 
                     if (Partido.CalificacionesArbitros.Count != 0)

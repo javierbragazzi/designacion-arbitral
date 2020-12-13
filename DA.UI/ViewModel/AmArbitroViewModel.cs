@@ -21,7 +21,7 @@ namespace DA.UI.ViewModel
         private DateTime _fechanacimiento;
         private Nivel _nivel;
         private string _dni;
-        private string _genero;
+        private BE.Genero _genero;
         private Deporte _deporte;
         private int _ranking;
         private int _aniosexperiencia;
@@ -113,7 +113,7 @@ namespace DA.UI.ViewModel
             set => SetProperty(ref _dni, value);
         }
 
-        public string Genero
+        public BE.Genero Genero
         {
             get => _genero;
             set => SetProperty(ref _genero, value);
@@ -235,14 +235,14 @@ namespace DA.UI.ViewModel
                         Genero = Genero,
                         DNI = DNI,
                         Deporte = Deporte,
-                        Estado = Activo,
+                        Habilitado = Activo,
                         Ranking = Ranking,
                         AniosExperiencia = AniosExperiencia,
                         NotaAFA = NotaAFA,
-                        TituloValidoArgentina = TituloValidoArgentina,
-                        LicenciaInternacional = LicenciaInternacional,
-                        ExamenFisico = ExamenFisico,
-                        ExamenTeorico = ExamenTeorico                       
+                        PoseeTituloValidoArgentina = TituloValidoArgentina,
+                        PoseeLicenciaInternacional = LicenciaInternacional,
+                        ExamenFisicoAprobado = ExamenFisico,
+                        ExamenTeoricoAprobado = ExamenTeorico                       
                     });
 
                     break;
@@ -256,16 +256,16 @@ namespace DA.UI.ViewModel
                         FechaNacimiento = FechaNacimiento,
                         Genero = Genero,
                         DNI = DNI,
-                        Estado = Activo,
+                        Habilitado = Activo,
                         Nivel = Nivel,
                         Deporte = Deporte,
                         Ranking = Ranking,
                         AniosExperiencia = AniosExperiencia,
                         NotaAFA = NotaAFA,
-                        TituloValidoArgentina = TituloValidoArgentina,
-                        LicenciaInternacional = LicenciaInternacional,
-                        ExamenFisico = ExamenFisico,
-                        ExamenTeorico = ExamenTeorico
+                        PoseeTituloValidoArgentina = TituloValidoArgentina,
+                        PoseeLicenciaInternacional = LicenciaInternacional,
+                        ExamenFisicoAprobado = ExamenFisico,
+                        ExamenTeoricoAprobado = ExamenTeorico
 
                     });
 

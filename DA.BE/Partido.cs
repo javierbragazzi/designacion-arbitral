@@ -46,8 +46,7 @@ namespace DA.BE
         {
             get
             {
-                return ArbitrosYTipos.FirstOrDefault(x => ((BE.TipoArbitro) x.Value).Descripcion == "Principal").Key
-                    .NombreCompleto;
+                return ArbitrosYTipos.FirstOrDefault(x => ((BE.TipoArbitro) x.Value).Descripcion == "Principal").Key.ObtenerNombreCompleto();
             }
             set
             {
@@ -60,8 +59,7 @@ namespace DA.BE
         {
             get
             {
-                return ArbitrosYTipos.FirstOrDefault(x => ((BE.TipoArbitro) x.Value).Descripcion == "Asistente").Key
-                    .NombreCompleto;
+                return ArbitrosYTipos.FirstOrDefault(x => ((BE.TipoArbitro) x.Value).Descripcion == "Asistente").Key.ObtenerNombreCompleto();
             }
             set
             {

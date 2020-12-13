@@ -28,7 +28,7 @@ namespace DA.BE
             set;
         }
 
-        public string Genero
+        public Genero Genero
         {
             [Columna("Genero", "Genero", typeof(string), false, false)]
             get;
@@ -77,41 +77,44 @@ namespace DA.BE
             set;
         }
 
-        public bool? Estado
+        public bool? Habilitado
         {
-            [Columna("Estado", "Estado", typeof(bool?), false, false)]
+            [Columna("Habilitado", "Habilitado", typeof(bool?), false, false)]
             get;
             set;
         }
 
-        public bool? TituloValidoArgentina
+        public bool? PoseeTituloValidoArgentina
         {
-            [Columna("TituloValidoArgentina", "TituloValidoArgentina", typeof(bool?), false, false)]
+            [Columna("PoseeTituloValidoArgentina", "PoseeTituloValidoArgentina", typeof(bool?), false, false)]
             get;
             set;
         }
 
-        public bool? LicenciaInternacional
+        public bool? PoseeLicenciaInternacional
         {
-            [Columna("LicenciaInternacional", "LicenciaInternacional", typeof(bool?), false, false)]
+            [Columna("PoseeLicenciaInternacional", "PoseeLicenciaInternacional", typeof(bool?), false, false)]
             get;
             set;
         }
 
-        public bool? ExamenFisico
+        public bool? ExamenFisicoAprobado
         {
-            [Columna("ExamenFisico", "ExamenFisico", typeof(bool?), false, false)]
+            [Columna("ExamenFisicoAprobado", "ExamenFisicoAprobado", typeof(bool?), false, false)]
             get;
             set;
         }
-        public bool? ExamenTeorico
+        public bool? ExamenTeoricoAprobado
         {
-            [Columna("ExamenTeorico", "ExamenTeorico", typeof(bool?), false, false)]
+            [Columna("ExamenTeoricoAprobado", "ExamenTeoricoAprobado", typeof(bool?), false, false)]
             get;
             set;
         }
 
-        public string NombreCompleto => Nombre + " " + Apellido;
+        public string ObtenerNombreCompleto()
+        {
+            return Nombre + " " + Apellido;
+        }
 
         public string NombreCompletoTipoArbitro { get; set; }
         

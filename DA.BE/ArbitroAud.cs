@@ -1,8 +1,8 @@
 ﻿
 namespace DA.BE
 {
-    [Tabla("Arbitro_Aud")]
-    public class Arbitro_Aud : Arbitro
+    [Tabla("ArbitroAud")]
+    public class ArbitroAud : Arbitro
     {
 
         public int IdBitacora

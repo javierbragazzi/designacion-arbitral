@@ -50,7 +50,7 @@ namespace DA.BLL
                     Logger.Log.Info("Partido: " + partido.Equipo1.Nombre + " vs. " + partido.Equipo2.Nombre);
                     Logger.Log.Info("Arbitro: " + arbitro.Apellido + " " + arbitro.Nombre);
                     Logger.Log.Info("Tipo de Arbitro: " + tipoArbitro.Descripcion);
-                    if (arbitro.Estado == true)
+                    if (arbitro.Habilitado == true)
                     {
                         if (logicalArbitro.PuedeDirigir(arbitro, partido, tipoArbitro))
                         {

@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arbitro.cs" />
-    <Compile Include="Arbitro_Aud.cs" />
+    <Compile Include="ArbitroAud.cs" />
     <Compile Include="Calificacion.cs" />
     <Compile Include="Campeonato.cs" />
     <Compile Include="Categoria.cs" />
@@ -54,6 +54,7 @@
     <Compile Include="Equipo.cs" />
     <Compile Include="Fecha.cs" />
     <Compile Include="Fixture.cs" />
+    <Compile Include="Genero.cs" />
     <Compile Include="Nivel.cs" />
     <Compile Include="NivelRegla.cs" />
     <Compile Include="Partido.cs" />
@@ -81,6 +82,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuarioPermiso.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="BE.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

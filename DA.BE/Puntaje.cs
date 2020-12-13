@@ -18,8 +18,6 @@
 
         public double PuntajePromedio { get; set; }
 
-        public string NombreCompleto => Nombre + " " + Apellido;
-
         public Situacion Situacion { get; set; }
 
         public int IdNivelNuevo { get; set; }
@@ -27,6 +25,11 @@
         public string NombreNivelNuevo { get; set; }
 
         public string Motivo { get; set; }
+
+        public string ObtenerNombreCompleto()
+        {
+            return Nombre + " " + Apellido;
+        }
 
     }
 }

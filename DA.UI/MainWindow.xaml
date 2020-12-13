@@ -8,6 +8,7 @@
         xmlns:bitacora="clr-namespace:DA.UI.Principales.Bitacora"
         xmlns:designacion="clr-namespace:DA.UI.Principales.Designacion"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:ui="clr-namespace:DA.UI"
         mc:Ignorable="d"
         Title="MainWindow" Height="750" Width="1200"
         WindowStyle="None"
@@ -149,6 +150,7 @@
                                         <principales:AdmGruposPermisos x:Name="admGruposPermisos" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 0" />
                                         <principales:UCCalificacion x:Name="UcCalificacion" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 0" />
                                         <principales:UCPromocionDescenso x:Name="UcPromocionDescenso" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 0" />
+                                        <ui:EnConstruccion x:Name="EnConstruccion" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 0" />
                                     </StackPanel>
 
                                 </ScrollViewer>

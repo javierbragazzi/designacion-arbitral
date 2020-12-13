@@ -124,6 +124,7 @@ namespace DA.BLL
                     else
                     {
                         Logger.Log.Info("Resultado: Fallido Razon: Arbitro " + arbitro.Apellido + " no puede ser "+ tipoDeArbitroAAsignar.Descripcion + " de este partido.");
+                        Logger.Log.Info("Nivel del árbitro: " + arbitro.Nivel.NombreNivel + " - Categoría del partido: " + partido.Equipo1.Categoria.Descripcion);
                         Logger.Log.Info("---------------------------------------");
                     }
                 }

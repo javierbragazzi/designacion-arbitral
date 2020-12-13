@@ -129,7 +129,7 @@
                                 <DataGridTextColumn Binding="{Binding Nombre }"  Header="Nombre" IsReadOnly="True"/>
                                 <DataGridTextColumn Binding="{Binding Apellido}"  Header="Apellido" IsReadOnly="True"/>
                                 <DataGridTextColumn Binding="{Binding Nivel.NombreNivel}"  Header="Nivel" IsReadOnly="True"/>
-                                <DataGridTextColumn Binding="{Binding Estado}"  Header="Habilitado" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Habilitado}"  Header="Habilitado" IsReadOnly="True"/>
                        
                             </DataGrid.Columns>
                         </DataGrid>

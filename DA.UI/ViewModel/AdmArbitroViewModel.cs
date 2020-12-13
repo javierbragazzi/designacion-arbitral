@@ -14,46 +14,47 @@ namespace DA.UI.ViewModel
     public class AdmArbitroViewModel : ViewModelBaseLocal
     {
         private bool _busyIndicator;
-
-
+        
         public bool BusyIndicator
         {
             get => _busyIndicator;
             set => SetProperty(ref _busyIndicator, value);
         }
 
-        AmArbitro viewModelAmArbitro = new AmArbitro()
-        {
-            DataContext = new AmArbitroViewModel()
-        };
+        private readonly AmArbitro _viewModelAmArbitro;
 
         public AdmArbitroViewModel()
         { 
-            BackgroundWorker worker = new BackgroundWorker();
+            //BackgroundWorker worker = new BackgroundWorker();
+            
+            //worker.DoWork += (o, ea) =>
+            //{
+         
 
-            worker.DoWork += (o, ea) =>
-            {
-                CargaGrillaArbitro();
+            //};
+            //worker.RunWorkerCompleted += (o, ea) =>
+            //{
 
-                GoToNextPageCommand = new RelayCommand(a => ColeccionArbitro.GoToNextPage());
-                GoToPreviousPageCommand = new RelayCommand(a => ColeccionArbitro.GoToPreviousPage());
-                CleanCommand = new RelayCommand(ExecuteCleanCommand);
-                RunAltaArbitro = new RelayCommand(ExecuteRunAltaArbitro);
-                RunEditarArbitro = new RelayCommand(ExecuteRunEditarArbitro);
-                RunGuardarArbitro = new RelayCommand(ExecuteRunGuardarArbitro);
-                RunEliminarArbitro = new RelayCommand(ExecuteRunEliminarArbitro);
-
-            };
-            worker.RunWorkerCompleted += (o, ea) =>
-            {
-
-                BusyIndicator = false;
+            //    BusyIndicator = false;
               
-            };
+            //};
        
-            BusyIndicator = true;
-            worker.RunWorkerAsync();
+            //BusyIndicator = true;
+            //worker.RunWorkerAsync();
+            
+            _viewModelAmArbitro = new AmArbitro()
+            {
+                DataContext = new AmArbitroViewModel()
+            };
 
+            CargaGrillaArbitro();
+            GoToNextPageCommand = new RelayCommand(a => ColeccionArbitro.GoToNextPage());
+            GoToPreviousPageCommand = new RelayCommand(a => ColeccionArbitro.GoToPreviousPage());
+            CleanCommand = new RelayCommand(ExecuteCleanCommand);
+            RunAltaArbitro = new RelayCommand(ExecuteRunAltaArbitro);
+            RunEditarArbitro = new RelayCommand(ExecuteRunEditarArbitro);
+            RunGuardarArbitro = new RelayCommand(ExecuteRunGuardarArbitro);
+            RunEliminarArbitro = new RelayCommand(ExecuteRunEliminarArbitro);
 
 
             //((AmArbitroViewModel)view.DataContext).CargarComboDeportes();
@@ -177,30 +178,30 @@ namespace DA.UI.ViewModel
 
             //AmArbitroViewModel viewModel = (AmArbitroViewModel)view.DataContext;
 
-            AmArbitroViewModel viewModel = (AmArbitroViewModel)viewModelAmArbitro.DataContext;
+            AmArbitroViewModel viewModel = (AmArbitroViewModel)_viewModelAmArbitro.DataContext;
 
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).Id = 0;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).Nombre = string.Empty;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).Apellido = string.Empty;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).Ranking = 0;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).AniosExperiencia = 0;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).NotaAFA = 0;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).Genero = string.Empty;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).DNI = string.Empty;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).Activo = true;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).FechaNacimiento = DateTime.Now;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).TituloValidoArgentina = false;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).LicenciaInternacional = false;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).ExamenTeorico = false;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).ExamenFisico = false;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Id = 0;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Nombre = string.Empty;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Apellido = string.Empty;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Ranking = 0;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).AniosExperiencia = 0;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).NotaAFA = 0;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Genero = Genero.MASCULINO;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).DNI = string.Empty;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Activo = true;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).FechaNacimiento = DateTime.Now;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).TituloValidoArgentina = false;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).LicenciaInternacional = false;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).ExamenTeorico = false;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).ExamenFisico = false;
 
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).Nivel = null;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).Deporte = null;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Nivel = null;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Deporte = null;
 
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).Visibilidad = Visibility.Visible;
-            ((AmArbitroViewModel)viewModelAmArbitro.DataContext).Titulo = "Alta de Arbitro";
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Visibilidad = Visibility.Visible;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Titulo = "Alta de Arbitro";
 
-            await DialogHost.Show(viewModelAmArbitro, "RootDialog");
+            await DialogHost.Show(_viewModelAmArbitro, "RootDialog");
 
             Mensaje vieMensaje = null;
 
@@ -248,15 +249,15 @@ namespace DA.UI.ViewModel
                 viewModelAmArbitro.Ranking = ArbitroSeleccionado.Ranking;
                 viewModelAmArbitro.AniosExperiencia = ArbitroSeleccionado.AniosExperiencia;
                 viewModelAmArbitro.NotaAFA = ArbitroSeleccionado.NotaAFA;
-                viewModelAmArbitro.LicenciaInternacional = ArbitroSeleccionado.LicenciaInternacional;
+                viewModelAmArbitro.LicenciaInternacional = ArbitroSeleccionado.PoseeLicenciaInternacional;
                 viewModelAmArbitro.Genero = ArbitroSeleccionado.Genero;
                 viewModelAmArbitro.DNI = ArbitroSeleccionado.DNI;
-                viewModelAmArbitro.Activo = ArbitroSeleccionado.Estado;
+                viewModelAmArbitro.Activo = ArbitroSeleccionado.Habilitado;
                 viewModelAmArbitro.FechaNacimiento = ArbitroSeleccionado.FechaNacimiento;
 
-                viewModelAmArbitro.TituloValidoArgentina = ArbitroSeleccionado.TituloValidoArgentina;
-                viewModelAmArbitro.ExamenTeorico = ArbitroSeleccionado.ExamenTeorico;
-                viewModelAmArbitro.ExamenFisico = ArbitroSeleccionado.ExamenFisico;
+                viewModelAmArbitro.TituloValidoArgentina = ArbitroSeleccionado.PoseeTituloValidoArgentina;
+                viewModelAmArbitro.ExamenTeorico = ArbitroSeleccionado.ExamenTeoricoAprobado;
+                viewModelAmArbitro.ExamenFisico = ArbitroSeleccionado.ExamenFisicoAprobado;
 
                 viewModelAmArbitro.CargarComboDeportes();
                 viewModelAmArbitro.Deporte = ArbitroSeleccionado.Deporte;

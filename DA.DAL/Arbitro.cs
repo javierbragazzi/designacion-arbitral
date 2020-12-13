@@ -17,12 +17,12 @@ namespace DA.DAL
 
         private ResultadoBd InsertarAuditoria(BE.Arbitro pArbitro, int idBitacora)
         {
-            Arbitro_Aud arbitroAud = new Arbitro_Aud()
+            ArbitroAud arbitroAud = new ArbitroAud()
             {
                 IdArbitro = pArbitro.Id,
                 Nombre = pArbitro.Nombre,
                 Apellido = pArbitro.Apellido,
-                Estado = pArbitro.Estado,
+                Habilitado = pArbitro.Habilitado,
                 FechaNacimiento = pArbitro.FechaNacimiento,
                 Genero = pArbitro.Genero,
                 DNI = pArbitro.DNI,
@@ -32,10 +32,10 @@ namespace DA.DAL
                 AniosExperiencia = pArbitro.AniosExperiencia,
                 NotaAFA = pArbitro.NotaAFA,
                 IdBitacora = idBitacora,
-                TituloValidoArgentina = pArbitro.TituloValidoArgentina,
-                LicenciaInternacional = pArbitro.LicenciaInternacional,
-                ExamenFisico = pArbitro.ExamenFisico,
-                ExamenTeorico = pArbitro.ExamenTeorico
+                PoseeTituloValidoArgentina = pArbitro.PoseeTituloValidoArgentina,
+                PoseeLicenciaInternacional = pArbitro.PoseeLicenciaInternacional,
+                ExamenFisicoAprobado = pArbitro.ExamenFisicoAprobado,
+                ExamenTeoricoAprobado = pArbitro.ExamenTeoricoAprobado
             };
             string query = string.Empty;
 
@@ -54,13 +54,13 @@ namespace DA.DAL
                             arbitroAud.NotaAFA,
                             arbitroAud.Nivel.Id,
                             arbitroAud.Deporte.Id,
-                            arbitroAud.Estado == true ? 1 : 0,
+                            arbitroAud.Habilitado == true ? 1 : 0,
                             arbitroAud.IdArbitro,
                             arbitroAud.IdBitacora,
-                            arbitroAud.TituloValidoArgentina == true ? 1 : 0,
-                            arbitroAud.LicenciaInternacional == true ? 1 : 0,
-                            arbitroAud.ExamenFisico == true ? 1 : 0,
-                            arbitroAud.ExamenTeorico == true ? 1 : 0
+                            arbitroAud.PoseeTituloValidoArgentina == true ? 1 : 0,
+                            arbitroAud.PoseeLicenciaInternacional == true ? 1 : 0,
+                            arbitroAud.ExamenFisicoAprobado == true ? 1 : 0,
+                            arbitroAud.ExamenTeoricoAprobado == true ? 1 : 0
                             );
             }
             else
@@ -77,13 +77,13 @@ namespace DA.DAL
                             arbitroAud.AniosExperiencia,
                             arbitroAud.NotaAFA,
                             arbitroAud.Deporte.Id,
-                            arbitroAud.Estado == true ? 1 : 0,
+                            arbitroAud.Habilitado == true ? 1 : 0,
                             arbitroAud.IdArbitro,
                             arbitroAud.IdBitacora,
-                            arbitroAud.TituloValidoArgentina == true ? 1 : 0,
-                            arbitroAud.LicenciaInternacional == true ? 1 : 0,
-                            arbitroAud.ExamenFisico == true ? 1 : 0,
-                            arbitroAud.ExamenTeorico == true ? 1 : 0
+                            arbitroAud.PoseeTituloValidoArgentina == true ? 1 : 0,
+                            arbitroAud.PoseeLicenciaInternacional == true ? 1 : 0,
+                            arbitroAud.ExamenFisicoAprobado == true ? 1 : 0,
+                            arbitroAud.ExamenTeoricoAprobado == true ? 1 : 0
                             );
             }
             
@@ -159,17 +159,17 @@ namespace DA.DAL
                 Nombre  = row["Nombre"].ToString().Trim(),
                 Apellido = row["Apellido"].ToString().Trim(),
                 Deporte = new BE.Deporte() { Id = Convert.ToInt32(row["IdDeporte"]) },
-                Estado = Convert.ToBoolean(row["Estado"].ToString().Trim()),
+                Habilitado = Convert.ToBoolean(row["Habilitado"].ToString().Trim()),
                 FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"].ToString().Trim()),
-                Genero = row["Genero"].ToString().Trim(),
+                Genero = row["Genero"].ToString().Trim().Equals(BE.Genero.MASCULINO.ToString()) ? BE.Genero.MASCULINO : BE.Genero.FEMENINO,
                 DNI = row["Dni"].ToString().Trim(),
                 Ranking = int.Parse(row["Ranking"].ToString()),
                 AniosExperiencia = int.Parse(row["AniosExperiencia"].ToString()),
                 NotaAFA = int.Parse(row["NotaAFA"].ToString()),
-                TituloValidoArgentina = row["TituloValidoArgentina"].ToString() == "1" ? true : false,
-                LicenciaInternacional = row["LicenciaInternacional"].ToString() == "1" ? true : false,
-                ExamenFisico = row["ExamenFisico"].ToString() == "1" ? true : false,
-                ExamenTeorico = row["ExamenTeorico"].ToString() == "1" ? true : false,
+                PoseeTituloValidoArgentina = row["PoseeTituloValidoArgentina"].ToString() == "1" ? true : false,
+                PoseeLicenciaInternacional = row["PoseeLicenciaInternacional"].ToString() == "1" ? true : false,
+                ExamenFisicoAprobado = row["ExamenFisicoAprobado"].ToString() == "1" ? true : false,
+                ExamenTeoricoAprobado = row["ExamenTeoricoAprobado"].ToString() == "1" ? true : false,
                 UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
                 UltimosPartidosDirigidos = new Queue<BE.Partido>()
      
@@ -203,17 +203,17 @@ namespace DA.DAL
                     Nombre  = row["Nombre"].ToString().Trim(),
                     Apellido = row["Apellido"].ToString().Trim(),
                     Deporte = new BE.Deporte() { Id = Convert.ToInt32(row["IdDeporte"]) },
-                    Estado = row["Estado"].ToString() == "True" ? true : false,
+                    Habilitado = row["Habilitado"].ToString() == "True" ? true : false,
                     FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"].ToString().Trim()),
-                    Genero = row["Genero"].ToString().Trim(),
+                    Genero = row["Genero"].ToString().Trim().Equals(BE.Genero.MASCULINO.ToString()) ? BE.Genero.MASCULINO : BE.Genero.FEMENINO,
                     DNI = row["Dni"].ToString().Trim(),
                     Ranking = int.Parse(row["Ranking"].ToString()),
                     AniosExperiencia = int.Parse(row["AniosExperiencia"].ToString()),
                     NotaAFA = int.Parse(row["NotaAFA"].ToString()),
-                    TituloValidoArgentina = row["TituloValidoArgentina"].ToString() == "True" ? true : false,
-                    LicenciaInternacional = row["LicenciaInternacional"].ToString() == "True" ? true : false,
-                    ExamenFisico = row["ExamenFisico"].ToString() == "True" ? true : false,
-                    ExamenTeorico = row["ExamenTeorico"].ToString() == "True" ? true : false,
+                    PoseeTituloValidoArgentina = row["PoseeTituloValidoArgentina"].ToString() == "True" ? true : false,
+                    PoseeLicenciaInternacional = row["PoseeLicenciaInternacional"].ToString() == "True" ? true : false,
+                    ExamenFisicoAprobado = row["ExamenFisicoAprobado"].ToString() == "True" ? true : false,
+                    ExamenTeoricoAprobado = row["ExamenTeoricoAprobado"].ToString() == "True" ? true : false,
                     UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
                     UltimosPartidosDirigidos = new Queue<BE.Partido>()
                 };
@@ -256,17 +256,17 @@ namespace DA.DAL
                     Nombre  = row["Nombre"].ToString().Trim(),
                     Apellido = row["Apellido"].ToString().Trim(),
                     Deporte = new BE.Deporte() { Id = Convert.ToInt32(row["IdDeporte"]) },
-                    Estado = Convert.ToBoolean(row["Estado"].ToString().Trim()),
+                    Habilitado = Convert.ToBoolean(row["Habilitado"].ToString().Trim()),
                     FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"].ToString().Trim()),
-                    Genero = row["Genero"].ToString().Trim(),
+                    Genero = row["Genero"].ToString().Trim().Equals(BE.Genero.MASCULINO.ToString()) ? BE.Genero.MASCULINO : BE.Genero.FEMENINO,
                     DNI = row["Dni"].ToString().Trim(),
                     Ranking = int.Parse(row["Ranking"].ToString()),
                     AniosExperiencia = int.Parse(row["AniosExperiencia"].ToString()),
                     NotaAFA = int.Parse(row["NotaAFA"].ToString()),
-                    TituloValidoArgentina = row["TituloValidoArgentina"].ToString() == "1" ? true : false,
-                    LicenciaInternacional = row["LicenciaInternacional"].ToString() == "1" ? true : false,
-                    ExamenFisico = row["ExamenFisico"].ToString() == "1" ? true : false,
-                    ExamenTeorico = row["ExamenTeorico"].ToString() == "1" ? true : false,
+                    PoseeTituloValidoArgentina = row["PoseeTituloValidoArgentina"].ToString() == "1" ? true : false,
+                    PoseeLicenciaInternacional = row["PoseeLicenciaInternacional"].ToString() == "1" ? true : false,
+                    ExamenFisicoAprobado = row["ExamenFisicoAprobado"].ToString() == "1" ? true : false,
+                    ExamenTeoricoAprobado = row["ExamenTeoricoAprobado"].ToString() == "1" ? true : false,
                     UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
                     UltimosPartidosDirigidos = new Queue<BE.Partido>()
                 };
@@ -309,16 +309,16 @@ namespace DA.DAL
                     Nombre  = row["Nombre"].ToString().Trim(),
                     Apellido = row["Apellido"].ToString().Trim(),
                     Deporte = new BE.Deporte() { Id = Convert.ToInt32(row["IdDeporte"]) },
-                    Estado = Convert.ToBoolean(row["Estado"].ToString().Trim()),
+                    Habilitado = Convert.ToBoolean(row["Habilitado"].ToString().Trim()),
                     FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"].ToString().Trim()),
-                    Genero = row["Genero"].ToString().Trim(),
+                    Genero = row["Genero"].ToString().Trim().Equals(BE.Genero.MASCULINO.ToString()) ? BE.Genero.MASCULINO : BE.Genero.FEMENINO,
                     DNI = row["Dni"].ToString().Trim(),
                     Ranking = Convert.ToInt32(row["Id"]),
                     NotaAFA = int.Parse(row["NotaAFA"].ToString()),
-                    TituloValidoArgentina = row["TituloValidoArgentina"].ToString() == "1" ? true : false,
-                    LicenciaInternacional = row["LicenciaInternacional"].ToString() == "1" ? true : false,
-                    ExamenFisico = row["ExamenFisico"].ToString() == "1" ? true : false,
-                    ExamenTeorico = row["ExamenTeorico"].ToString() == "1" ? true : false,
+                    PoseeTituloValidoArgentina = row["PoseeTituloValidoArgentina"].ToString() == "1" ? true : false,
+                    PoseeLicenciaInternacional = row["PoseeLicenciaInternacional"].ToString() == "1" ? true : false,
+                    ExamenFisicoAprobado = row["ExamenFisicoAprobado"].ToString() == "1" ? true : false,
+                    ExamenTeoricoAprobado = row["ExamenTeoricoAprobado"].ToString() == "1" ? true : false,
                     Nivel = new BE.Nivel() { Id = Convert.ToInt32(row["IdNivel"]) },
                     UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
                     UltimosPartidosDirigidos = new Queue<BE.Partido>()

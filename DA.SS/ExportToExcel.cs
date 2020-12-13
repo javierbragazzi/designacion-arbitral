@@ -86,12 +86,12 @@ namespace DA.SS
             actualLetter = GetNextLetter(actualLetter);
            // worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = partido.Principal.NombreCompleto;
            worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value =
-               partido.ArbitrosYTipos.FirstOrDefault(x => ((BE.TipoArbitro)x.Value).Descripcion == "Principal" ).Key.NombreCompleto;
+               partido.ArbitrosYTipos.FirstOrDefault(x => ((BE.TipoArbitro)x.Value).Descripcion == "Principal" ).Key.ObtenerNombreCompleto();
             FormatRefereeCell(worksheet, actualLetter.ToString() + actualRowNumber);
             actualLetter = GetNextLetter(actualLetter);
             //worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = partido.Asistente.NombreCompleto;
             worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value =
-                partido.ArbitrosYTipos.FirstOrDefault(x => ((BE.TipoArbitro)x.Value).Descripcion == "Asistente" ).Key.NombreCompleto;
+                partido.ArbitrosYTipos.FirstOrDefault(x => ((BE.TipoArbitro)x.Value).Descripcion == "Asistente" ).Key.ObtenerNombreCompleto();
             FormatRefereeCell(worksheet, actualLetter.ToString() + actualRowNumber);
             //actualLetter = GetNextLetter(actualLetter);
             //worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = "PASANTE";

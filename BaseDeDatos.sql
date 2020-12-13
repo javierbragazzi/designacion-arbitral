@@ -1,10 +1,15 @@
 ﻿USE master
 GO
-DROP DATABASE [DesignacionArbitral3]
+DROP DATABASE [DesignacionArbitral]
 GO
-CREATE DATABASE [DesignacionArbitral3]
+CREATE DATABASE [DesignacionArbitral]
 GO
-USE [DesignacionArbitral3]
+USE [DesignacionArbitral]
+GO
+/****** Object:  Table [dbo].[Arbitro]    Script Date: 13/12/2020 06:34:10 p.m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Arbitro](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
@@ -15,13 +20,13 @@ CREATE TABLE [dbo].[Arbitro](
 	[Ranking] [bigint] NULL,
 	[IdNivel] [bigint] NULL,
 	[IdDeporte] [bigint] NULL,
-	[Estado] [bit] NULL,
+	[Habilitado] [bit] NULL,
 	[Dni] [bigint] NULL,
 	[NotaAFA] [int] NULL,
-	[TituloValidoArgentina] [bit] NULL,
-	[LicenciaInternacional] [bit] NULL,
-	[ExamenFisico] [bit] NULL,
-	[ExamenTeorico] [bit] NULL,
+	[PoseeTituloValidoArgentina] [bit] NULL,
+	[PoseeLicenciaInternacional] [bit] NULL,
+	[ExamenFisicoAprobado] [bit] NULL,
+	[ExamenTeoricoAprobado] [bit] NULL,
 	[AniosExperiencia] [int] NULL,
  CONSTRAINT [PK_Arbitro] PRIMARY KEY CLUSTERED 
 (
@@ -29,12 +34,12 @@ CREATE TABLE [dbo].[Arbitro](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Arbitro_Aud]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[ArbitroAud]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Arbitro_Aud](
+CREATE TABLE [dbo].[ArbitroAud](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[Nombre] [varchar](100) NOT NULL,
 	[Apellido] [varchar](100) NOT NULL,
@@ -59,7 +64,7 @@ CREATE TABLE [dbo].[Arbitro_Aud](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Bitacora]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Bitacora]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -76,7 +81,7 @@ CREATE TABLE [dbo].[Bitacora](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Calificacion]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Calificacion]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -94,7 +99,7 @@ CREATE TABLE [dbo].[Calificacion](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Campeonato]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Campeonato]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -110,7 +115,7 @@ CREATE TABLE [dbo].[Campeonato](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Categoria]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Categoria]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -125,7 +130,7 @@ CREATE TABLE [dbo].[Categoria](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Deporte]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Deporte]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -139,7 +144,7 @@ CREATE TABLE [dbo].[Deporte](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[DVV]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[DVV]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -154,7 +159,7 @@ CREATE TABLE [dbo].[DVV](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Equipo]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Equipo]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -170,7 +175,7 @@ CREATE TABLE [dbo].[Equipo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Fecha]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Fecha]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -189,7 +194,7 @@ CREATE TABLE [dbo].[Fecha](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Fixture]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Fixture]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -203,7 +208,7 @@ CREATE TABLE [dbo].[Fixture](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Idioma]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Idioma]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -217,7 +222,7 @@ CREATE TABLE [dbo].[Idioma](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Leyenda]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Leyenda]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -227,7 +232,7 @@ CREATE TABLE [dbo].[Leyenda](
 	[Etiqueta] [varchar](50) NOT NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Nivel]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Nivel]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -242,7 +247,7 @@ CREATE TABLE [dbo].[Nivel](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[NivelRegla]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[NivelRegla]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -254,7 +259,7 @@ CREATE TABLE [dbo].[NivelRegla](
 	[IdTipoArbitro] [bigint] NOT NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Partido]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Partido]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -272,7 +277,7 @@ CREATE TABLE [dbo].[Partido](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PartidoArbitro]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[PartidoArbitro]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -290,7 +295,7 @@ CREATE TABLE [dbo].[PartidoArbitro](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Permiso]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Permiso]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -305,7 +310,7 @@ CREATE TABLE [dbo].[Permiso](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PermisoPermiso]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[PermisoPermiso]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -315,7 +320,7 @@ CREATE TABLE [dbo].[PermisoPermiso](
 	[IdHijo] [bigint] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Resguardo]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Resguardo]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -330,7 +335,7 @@ CREATE TABLE [dbo].[Resguardo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TipoArbitro]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[TipoArbitro]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -345,7 +350,7 @@ CREATE TABLE [dbo].[TipoArbitro](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Traduccion]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Traduccion]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -361,7 +366,7 @@ CREATE TABLE [dbo].[Traduccion](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Usuario]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[Usuario]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -381,7 +386,7 @@ CREATE TABLE [dbo].[Usuario](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UsuarioPermiso]    Script Date: 1/4/2020 20:39:28 ******/
+/****** Object:  Table [dbo].[UsuarioPermiso]    Script Date: 13/12/2020 06:34:10 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -398,269 +403,269 @@ CREATE TABLE [dbo].[UsuarioPermiso](
 GO
 SET IDENTITY_INSERT [dbo].[Arbitro] ON 
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (1, N' DARIO', N'SANTAMARIA', CAST(N'1973-04-06' AS Date), N'MASCULINO', 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (1, N' DARIO', N'SANTAMARIA', CAST(N'1973-04-06' AS Date), N'MASCULINO', 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (2, N' BAIS', N'MARCELO', CAST(N'1974-05-25' AS Date), N'MASCULINO', 2, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (2, N' BAIS', N'MARCELO', CAST(N'1974-05-25' AS Date), N'MASCULINO', 2, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (3, N' LEANDRO', N'LORENZO', CAST(N'1977-08-18' AS Date), N'MASCULINO', 3, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (3, N' LEANDRO', N'LORENZO', CAST(N'1977-08-18' AS Date), N'MASCULINO', 3, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (4, N' JUAN PABLO', N'GALLEGO', CAST(N'1978-03-21' AS Date), N'MASCULINO', 4, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (4, N' JUAN PABLO', N'GALLEGO', CAST(N'1978-03-21' AS Date), N'MASCULINO', 4, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (5, N' DIEGO', N'RICCIO', CAST(N'1978-11-20' AS Date), N'MASCULINO', 5, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (5, N' DIEGO', N'RICCIO', CAST(N'1978-11-20' AS Date), N'MASCULINO', 5, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (6, N' PATRICIO', N'BALINER', CAST(N'1982-07-24' AS Date), N'MASCULINO', 6, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (6, N' PATRICIO', N'BALINER', CAST(N'1982-07-24' AS Date), N'MASCULINO', 6, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (7, N' ANDRES', N'PENA', CAST(N'1984-09-15' AS Date), N'MASCULINO', 7, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (7, N' ANDRES', N'PENA', CAST(N'1984-09-15' AS Date), N'MASCULINO', 7, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (8, N' DARIO', N'COLOMBANI', CAST(N'1984-12-21' AS Date), N'MASCULINO', 8, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (8, N' DARIO', N'COLOMBANI', CAST(N'1984-12-21' AS Date), N'MASCULINO', 8, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (9, N' FABIO', N'PATE', CAST(N'1985-08-09' AS Date), N'MASCULINO', 9, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (9, N' FABIO', N'PATE', CAST(N'1985-08-09' AS Date), N'MASCULINO', 9, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (10, N' FERNANDO', N'LABALLOS', CAST(N'1985-10-07' AS Date), N'MASCULINO', 10, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (10, N' FERNANDO', N'LABALLOS', CAST(N'1985-10-07' AS Date), N'MASCULINO', 10, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (11, N' MARIANO', N'ROMO', CAST(N'1987-09-13' AS Date), N'MASCULINO', 11, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (11, N' MARIANO', N'ROMO', CAST(N'1987-09-13' AS Date), N'MASCULINO', 11, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (12, N' PABLO', N'DEL PUERTO', CAST(N'1987-12-11' AS Date), N'MASCULINO', 12, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (12, N' PABLO', N'DEL PUERTO', CAST(N'1987-12-11' AS Date), N'MASCULINO', 12, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (13, N' IVAN', N'ALIENDE', CAST(N'1969-12-03' AS Date), N'MASCULINO', 13, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (13, N' IVAN', N'ALIENDE', CAST(N'1969-12-03' AS Date), N'MASCULINO', 13, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (14, N' NAHUEL', N'RASULLO', CAST(N'1989-09-28' AS Date), N'MASCULINO', 14, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (14, N' NAHUEL', N'RASULLO', CAST(N'1989-09-28' AS Date), N'MASCULINO', 14, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (15, N' ARNALDO', N'MELGAREJO', CAST(N'1990-06-16' AS Date), N'MASCULINO', 15, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (15, N' ARNALDO', N'MELGAREJO', CAST(N'1990-06-16' AS Date), N'MASCULINO', 15, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (16, N' HERNAN', N'FERNANDEZ', CAST(N'1992-04-10' AS Date), N'MASCULINO', 16, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (16, N' HERNAN', N'FERNANDEZ', CAST(N'1992-04-10' AS Date), N'MASCULINO', 16, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (17, N' JULIO', N'VERON', CAST(N'1993-01-08' AS Date), N'MASCULINO', 17, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (17, N' JULIO', N'VERON', CAST(N'1993-01-08' AS Date), N'MASCULINO', 17, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (18, N' PABLO', N'DEFELLIPI', CAST(N'1993-06-19' AS Date), N'MASCULINO', 18, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (18, N' PABLO', N'DEFELLIPI', CAST(N'1993-06-19' AS Date), N'MASCULINO', 18, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (19, N' CARLOS', N'MAIDANA', CAST(N'1994-07-18' AS Date), N'MASCULINO', 19, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (19, N' CARLOS', N'MAIDANA', CAST(N'1994-07-18' AS Date), N'MASCULINO', 19, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (20, N' CRISTIAN', N'SCORZA', CAST(N'1997-03-31' AS Date), N'MASCULINO', 20, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (20, N' CRISTIAN', N'SCORZA', CAST(N'1997-03-31' AS Date), N'MASCULINO', 20, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (21, N' FERNANDO', N'RODRIGUEZ', CAST(N'2000-02-26' AS Date), N'MASCULINO', 21, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (21, N' FERNANDO', N'RODRIGUEZ', CAST(N'2000-02-26' AS Date), N'MASCULINO', 21, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (22, N' EMANUEL', N'VIERA', CAST(N'2004-03-12' AS Date), N'MASCULINO', 22, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (22, N' EMANUEL', N'VIERA', CAST(N'2004-03-12' AS Date), N'MASCULINO', 22, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (23, N' LUIS', N'ROTMAN', CAST(N'2007-03-12' AS Date), N'MASCULINO', 23, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (23, N' LUIS', N'ROTMAN', CAST(N'2007-03-12' AS Date), N'MASCULINO', 23, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (24, N' GONZALO', N'ARIN DE FREITAS', CAST(N'2009-11-10' AS Date), N'MASCULINO', 24, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (24, N' GONZALO', N'ARIN DE FREITAS', CAST(N'2009-11-10' AS Date), N'MASCULINO', 24, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (25, N' PABLO', N'ACEVEDO', CAST(N'2010-02-18' AS Date), N'MASCULINO', 25, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (25, N' PABLO', N'ACEVEDO', CAST(N'2010-02-18' AS Date), N'MASCULINO', 25, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (26, N' MANUEL', N'ZUNINO', CAST(N'1969-05-25' AS Date), N'MASCULINO', 26, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (26, N' MANUEL', N'ZUNINO', CAST(N'1969-05-25' AS Date), N'MASCULINO', 26, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (27, N' FACUNDO', N'NOSACH', CAST(N'1971-04-30' AS Date), N'MASCULINO', 27, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (27, N' FACUNDO', N'NOSACH', CAST(N'1971-04-30' AS Date), N'MASCULINO', 27, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (28, N' RODRIGO', N'MOLINA', CAST(N'1974-10-16' AS Date), N'MASCULINO', 28, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (28, N' RODRIGO', N'MOLINA', CAST(N'1974-10-16' AS Date), N'MASCULINO', 28, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (29, N' GABRIEL', N'VILLAREAL', CAST(N'1978-01-13' AS Date), N'MASCULINO', 29, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (29, N' GABRIEL', N'VILLAREAL', CAST(N'1978-01-13' AS Date), N'MASCULINO', 29, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (30, N' PATRICIO', N'POZZI', CAST(N'1978-02-27' AS Date), N'MASCULINO', 30, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (30, N' PATRICIO', N'POZZI', CAST(N'1978-02-27' AS Date), N'MASCULINO', 30, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (31, N' SOFIA', N'MARTINEZ', CAST(N'1983-10-14' AS Date), N'MASCULINO', 31, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (31, N' SOFIA', N'MARTINEZ', CAST(N'1983-10-14' AS Date), N'MASCULINO', 31, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (32, N' CECILIO', N'CALCAGNO', CAST(N'1984-04-02' AS Date), N'MASCULINO', 32, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (32, N' CECILIO', N'CALCAGNO', CAST(N'1984-04-02' AS Date), N'MASCULINO', 32, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (33, N' LUCAS', N'CUETO', CAST(N'1985-07-23' AS Date), N'MASCULINO', 33, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (33, N' LUCAS', N'CUETO', CAST(N'1985-07-23' AS Date), N'MASCULINO', 33, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (34, N'JULIAN', N'GUZMAN', CAST(N'1986-03-12' AS Date), N'MASCULINO', 34, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (34, N'JULIAN', N'GUZMAN', CAST(N'1986-03-12' AS Date), N'MASCULINO', 34, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (35, N'JULIA', N'RODRIGUEZ', CAST(N'1987-04-27' AS Date), N'FEMENINO', 35, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (35, N'JULIA', N'RODRIGUEZ', CAST(N'1987-04-27' AS Date), N'FEMENINO', 35, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (36, N' GABRIEL', N'LOMBAR', CAST(N'1989-04-23' AS Date), N'MASCULINO', 36, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (36, N' GABRIEL', N'LOMBAR', CAST(N'1989-04-23' AS Date), N'MASCULINO', 36, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (37, N' DAMIAN', N'ORELLANA', CAST(N'1989-12-06' AS Date), N'MASCULINO', 37, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (37, N' DAMIAN', N'ORELLANA', CAST(N'1989-12-06' AS Date), N'MASCULINO', 37, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (38, N' LEONARDO', N'RUFFO', CAST(N'1989-12-30' AS Date), N'MASCULINO', 38, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (38, N' LEONARDO', N'RUFFO', CAST(N'1989-12-30' AS Date), N'MASCULINO', 38, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (39, N' LAUTARO', N'ROMERO', CAST(N'1991-04-03' AS Date), N'MASCULINO', 39, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (39, N' LAUTARO', N'ROMERO', CAST(N'1991-04-03' AS Date), N'MASCULINO', 39, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (40, N' DIEGO', N'CUEVAS', CAST(N'1993-06-14' AS Date), N'MASCULINO', 40, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (40, N' DIEGO', N'CUEVAS', CAST(N'1993-06-14' AS Date), N'MASCULINO', 40, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (41, N' JHONATAN', N'DE OTO', CAST(N'1994-07-23' AS Date), N'MASCULINO', 41, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (41, N' JHONATAN', N'DE OTO', CAST(N'1994-07-23' AS Date), N'MASCULINO', 41, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (42, N' LEONARDO', N'MOLLARD', CAST(N'1994-08-17' AS Date), N'MASCULINO', 42, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (42, N' LEONARDO', N'MOLLARD', CAST(N'1994-08-17' AS Date), N'MASCULINO', 42, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (43, N' ANGEL', N'REBUSCINI', CAST(N'1995-04-18' AS Date), N'MASCULINO', 43, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (43, N' ANGEL', N'REBUSCINI', CAST(N'1995-04-18' AS Date), N'MASCULINO', 43, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (44, N' JOSE', N'MOREYRA', CAST(N'1995-12-15' AS Date), N'MASCULINO', 44, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (44, N' JOSE', N'MOREYRA', CAST(N'1995-12-15' AS Date), N'MASCULINO', 44, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (45, N' JORGE', N'OLIVERA', CAST(N'1997-10-25' AS Date), N'MASCULINO', 45, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (45, N' JORGE', N'OLIVERA', CAST(N'1997-10-25' AS Date), N'MASCULINO', 45, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (46, N' ROBERTO', N'IBAÑEZ', CAST(N'1998-02-15' AS Date), N'MASCULINO', 46, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (46, N' ROBERTO', N'IBAÑEZ', CAST(N'1998-02-15' AS Date), N'MASCULINO', 46, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (47, N' ESTEFANIA', N'PINTO', CAST(N'1998-03-18' AS Date), N'FEMENINO', 47, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (47, N' ESTEFANIA', N'PINTO', CAST(N'1998-03-18' AS Date), N'FEMENINO', 47, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (48, N' ARIEL', N'MICELI', CAST(N'1998-08-16' AS Date), N'MASCULINO', 48, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (48, N' ARIEL', N'MICELI', CAST(N'1998-08-16' AS Date), N'MASCULINO', 48, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (49, N' BETINA', N'CINGARI', CAST(N'1998-12-12' AS Date), N'FEMENINO', 49, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (49, N' BETINA', N'CINGARI', CAST(N'1998-12-12' AS Date), N'FEMENINO', 49, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (50, N' MARCELO', N'ERRANTE', CAST(N'1999-07-28' AS Date), N'MASCULINO', 50, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (50, N' MARCELO', N'ERRANTE', CAST(N'1999-07-28' AS Date), N'MASCULINO', 50, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (51, N' FEDERICO', N'ARCE', CAST(N'1970-10-22' AS Date), N'MASCULINO', 51, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (51, N' FEDERICO', N'ARCE', CAST(N'1970-10-22' AS Date), N'MASCULINO', 51, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (52, N' MATIAS', N'IRVINI', CAST(N'1971-06-14' AS Date), N'MASCULINO', 52, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (52, N' MATIAS', N'IRVINI', CAST(N'1971-06-14' AS Date), N'MASCULINO', 52, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (53, N'CARLOS', N'FORTUNATO', CAST(N'1971-08-30' AS Date), N'MASCULINO', 53, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (53, N'CARLOS', N'FORTUNATO', CAST(N'1971-08-30' AS Date), N'MASCULINO', 53, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (54, N' DANIEL', N'AVILA', CAST(N'1971-09-11' AS Date), N'MASCULINO', 54, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (54, N' DANIEL', N'AVILA', CAST(N'1971-09-11' AS Date), N'MASCULINO', 54, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (55, N' LUIS', N'CASTILLO', CAST(N'1972-10-09' AS Date), N'MASCULINO', 55, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (55, N' LUIS', N'CASTILLO', CAST(N'1972-10-09' AS Date), N'MASCULINO', 55, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (56, N' ISMAEL', N'PARRAGUEZ', CAST(N'1973-03-28' AS Date), N'MASCULINO', 56, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (56, N' ISMAEL', N'PARRAGUEZ', CAST(N'1973-03-28' AS Date), N'MASCULINO', 56, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (57, N' ALAN', N'GONZALEZ', CAST(N'1974-01-09' AS Date), N'MASCULINO', 57, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (57, N' ALAN', N'GONZALEZ', CAST(N'1974-01-09' AS Date), N'MASCULINO', 57, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (58, N' MARIA', N'ROCCO', CAST(N'1975-10-09' AS Date), N'FEMENINO', 58, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (58, N' MARIA', N'ROCCO', CAST(N'1975-10-09' AS Date), N'FEMENINO', 58, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (59, N' FACUNDO', N'FALVO', CAST(N'1979-03-11' AS Date), N'MASCULINO', 59, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (59, N' FACUNDO', N'FALVO', CAST(N'1979-03-11' AS Date), N'MASCULINO', 59, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (60, N' VICTOR', N'AVALOS', CAST(N'1979-08-29' AS Date), N'MASCULINO', 60, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (60, N' VICTOR', N'AVALOS', CAST(N'1979-08-29' AS Date), N'MASCULINO', 60, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (61, N' DIEGO', N'GONZALEZ', CAST(N'1980-06-12' AS Date), N'MASCULINO', 61, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (61, N' DIEGO', N'GONZALEZ', CAST(N'1980-06-12' AS Date), N'MASCULINO', 61, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (62, N' LUCAS', N'BRUMER', CAST(N'1983-12-02' AS Date), N'MASCULINO', 62, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (62, N' LUCAS', N'BRUMER', CAST(N'1983-12-02' AS Date), N'MASCULINO', 62, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (63, N' CRISTIAN', N'PANDOL', CAST(N'1984-12-15' AS Date), N'MASCULINO', 63, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (63, N' CRISTIAN', N'PANDOL', CAST(N'1984-12-15' AS Date), N'MASCULINO', 63, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (64, N' JAVIER', N'DEL BARBA', CAST(N'1985-12-23' AS Date), N'MASCULINO', 64, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (64, N' JAVIER', N'DEL BARBA', CAST(N'1985-12-23' AS Date), N'MASCULINO', 64, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (65, N' PABLO', N'GUALTIERI', CAST(N'1986-10-24' AS Date), N'MASCULINO', 65, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (65, N' PABLO', N'GUALTIERI', CAST(N'1986-10-24' AS Date), N'MASCULINO', 65, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (66, N' HECTOR', N'DOMINGUEZ', CAST(N'1987-10-14' AS Date), N'MASCULINO', 66, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (66, N' HECTOR', N'DOMINGUEZ', CAST(N'1987-10-14' AS Date), N'MASCULINO', 66, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (67, N' ISAIAS', N'GONZALEZ', CAST(N'1987-12-19' AS Date), N'MASCULINO', 67, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (67, N' ISAIAS', N'GONZALEZ', CAST(N'1987-12-19' AS Date), N'MASCULINO', 67, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (68, N' NESTOR', N'OLIVERA', CAST(N'1988-07-16' AS Date), N'MASCULINO', 68, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (68, N' NESTOR', N'OLIVERA', CAST(N'1988-07-16' AS Date), N'MASCULINO', 68, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (69, N' MARIANO', N'BRUNERO', CAST(N'1989-06-21' AS Date), N'MASCULINO', 69, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (69, N' MARIANO', N'BRUNERO', CAST(N'1989-06-21' AS Date), N'MASCULINO', 69, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (70, N' FERNANDO', N'ZILBER', CAST(N'1991-01-15' AS Date), N'MASCULINO', 70, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (70, N' FERNANDO', N'ZILBER', CAST(N'1991-01-15' AS Date), N'MASCULINO', 70, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (71, N' CARLOS', N'IVALDE', CAST(N'1996-11-03' AS Date), N'MASCULINO', 71, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (71, N' CARLOS', N'IVALDE', CAST(N'1996-11-03' AS Date), N'MASCULINO', 71, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (72, N' FACUNDO', N'LOPARDO', CAST(N'1998-02-01' AS Date), N'MASCULINO', 72, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (72, N' FACUNDO', N'LOPARDO', CAST(N'1998-02-01' AS Date), N'MASCULINO', 72, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (73, N' LUCAS', N'OZUNA', CAST(N'1999-01-16' AS Date), N'MASCULINO', 73, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (73, N' LUCAS', N'OZUNA', CAST(N'1999-01-16' AS Date), N'MASCULINO', 73, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (74, N' CESAR', N'CORDOBA', CAST(N'1999-07-26' AS Date), N'MASCULINO', 74, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (74, N' CESAR', N'CORDOBA', CAST(N'1999-07-26' AS Date), N'MASCULINO', 74, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (75, N' LORENA', N'SANCHEZ', CAST(N'1999-10-10' AS Date), N'FEMENINO', 75, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (75, N' LORENA', N'SANCHEZ', CAST(N'1999-10-10' AS Date), N'FEMENINO', 75, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (76, N' CRISTIAN', N'AMARILLA', CAST(N'1970-04-02' AS Date), N'MASCULINO', 76, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (76, N' CRISTIAN', N'AMARILLA', CAST(N'1970-04-02' AS Date), N'MASCULINO', 76, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (77, N' LEONARDO', N'SANCHEZ', CAST(N'1972-09-25' AS Date), N'MASCULINO', 77, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (77, N' LEONARDO', N'SANCHEZ', CAST(N'1972-09-25' AS Date), N'MASCULINO', 77, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (78, N' FERNANDO', N'BROIN', CAST(N'1973-11-25' AS Date), N'MASCULINO', 78, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (78, N' FERNANDO', N'BROIN', CAST(N'1973-11-25' AS Date), N'MASCULINO', 78, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (79, N' MATIAS', N'LACAZE', CAST(N'1974-02-17' AS Date), N'MASCULINO', 79, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (79, N' MATIAS', N'LACAZE', CAST(N'1974-02-17' AS Date), N'MASCULINO', 79, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (80, N' AGUSTIN', N'PERALTA', CAST(N'1975-02-22' AS Date), N'MASCULINO', 80, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (80, N' AGUSTIN', N'PERALTA', CAST(N'1975-02-22' AS Date), N'MASCULINO', 80, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (81, N' DANIEL', N'ZAMORA', CAST(N'1975-10-05' AS Date), N'MASCULINO', 81, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (81, N' DANIEL', N'ZAMORA', CAST(N'1975-10-05' AS Date), N'MASCULINO', 81, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (82, N' LUCAS', N'SCHULZ', CAST(N'1976-04-12' AS Date), N'MASCULINO', 82, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (82, N' LUCAS', N'SCHULZ', CAST(N'1976-04-12' AS Date), N'MASCULINO', 82, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (83, N' ARIEL', N'LOPEZ', CAST(N'1976-05-08' AS Date), N'MASCULINO', 83, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (83, N' ARIEL', N'LOPEZ', CAST(N'1976-05-08' AS Date), N'MASCULINO', 83, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (84, N' NICOLAS', N'CANO', CAST(N'1981-03-15' AS Date), N'MASCULINO', 84, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (84, N' NICOLAS', N'CANO', CAST(N'1981-03-15' AS Date), N'MASCULINO', 84, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (85, N' FERNANDO', N'LAGORIO', CAST(N'1981-03-19' AS Date), N'MASCULINO', 85, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (85, N' FERNANDO', N'LAGORIO', CAST(N'1981-03-19' AS Date), N'MASCULINO', 85, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (86, N' NICOLAS', N'DI PLACIDO', CAST(N'1981-11-10' AS Date), N'MASCULINO', 86, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (86, N' NICOLAS', N'DI PLACIDO', CAST(N'1981-11-10' AS Date), N'MASCULINO', 86, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (87, N' LEONARDO', N'BRITO', CAST(N'1982-06-07' AS Date), N'MASCULINO', 87, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (87, N' LEONARDO', N'BRITO', CAST(N'1982-06-07' AS Date), N'MASCULINO', 87, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (88, N' SANTIAGO', N'SCALERANDI', CAST(N'1986-08-03' AS Date), N'MASCULINO', 88, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (88, N' SANTIAGO', N'SCALERANDI', CAST(N'1986-08-03' AS Date), N'MASCULINO', 88, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (89, N' RENZO', N'DONATO', CAST(N'1987-12-20' AS Date), N'MASCULINO', 89, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (89, N' RENZO', N'DONATO', CAST(N'1987-12-20' AS Date), N'MASCULINO', 89, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (90, N' ARIEL', N'BARAN', CAST(N'1989-09-12' AS Date), N'MASCULINO', 90, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (90, N' ARIEL', N'BARAN', CAST(N'1989-09-12' AS Date), N'MASCULINO', 90, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (91, N'FERNANDO', N'VIGANO', CAST(N'1992-03-16' AS Date), N'MASCULINO', 91, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (91, N'FERNANDO', N'VIGANO', CAST(N'1992-03-16' AS Date), N'MASCULINO', 91, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (92, N' KEVIN', N'ALEGRE', CAST(N'1992-09-21' AS Date), N'MASCULINO', 92, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (92, N' KEVIN', N'ALEGRE', CAST(N'1992-09-21' AS Date), N'MASCULINO', 92, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (93, N' EDUARDO', N'SILVA', CAST(N'1993-01-04' AS Date), N'MASCULINO', 93, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (93, N' EDUARDO', N'SILVA', CAST(N'1993-01-04' AS Date), N'MASCULINO', 93, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (94, N' ELVIO', N'CHAVEZ', CAST(N'1994-01-15' AS Date), N'MASCULINO', 94, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (94, N' ELVIO', N'CHAVEZ', CAST(N'1994-01-15' AS Date), N'MASCULINO', 94, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (95, N'JAVIER', N'BRITEZ', CAST(N'1996-06-23' AS Date), N'MASCULINO', 95, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (95, N'JAVIER', N'BRITEZ', CAST(N'1996-06-23' AS Date), N'MASCULINO', 95, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (96, N' DAMIAN', N'MAROT', CAST(N'1996-08-12' AS Date), N'MASCULINO', 96, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (96, N' DAMIAN', N'MAROT', CAST(N'1996-08-12' AS Date), N'MASCULINO', 96, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (97, N' GUILLERMO', N'MEDINA', CAST(N'1996-10-09' AS Date), N'MASCULINO', 97, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (97, N' GUILLERMO', N'MEDINA', CAST(N'1996-10-09' AS Date), N'MASCULINO', 97, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (98, N' MARTIN', N'RAFFO', CAST(N'1996-10-30' AS Date), N'MASCULINO', 98, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (98, N' MARTIN', N'RAFFO', CAST(N'1996-10-30' AS Date), N'MASCULINO', 98, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (99, N'MARTIN', N'ARAGONEZ', CAST(N'1998-04-24' AS Date), N'MASCULINO', 99, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (99, N'MARTIN', N'ARAGONEZ', CAST(N'1998-04-24' AS Date), N'MASCULINO', 99, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (100, N' JUAN', N'ARCOS', CAST(N'2000-06-14' AS Date), N'MASCULINO', 100, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (100, N' JUAN', N'ARCOS', CAST(N'2000-06-14' AS Date), N'MASCULINO', 100, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (101, N' MARIO', N'BARDINA', CAST(N'1969-07-27' AS Date), N'MASCULINO', 101, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (101, N' MARIO', N'BARDINA', CAST(N'1969-07-27' AS Date), N'MASCULINO', 101, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (102, N'ARIEL', N'BRITEZ', CAST(N'1974-10-13' AS Date), N'MASCULINO', 102, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (102, N'ARIEL', N'BRITEZ', CAST(N'1974-10-13' AS Date), N'MASCULINO', 102, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (103, N' FEDERICO', N'BRITEZ', CAST(N'1978-02-04' AS Date), N'MASCULINO', 103, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (103, N' FEDERICO', N'BRITEZ', CAST(N'1978-02-04' AS Date), N'MASCULINO', 103, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (104, N' LEANDRO', N'BRITEZ', CAST(N'1978-10-31' AS Date), N'MASCULINO', 104, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (104, N' LEANDRO', N'BRITEZ', CAST(N'1978-10-31' AS Date), N'MASCULINO', 104, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (105, N' EMANUEL', N'CHAVEZ', CAST(N'1979-01-14' AS Date), N'MASCULINO', 105, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (105, N' EMANUEL', N'CHAVEZ', CAST(N'1979-01-14' AS Date), N'MASCULINO', 105, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (106, N' LUIS', N'COLLI', CAST(N'1979-05-14' AS Date), N'MASCULINO', 106, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (106, N' LUIS', N'COLLI', CAST(N'1979-05-14' AS Date), N'MASCULINO', 106, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (107, N' ALAN', N'COLMAN', CAST(N'1979-06-17' AS Date), N'MASCULINO', 107, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (107, N' ALAN', N'COLMAN', CAST(N'1979-06-17' AS Date), N'MASCULINO', 107, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (108, N' LUCAS', N'COLOMBO', CAST(N'1980-03-01' AS Date), N'MASCULINO', 108, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (108, N' LUCAS', N'COLOMBO', CAST(N'1980-03-01' AS Date), N'MASCULINO', 108, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (109, N' BRIAN', N'DACAL', CAST(N'1981-05-01' AS Date), N'MASCULINO', 109, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (109, N' BRIAN', N'DACAL', CAST(N'1981-05-01' AS Date), N'MASCULINO', 109, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (110, N' SEBASTIAN', N'DOMINGUEZ', CAST(N'1981-10-13' AS Date), N'MASCULINO', 110, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (110, N' SEBASTIAN', N'DOMINGUEZ', CAST(N'1981-10-13' AS Date), N'MASCULINO', 110, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (111, N'CARLA', N'FORTUNATO', CAST(N'1982-01-20' AS Date), N'FEMENINO', 111, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (111, N'CARLA', N'FORTUNATO', CAST(N'1982-01-20' AS Date), N'FEMENINO', 111, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (112, N' LAURA', N'FORTUNATO', CAST(N'1983-08-06' AS Date), N'FEMENINO', 112, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (112, N' LAURA', N'FORTUNATO', CAST(N'1983-08-06' AS Date), N'FEMENINO', 112, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (113, N' MARÍA', N'FORTUNATO', CAST(N'1984-10-12' AS Date), N'FEMENINO', 113, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (113, N' MARÍA', N'FORTUNATO', CAST(N'1984-10-12' AS Date), N'FEMENINO', 113, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (114, N' FERNANDO', N'GANDUGLIA', CAST(N'1984-10-21' AS Date), N'MASCULINO', 114, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (114, N' FERNANDO', N'GANDUGLIA', CAST(N'1984-10-21' AS Date), N'MASCULINO', 114, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (115, N'ANA', N'GUZMAN', CAST(N'1984-12-05' AS Date), N'FEMENINO', 115, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (115, N'ANA', N'GUZMAN', CAST(N'1984-12-05' AS Date), N'FEMENINO', 115, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (116, N' FABIAN', N'JAIMES', CAST(N'1990-05-31' AS Date), N'MASCULINO', 116, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (116, N' FABIAN', N'JAIMES', CAST(N'1990-05-31' AS Date), N'MASCULINO', 116, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (117, N' SILVIA', N'MARTINEZ B.', CAST(N'1991-12-24' AS Date), N'FEMENINO', 117, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (117, N' SILVIA', N'MARTINEZ B.', CAST(N'1991-12-24' AS Date), N'FEMENINO', 117, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (118, N' SEBASTIAN', N'MARTINEZ', CAST(N'1993-12-25' AS Date), N'MASCULINO', 118, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (118, N' SEBASTIAN', N'MARTINEZ', CAST(N'1993-12-25' AS Date), N'MASCULINO', 118, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (119, N'MARIA', N'RODRIGUEZ', CAST(N'1994-08-20' AS Date), N'FEMENINO', 119, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (119, N'MARIA', N'RODRIGUEZ', CAST(N'1994-08-20' AS Date), N'FEMENINO', 119, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (120, N' FITO', N'VIGANO', CAST(N'1996-05-31' AS Date), N'MASCULINO', 120, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (120, N' FITO', N'VIGANO', CAST(N'1996-05-31' AS Date), N'MASCULINO', 120, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (121, N' FACUNDO', N'VIGANO', CAST(N'1997-10-24' AS Date), N'MASCULINO', 121, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (121, N' FACUNDO', N'VIGANO', CAST(N'1997-10-24' AS Date), N'MASCULINO', 121, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (122, N' FAUSTO', N'VIGANO', CAST(N'1998-02-14' AS Date), N'MASCULINO', 122, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (122, N' FAUSTO', N'VIGANO', CAST(N'1998-02-14' AS Date), N'MASCULINO', 122, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (123, N' EDGARDO', N'ZAMORA', CAST(N'1999-04-28' AS Date), N'MASCULINO', 123, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (123, N' EDGARDO', N'ZAMORA', CAST(N'1999-04-28' AS Date), N'MASCULINO', 123, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (124, N' AGUSTÍN', N'TOIBERO', CAST(N'1999-07-13' AS Date), N'MASCULINO', 124, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (124, N' AGUSTÍN', N'TOIBERO', CAST(N'1999-07-13' AS Date), N'MASCULINO', 124, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (125, N' NAHUEL', N'VALDEON', CAST(N'2000-08-06' AS Date), N'MASCULINO', 125, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (125, N' NAHUEL', N'VALDEON', CAST(N'2000-08-06' AS Date), N'MASCULINO', 125, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (126, N' MARIO', N'VARGAS', CAST(N'1984-08-31' AS Date), N'MASCULINO', 126, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[Arbitro] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Habilitado], [Dni], [NotaAFA], [PoseeTituloValidoArgentina], [PoseeLicenciaInternacional], [ExamenFisicoAprobado], [ExamenTeoricoAprobado], [AniosExperiencia]) VALUES (126, N' MARIO', N'VARGAS', CAST(N'1984-08-31' AS Date), N'MASCULINO', 126, 4, 1, 1, 1, 1, 1, 0, 1, 1, 0)
 GO
 SET IDENTITY_INSERT [dbo].[Arbitro] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Arbitro_Aud] ON 
+SET IDENTITY_INSERT [dbo].[ArbitroAud] ON 
 GO
-INSERT [dbo].[Arbitro_Aud] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [IdArbitro], [IdBitacora], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (1, N'BAIS', N'MARCELO', CAST(N'2000-01-01T00:00:00.000' AS DateTime), N'MASCULINO', 2, 1, 1, 1, 2, 357, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[ArbitroAud] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [IdArbitro], [IdBitacora], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (1, N'BAIS', N'MARCELO', CAST(N'2000-01-01T00:00:00.000' AS DateTime), N'MASCULINO', 2, 1, 1, 1, 2, 357, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro_Aud] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [IdArbitro], [IdBitacora], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (2, N'SANTAMARIA, DARIO', N'', CAST(N'2000-01-01T00:00:00.000' AS DateTime), N'MASCULINO', 1, 1, 1, 1, 1, 359, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[ArbitroAud] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [IdArbitro], [IdBitacora], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (2, N'SANTAMARIA, DARIO', N'', CAST(N'2000-01-01T00:00:00.000' AS DateTime), N'MASCULINO', 1, 1, 1, 1, 1, 359, 1, 1, 1, 0, 1, 1, 0)
 GO
-INSERT [dbo].[Arbitro_Aud] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [IdArbitro], [IdBitacora], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (3, N'Carlos', N'Mentaberry', CAST(N'1988-06-15T00:00:00.000' AS DateTime), N'M', 1029, 1, 1, 0, 1029, 362, 1, 1, 1, 0, 1, 1, 0)
+INSERT [dbo].[ArbitroAud] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Genero], [Ranking], [IdNivel], [IdDeporte], [Estado], [IdArbitro], [IdBitacora], [Dni], [NotaAFA], [TituloValidoArgentina], [LicenciaInternacional], [ExamenFisico], [ExamenTeorico], [AniosExperiencia]) VALUES (3, N'Carlos', N'Mentaberry', CAST(N'1988-06-15T00:00:00.000' AS DateTime), N'M', 1029, 1, 1, 0, 1029, 362, 1, 1, 1, 0, 1, 1, 0)
 GO
-SET IDENTITY_INSERT [dbo].[Arbitro_Aud] OFF
+SET IDENTITY_INSERT [dbo].[ArbitroAud] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Bitacora] ON 
 GO
@@ -1015,6 +1020,52 @@ GO
 INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (175, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-03-08T13:36:34.000' AS DateTime))
 GO
 INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (176, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-03-08T13:36:43.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (177, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-01T11:49:31.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (178, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-01T12:00:53.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (179, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-01T12:50:21.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (180, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-10T17:23:44.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (181, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-10T17:31:30.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (182, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-10T17:37:27.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (183, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-10T17:43:56.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (184, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-10T18:35:38.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (185, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-10T18:52:46.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (186, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-10T18:53:55.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (187, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-10T18:58:35.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (188, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-12T14:23:14.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (189, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-12T15:15:41.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (190, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-13T17:46:50.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (191, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-13T17:52:19.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (192, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-13T17:54:48.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (193, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-13T17:57:41.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (194, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-13T18:12:41.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (195, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-13T18:17:29.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (196, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-13T18:21:29.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (197, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-13T18:23:43.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (198, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-13T18:24:31.000' AS DateTime))
+GO
+INSERT [dbo].[Bitacora] ([Id], [IdUsuario], [TipoEvento], [Descripcion], [Fecha]) VALUES (199, 1, N'MENSAJE', N'Inicio de sesión', CAST(N'2020-12-13T18:28:18.000' AS DateTime))
 GO
 SET IDENTITY_INSERT [dbo].[Bitacora] OFF
 GO
@@ -1464,43 +1515,39 @@ INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (10, N'Designación')
 GO
 INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (11, N'Evaluación')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (29, N'txtHintDirectorio')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (12, N'Seguridad')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (30, N'txtHintBase')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (13, N'Servicios')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (31, N'txtHintNombreArchivo')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (14, N'Personalizar')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (32, N'btnExaminar')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (15, N'Árbitros')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (33, N'btnBackup')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (16, N'Campeonatos')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (34, N'btnRestore')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (17, N'Categorías')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (35, N'tagBackup/Restore')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (18, N'Equipos')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (40, N'HeaderIdioma')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (19, N'Partidos')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (1, N'txtLogin')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (20, N'Realizar designación')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (2, N'txtUsuario')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (21, N'Calificar árbitros')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (3, N'txtPassword')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (22, N'Promoción/Descenso')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (4, N'txtSolicitarNueva')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (23, N'Usuarios')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (5, N'btnCerrar')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (24, N'Gestionar Perfiles')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (6, N'btnIniciar')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (25, N'Backup')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (7, N'runOlvidaste')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (26, N'Idioma')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (8, N'btnAceptar')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (27, N'txtTituloMainWindow')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (9, N'Administración')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (10, N'Designación')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (11, N'Evaluación')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (28, N'Bitácora')
 GO
 INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (29, N'txtHintDirectorio')
 GO
@@ -1516,93 +1563,19 @@ INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (34, N'btnRestore')
 GO
 INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (35, N'tagBackup/Restore')
 GO
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (38, N'Crear Perfiles')
+GO
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (39, N'txtHintIdioma')
+GO
 INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (40, N'HeaderIdioma')
+GO
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (41, N'Restore')
 GO
 INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (42, N'ValidationRuleNoNulo')
 GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (12, N'Seguridad')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (13, N'Servicios')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (14, N'Personalizar')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (15, N'Árbitros')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (16, N'Campeonatos')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (17, N'Categorías')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (18, N'Equipos')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (19, N'Partidos')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (20, N'Realizar designación')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (21, N'Calificar árbitros')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (22, N'Promoción/Descenso')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (23, N'Usuarios')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (24, N'Gestionar Perfiles')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (25, N'Backup')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (26, N'Idioma')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (27, N'txtTituloMainWindow')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (28, N'Bitácora')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (38, N'Crear Perfiles')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (39, N'txtHintIdioma')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (41, N'Restore')
+INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (43, N'txtArchivosResguardo')
 GO
 INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (44, N'txtNombreIdioma')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (12, N'Seguridad')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (13, N'Servicios')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (14, N'Personalizar')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (15, N'Árbitros')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (16, N'Campeonatos')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (17, N'Categorías')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (18, N'Equipos')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (19, N'Partidos')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (20, N'Realizar designación')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (21, N'Calificar árbitros')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (22, N'Promoción/Descenso')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (23, N'Usuarios')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (24, N'Gestionar Perfiles')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (25, N'Backup')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (26, N'Idioma')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (27, N'txtTituloMainWindow')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (28, N'Bitácora')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (38, N'Crear Perfiles')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (39, N'txtHintIdioma')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (41, N'Restore')
-GO
-INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (43, N'txtArchivosResguardo')
 GO
 INSERT [dbo].[Leyenda] ([Id], [Etiqueta]) VALUES (45, N'TituloOperacion')
 GO
@@ -4590,6 +4563,8 @@ INSERT [dbo].[Permiso] ([Id], [Descripcion], [EsPermiso]) VALUES (25, N'Bitácor
 GO
 INSERT [dbo].[Permiso] ([Id], [Descripcion], [EsPermiso]) VALUES (26, N'Restore', 1)
 GO
+INSERT [dbo].[Permiso] ([Id], [Descripcion], [EsPermiso]) VALUES (27, N'Asignar Niveles', 1)
+GO
 SET IDENTITY_INSERT [dbo].[Permiso] OFF
 GO
 INSERT [dbo].[PermisoPermiso] ([IdPadre], [IdHijo]) VALUES (NULL, 1)
@@ -4661,6 +4636,8 @@ GO
 INSERT [dbo].[PermisoPermiso] ([IdPadre], [IdHijo]) VALUES (11, 24)
 GO
 INSERT [dbo].[PermisoPermiso] ([IdPadre], [IdHijo]) VALUES (10, 26)
+GO
+INSERT [dbo].[PermisoPermiso] ([IdPadre], [IdHijo]) VALUES (8, 27)
 GO
 SET IDENTITY_INSERT [dbo].[Resguardo] ON 
 GO
@@ -4915,4 +4892,184 @@ GO
 INSERT [dbo].[UsuarioPermiso] ([IdPermiso], [IdUsuario]) VALUES (3, 12)
 GO
 INSERT [dbo].[UsuarioPermiso] ([IdPermiso], [IdUsuario]) VALUES (5, 14)
+GO
+ALTER TABLE [dbo].[Arbitro]  WITH NOCHECK ADD  CONSTRAINT [FK_Arbitro_Deporte] FOREIGN KEY([IdDeporte])
+REFERENCES [dbo].[Deporte] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Arbitro] NOCHECK CONSTRAINT [FK_Arbitro_Deporte]
+GO
+ALTER TABLE [dbo].[Arbitro]  WITH NOCHECK ADD  CONSTRAINT [FK_Arbitro_Nivel] FOREIGN KEY([IdNivel])
+REFERENCES [dbo].[Nivel] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Arbitro] NOCHECK CONSTRAINT [FK_Arbitro_Nivel]
+GO
+ALTER TABLE [dbo].[ArbitroAud]  WITH NOCHECK ADD  CONSTRAINT [FK_ArbitroAud_Arbitro] FOREIGN KEY([IdArbitro])
+REFERENCES [dbo].[Arbitro] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[ArbitroAud] NOCHECK CONSTRAINT [FK_ArbitroAud_Arbitro]
+GO
+ALTER TABLE [dbo].[ArbitroAud]  WITH NOCHECK ADD  CONSTRAINT [FK_ArbitroAud_Bitacora] FOREIGN KEY([IdBitacora])
+REFERENCES [dbo].[Bitacora] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[ArbitroAud] NOCHECK CONSTRAINT [FK_ArbitroAud_Bitacora]
+GO
+ALTER TABLE [dbo].[ArbitroAud]  WITH NOCHECK ADD  CONSTRAINT [FK_ArbitroAud_Deporte] FOREIGN KEY([IdDeporte])
+REFERENCES [dbo].[Deporte] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[ArbitroAud] NOCHECK CONSTRAINT [FK_ArbitroAud_Deporte]
+GO
+ALTER TABLE [dbo].[ArbitroAud]  WITH NOCHECK ADD  CONSTRAINT [FK_ArbitroAud_Nivel] FOREIGN KEY([IdNivel])
+REFERENCES [dbo].[Nivel] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[ArbitroAud] NOCHECK CONSTRAINT [FK_ArbitroAud_Nivel]
+GO
+ALTER TABLE [dbo].[Bitacora]  WITH NOCHECK ADD  CONSTRAINT [FK_Bitacora_Usuario] FOREIGN KEY([IdUsuario])
+REFERENCES [dbo].[Usuario] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Bitacora] NOCHECK CONSTRAINT [FK_Bitacora_Usuario]
+GO
+ALTER TABLE [dbo].[Campeonato]  WITH NOCHECK ADD  CONSTRAINT [FK_Campeonato_Categoria] FOREIGN KEY([IdCategoria])
+REFERENCES [dbo].[Categoria] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Campeonato] NOCHECK CONSTRAINT [FK_Campeonato_Categoria]
+GO
+ALTER TABLE [dbo].[Campeonato]  WITH NOCHECK ADD  CONSTRAINT [FK_Campeonato_Fixture] FOREIGN KEY([IdFixture])
+REFERENCES [dbo].[Fixture] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Campeonato] NOCHECK CONSTRAINT [FK_Campeonato_Fixture]
+GO
+ALTER TABLE [dbo].[Categoria]  WITH NOCHECK ADD  CONSTRAINT [FK_Categoria_Deporte] FOREIGN KEY([IdDeporte])
+REFERENCES [dbo].[Deporte] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Categoria] NOCHECK CONSTRAINT [FK_Categoria_Deporte]
+GO
+ALTER TABLE [dbo].[Equipo]  WITH NOCHECK ADD  CONSTRAINT [FK_Equipo_Categoria] FOREIGN KEY([IdCategoria])
+REFERENCES [dbo].[Categoria] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Equipo] NOCHECK CONSTRAINT [FK_Equipo_Categoria]
+GO
+ALTER TABLE [dbo].[Fecha]  WITH NOCHECK ADD  CONSTRAINT [FK_Fecha_Fixture] FOREIGN KEY([IdFixture])
+REFERENCES [dbo].[Fixture] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Fecha] NOCHECK CONSTRAINT [FK_Fecha_Fixture]
+GO
+ALTER TABLE [dbo].[Leyenda]  WITH NOCHECK ADD  CONSTRAINT [FK_Leyenda_Traduccion] FOREIGN KEY([Id])
+REFERENCES [dbo].[Traduccion] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Leyenda] NOCHECK CONSTRAINT [FK_Leyenda_Traduccion]
+GO
+ALTER TABLE [dbo].[NivelRegla]  WITH NOCHECK ADD  CONSTRAINT [FK_NivelRegla_Categoria] FOREIGN KEY([IdCategoria])
+REFERENCES [dbo].[Categoria] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[NivelRegla] NOCHECK CONSTRAINT [FK_NivelRegla_Categoria]
+GO
+ALTER TABLE [dbo].[NivelRegla]  WITH NOCHECK ADD  CONSTRAINT [FK_NivelRegla_Nivel] FOREIGN KEY([IdNivel])
+REFERENCES [dbo].[Nivel] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[NivelRegla] NOCHECK CONSTRAINT [FK_NivelRegla_Nivel]
+GO
+ALTER TABLE [dbo].[NivelRegla]  WITH NOCHECK ADD  CONSTRAINT [FK_NivelRegla_TipoArbitro] FOREIGN KEY([IdTipoArbitro])
+REFERENCES [dbo].[TipoArbitro] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[NivelRegla] NOCHECK CONSTRAINT [FK_NivelRegla_TipoArbitro]
+GO
+ALTER TABLE [dbo].[Partido]  WITH NOCHECK ADD  CONSTRAINT [FK_Partido_Equipo1] FOREIGN KEY([IdEquipo1])
+REFERENCES [dbo].[Equipo] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Partido] NOCHECK CONSTRAINT [FK_Partido_Equipo1]
+GO
+ALTER TABLE [dbo].[Partido]  WITH NOCHECK ADD  CONSTRAINT [FK_Partido_Equipo2] FOREIGN KEY([IdEquipo2])
+REFERENCES [dbo].[Equipo] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Partido] NOCHECK CONSTRAINT [FK_Partido_Equipo2]
+GO
+ALTER TABLE [dbo].[Partido]  WITH NOCHECK ADD  CONSTRAINT [FK_Partido_Fecha] FOREIGN KEY([IdFecha])
+REFERENCES [dbo].[Fecha] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Partido] NOCHECK CONSTRAINT [FK_Partido_Fecha]
+GO
+ALTER TABLE [dbo].[PartidoArbitro]  WITH NOCHECK ADD  CONSTRAINT [FK_PartidoArbitro_Arbitro] FOREIGN KEY([IdArbitro])
+REFERENCES [dbo].[Arbitro] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[PartidoArbitro] NOCHECK CONSTRAINT [FK_PartidoArbitro_Arbitro]
+GO
+ALTER TABLE [dbo].[PartidoArbitro]  WITH NOCHECK ADD  CONSTRAINT [FK_PartidoArbitro_Calificacion] FOREIGN KEY([IdCalificacion])
+REFERENCES [dbo].[Calificacion] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[PartidoArbitro] NOCHECK CONSTRAINT [FK_PartidoArbitro_Calificacion]
+GO
+ALTER TABLE [dbo].[PartidoArbitro]  WITH NOCHECK ADD  CONSTRAINT [FK_PartidoArbitro_Partido] FOREIGN KEY([IdPartido])
+REFERENCES [dbo].[Partido] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[PartidoArbitro] NOCHECK CONSTRAINT [FK_PartidoArbitro_Partido]
+GO
+ALTER TABLE [dbo].[PartidoArbitro]  WITH NOCHECK ADD  CONSTRAINT [FK_PartidoArbitro_TipoArbitro] FOREIGN KEY([IdTipoArbitro])
+REFERENCES [dbo].[TipoArbitro] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[PartidoArbitro] NOCHECK CONSTRAINT [FK_PartidoArbitro_TipoArbitro]
+GO
+ALTER TABLE [dbo].[PermisoPermiso]  WITH NOCHECK ADD  CONSTRAINT [FK_PermisoPermiso_Permiso_Hijo] FOREIGN KEY([IdHijo])
+REFERENCES [dbo].[Permiso] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[PermisoPermiso] NOCHECK CONSTRAINT [FK_PermisoPermiso_Permiso_Hijo]
+GO
+ALTER TABLE [dbo].[PermisoPermiso]  WITH NOCHECK ADD  CONSTRAINT [FK_PermisoPermiso_Permiso_Padre] FOREIGN KEY([IdPadre])
+REFERENCES [dbo].[Permiso] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[PermisoPermiso] NOCHECK CONSTRAINT [FK_PermisoPermiso_Permiso_Padre]
+GO
+ALTER TABLE [dbo].[TipoArbitro]  WITH NOCHECK ADD  CONSTRAINT [FK_TipoArbitro_Deporte] FOREIGN KEY([IdDeporte])
+REFERENCES [dbo].[Deporte] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[TipoArbitro] NOCHECK CONSTRAINT [FK_TipoArbitro_Deporte]
+GO
+ALTER TABLE [dbo].[Traduccion]  WITH NOCHECK ADD  CONSTRAINT [FK_Traduccion_Idioma] FOREIGN KEY([IdIdioma])
+REFERENCES [dbo].[Idioma] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Traduccion] NOCHECK CONSTRAINT [FK_Traduccion_Idioma]
+GO
+ALTER TABLE [dbo].[Usuario]  WITH NOCHECK ADD  CONSTRAINT [FK_Usuario_Idioma] FOREIGN KEY([IdIdioma])
+REFERENCES [dbo].[Idioma] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[Usuario] NOCHECK CONSTRAINT [FK_Usuario_Idioma]
+GO
+ALTER TABLE [dbo].[UsuarioPermiso]  WITH NOCHECK ADD  CONSTRAINT [FK_UsuarioPermiso_Permiso] FOREIGN KEY([IdPermiso])
+REFERENCES [dbo].[Permiso] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[UsuarioPermiso] NOCHECK CONSTRAINT [FK_UsuarioPermiso_Permiso]
+GO
+ALTER TABLE [dbo].[UsuarioPermiso]  WITH NOCHECK ADD  CONSTRAINT [FK_UsuarioPermiso_Usuario] FOREIGN KEY([IdUsuario])
+REFERENCES [dbo].[Usuario] ([Id])
+NOT FOR REPLICATION 
+GO
+ALTER TABLE [dbo].[UsuarioPermiso] NOCHECK CONSTRAINT [FK_UsuarioPermiso_Usuario]
 GO
