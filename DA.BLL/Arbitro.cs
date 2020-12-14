@@ -305,28 +305,28 @@ namespace DA.BLL
                 return new Resultado(false, "Es mayor de 18 años.");
             }                
 
-            return new Resultado(true, "No posee mayoría de edad.");
+            return new Resultado(true, "El árbitro no se puede dar de alta/modificar, no posee mayoría de edad.");
         }
         private Resultado ValidarTituloValidoDeArgentina(BE.Arbitro arbitro)
         {
             if (arbitro.PoseeTituloValidoArgentina == true)
                 return new Resultado(false, "Posee titulo válido para Argentina.");
 
-            return new Resultado(true, "No posee titulo válido para Argentina.");
+            return new Resultado(true, "El árbitro no se puede dar de alta/modificar, no posee titulo válido para Argentina.");
         }
         private Resultado ValidarExamenTeorico(BE.Arbitro arbitro)
         {
             if (arbitro.ExamenTeoricoAprobado == true)
                 return new Resultado(false, "Examen Teórico aprobado.");
 
-            return new Resultado(true, "Examen Teórico reprobado.");
+            return new Resultado(true, "El árbitro no se puede dar de alta/modificar, no posee examén teórico de AFA aprobado.");
         }
         private Resultado ValidarExamenFisico(BE.Arbitro arbitro)
         {
             if (arbitro.ExamenFisicoAprobado == true)
                 return new Resultado(false, "Examen Físico aprobado.");
 
-            return new Resultado(true, "Examen Físico reprobado.");
+            return new Resultado(true, "El árbitro no se puede dar de alta/modificar, no posee examén físico aprobado.");
         }
 
     }

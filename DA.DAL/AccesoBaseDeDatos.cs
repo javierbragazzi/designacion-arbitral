@@ -895,7 +895,13 @@ namespace DA.DAL
 
             if (valor is TipoEvento)
             {
-                param.DbType = DbType.DateTime;
+                param.DbType = DbType.String;
+                param.Value = "'" + param.Value + "'";
+            }
+
+            if (valor is Genero)
+            {
+                param.DbType = DbType.String;
                 param.Value = "'" + param.Value + "'";
             }
 

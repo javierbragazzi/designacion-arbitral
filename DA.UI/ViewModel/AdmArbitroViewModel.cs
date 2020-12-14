@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using DA.BE;
@@ -56,9 +55,6 @@ namespace DA.UI.ViewModel
             RunGuardarArbitro = new RelayCommand(ExecuteRunGuardarArbitro);
             RunEliminarArbitro = new RelayCommand(ExecuteRunEliminarArbitro);
 
-
-            //((AmArbitroViewModel)view.DataContext).CargarComboDeportes();
-            //((AmArbitroViewModel)view.DataContext).CargarComboNivel();
         }
 
         private async void ExecuteRunEliminarArbitro(object obj)
@@ -174,12 +170,8 @@ namespace DA.UI.ViewModel
 
         private async void ExecuteRunAltaArbitro(object obj)
         {
-
-
-            //AmArbitroViewModel viewModel = (AmArbitroViewModel)view.DataContext;
-
             AmArbitroViewModel viewModel = (AmArbitroViewModel)_viewModelAmArbitro.DataContext;
-
+            viewModel.SeCancelo = true;
             ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Id = 0;
             ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Nombre = string.Empty;
             ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Apellido = string.Empty;
@@ -237,9 +229,7 @@ namespace DA.UI.ViewModel
             if (ArbitroSeleccionado != null)
             {
                 AmArbitroViewModel viewModelAmArbitro = new AmArbitroViewModel();
-
                 
-
                 viewModelAmArbitro.Titulo = "Editar Árbitro";
                 viewModelAmArbitro.ArbitroSeleccionado = ArbitroSeleccionado;
         
@@ -260,6 +250,7 @@ namespace DA.UI.ViewModel
                 viewModelAmArbitro.ExamenFisico = ArbitroSeleccionado.ExamenFisicoAprobado;
 
                 viewModelAmArbitro.CargarComboDeportes();
+                viewModelAmArbitro.CargarComboGeneros();
                 viewModelAmArbitro.Deporte = ArbitroSeleccionado.Deporte;
                 viewModelAmArbitro.Habilitado = true;
                 viewModelAmArbitro.CargarComboNivel(ArbitroSeleccionado.Deporte.Id);
@@ -270,7 +261,6 @@ namespace DA.UI.ViewModel
 
                 frmAmArbitro.DataContext = viewModelAmArbitro;
 
-                //show the dialog
                 var result = await DialogHost.Show(frmAmArbitro, "RootDialog");
 
                 if (viewModelAmArbitro.SeCancelo == false)

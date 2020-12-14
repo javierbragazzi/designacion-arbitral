@@ -41,9 +41,9 @@ namespace DA.DAL
 
             if (arbitroAud.Nivel != null)
             {
-                query = string.Format(@"INSERT INTO ARBITRO_AUD([Nombre],[Apellido],[FechaNacimiento],[Genero],[Dni],[Ranking],[AniosExperiencia],[NotaAFA],[IdNivel],[IdDeporte],[Estado],[IdArbitro],[IdBitacora],
-                            [TituloValidoArgentina],[LicenciaInternacional],[ExamenFisico],[ExamenTeorico]) 
-                            VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{14}','{15}')",
+                query = string.Format(@"INSERT INTO ARBITROAUD([Nombre],[Apellido],[FechaNacimiento],[Genero],[Dni],[Ranking],[AniosExperiencia],[NotaAFA],[IdNivel],[IdDeporte],[Habilitado],[IdArbitro],[IdBitacora],
+                            [PoseeTituloValidoArgentina],[PoseeLicenciaInternacional],[ExamenFisicoAprobado],[ExamenTeoricoAprobado]) 
+                            VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}', '{16}')",
                             arbitroAud.Nombre,
                             arbitroAud.Apellido,
                             arbitroAud.FechaNacimiento.ToString("yyyy-MM-dd"),
@@ -65,9 +65,9 @@ namespace DA.DAL
             }
             else
             {
-                query = string.Format(@"INSERT INTO ARBITRO_AUD([Nombre],[Apellido],[FechaNacimiento],[Genero],[Dni],[Ranking],[AniosExperiencia],[NotaAFA],[IdDeporte],[Estado],[IdArbitro],[IdBitacora],
-                            [TituloValidoArgentina],[LicenciaInternacional],[ExamenFisico],[ExamenTeorico]) 
-                            VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{14}')",
+                query = string.Format(@"INSERT INTO ARBITROAUD([Nombre],[Apellido],[FechaNacimiento],[Genero],[Dni],[Ranking],[AniosExperiencia],[NotaAFA],[IdDeporte],[Habilitado],[IdArbitro],[IdBitacora],
+                           [PoseeTituloValidoArgentina],[PoseeLicenciaInternacional],[ExamenFisicoAprobado],[ExamenTeoricoAprobado]) 
+                            VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}')",
                             arbitroAud.Nombre,
                             arbitroAud.Apellido,
                             arbitroAud.FechaNacimiento.ToString("yyyy-MM-dd"),

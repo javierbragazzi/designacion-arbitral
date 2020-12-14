@@ -145,6 +145,11 @@ namespace DA.BE
             }
         }
 
+        public int CompareTo(BE.Deporte deporte)
+        {
+            return String.Compare(this.Deporte.Descripcion, deporte.Descripcion, StringComparison.CurrentCulture);
+        }
+
 
         //{
         //    BE.Arbitro arbitro;
