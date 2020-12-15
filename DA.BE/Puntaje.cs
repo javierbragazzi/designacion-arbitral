@@ -26,6 +26,8 @@
 
         public string Motivo { get; set; }
 
+        public string NombreCompleto => Nombre + " " + Apellido;
+
         public string ObtenerNombreCompleto()
         {
             return Nombre + " " + Apellido;

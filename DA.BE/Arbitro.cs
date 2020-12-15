@@ -111,6 +111,8 @@ namespace DA.BE
             set;
         }
 
+        public string NombreCompleto => Nombre + " " + Apellido;
+
         public string ObtenerNombreCompleto()
         {
             return Nombre + " " + Apellido;
