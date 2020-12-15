@@ -102,12 +102,6 @@ namespace DA.BE
             }
         }
 
-       // public List<Calificacion> CalificacionesArbitros { get; set; }
-
-        // public BE.Arbitro Principal { get; set; }
-        
-        //public BE.Arbitro Asistente { get; set; }
-
         public Dictionary<BE.Arbitro, BE.TipoArbitro> ArbitrosYTipos { get; set; }
 
         public Dictionary<BE.TipoArbitro, BE.Calificacion> CalificacionesArbitros { get; set; }
@@ -118,11 +112,6 @@ namespace DA.BE
             CalificacionesArbitros =  new Dictionary<TipoArbitro, Calificacion>();
         }
 
-        /// <summary>
-        /// Compares to.
-        /// </summary>
-        /// <param name="otherMatch">The other match.</param>
-        /// <returns></returns>
         public int CompareTo(Partido otherMatch)
         {
             if (this.Prioridad > otherMatch.Prioridad)

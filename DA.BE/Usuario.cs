@@ -5,19 +5,11 @@ using DA.BE.Composite;
 
 namespace DA.BE
 {
-    /// <summary>
-    /// Clase Usuario
-    /// </summary>
-    /// <seealso cref="DA.BE.EntidadBase" />
+
     [Tabla( "Usuario")]
     public class Usuario : EntidadBase, IComparable
     {
-        /// <summary>
-        /// Gets or sets the apellido.
-        /// </summary>
-        /// <value>
-        /// The apellido.
-        /// </value>
+
         [XmlIgnore]
         public string Apellido
         {
@@ -26,12 +18,6 @@ namespace DA.BE
             set;
         }
 
-        /// <summary>
-        /// Gets or sets the nombre.
-        /// </summary>
-        /// <value>
-        /// The nombre.
-        /// </value>
         [XmlIgnore]
         public string Nombre
         {
@@ -40,12 +26,6 @@ namespace DA.BE
             set;
         }
 
-        /// <summary>
-        /// Gets or sets the nombre usuario.
-        /// </summary>
-        /// <value>
-        /// The nombre usuario.
-        /// </value>
         [XmlIgnore]
         public string NombreUsuario
         {
@@ -54,12 +34,7 @@ namespace DA.BE
             set;
         }
 
-        /// <summary>
-        /// Gets or sets the password.
-        /// </summary>
-        /// <value>
-        /// The password.
-        /// </value>
+
         [XmlIgnore]
         public string Password
         {
@@ -68,12 +43,6 @@ namespace DA.BE
             set;
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="Usuario"/> is activo.
-        /// </summary>
-        /// <value>
-        ///   <c>false</c> if activo; otherwise, <c>false</c>.
-        /// </value>
         [XmlIgnore]
         public bool? Activo
         {
@@ -82,12 +51,6 @@ namespace DA.BE
             set;
         }
 
-        /// <summary>
-        /// Gets or sets the DVH.
-        /// </summary>
-        /// <value>
-        /// The DVH.
-        /// </value>
         [XmlIgnore]
         public string DVH
         {
@@ -96,12 +59,6 @@ namespace DA.BE
             set;
         }
 
-        /// <summary>
-        /// Gets or sets the permisos.
-        /// </summary>
-        /// <value>
-        /// The permisos.
-        /// </value>
         [XmlIgnore]
         public List<PermisoComponente> Permisos { get; set; }
 
@@ -134,7 +91,6 @@ namespace DA.BE
             set
             {
                 if (value == null) throw new ArgumentNullException(nameof(value));
-                //if (value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
             }
         }
 

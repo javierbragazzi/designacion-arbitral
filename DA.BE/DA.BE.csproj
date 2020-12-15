@@ -65,7 +65,6 @@
     <Compile Include="DVV.cs" />
     <Compile Include="Composite\GrupoPermiso.cs" />
     <Compile Include="Idioma.cs" />
-    <Compile Include="IdiomaEnum.cs" />
     <Compile Include="Leyenda.cs" />
     <Compile Include="Composite\Permiso.cs" />
     <Compile Include="Composite\PermisoComponente.cs" />
