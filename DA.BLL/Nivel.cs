@@ -118,7 +118,7 @@ namespace DA.BLL
 
         }
 
-        public bool AsignarNiveles(List<BE.Arbitro> arbitrosSinNivel)
+        public List<BE.Arbitro> AsignarNiveles(List<BE.Arbitro> arbitrosSinNivel)
         {
             return _dalManagerNivel.AsignarNiveles(arbitrosSinNivel);
         }

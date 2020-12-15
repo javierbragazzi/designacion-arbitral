@@ -24,22 +24,6 @@ namespace DA.UI.ViewModel
 
         public AdmArbitroViewModel()
         { 
-            //BackgroundWorker worker = new BackgroundWorker();
-            
-            //worker.DoWork += (o, ea) =>
-            //{
-         
-
-            //};
-            //worker.RunWorkerCompleted += (o, ea) =>
-            //{
-
-            //    BusyIndicator = false;
-              
-            //};
-       
-            //BusyIndicator = true;
-            //worker.RunWorkerAsync();
             
             _viewModelAmArbitro = new AmArbitro()
             {
@@ -80,12 +64,12 @@ namespace DA.UI.ViewModel
 
                         if (resultado.HayError == false)
                         {
-                            vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Baja de Arbitro",
-                                "Se elimino el Arbitro seleccionado");
+                            vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Baja de árbitro",
+                                "Se elimino el árbitro seleccionado");
                         }
                         else
-                            vieMensaje = new Mensaje(TipoMensaje.ERROR, "Baja de Arbitro",
-                                "El Arbitro no pudo ser eliminado");
+                            vieMensaje = new Mensaje(TipoMensaje.ERROR, "Baja de árbitro",
+                                "El árbitro no pudo ser eliminado");
 
                         Limpiar();
                         CargaGrillaArbitro();
@@ -96,7 +80,7 @@ namespace DA.UI.ViewModel
 
             }
             else
-                vieMensaje = new Mensaje(TipoMensaje.NORMAL, "Eliminar Arbitro", "Debe seleccionar un Arbitro");
+                vieMensaje = new Mensaje(TipoMensaje.NORMAL, "Eliminar árbitro", "Debe seleccionar un Arbitro");
 
 
             if (vieMensaje != null)
@@ -191,7 +175,7 @@ namespace DA.UI.ViewModel
             ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Deporte = null;
 
             ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Visibilidad = Visibility.Visible;
-            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Titulo = "Alta de Arbitro";
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Titulo = "Alta de árbitro";
 
             await DialogHost.Show(_viewModelAmArbitro, "RootDialog");
 
@@ -203,20 +187,11 @@ namespace DA.UI.ViewModel
                 {
                     Limpiar();
                     CargaGrillaArbitro();
-                    vieMensaje = new Mensaje(viewModel.TipoMensaje, "Alta de Árbitro",
-                        "Se dio de alta el árbitro");
                 }
-                else
-                {
-                    vieMensaje = new Mensaje(viewModel.TipoMensaje, "Alta de Árbitro",
-                        viewModel.ResultadoAltaModificacion.Descripcion);
-                }
+    
             }
 
-            if (vieMensaje != null)
-            {
-               await DialogHost.Show(vieMensaje, "dhMensajes");
-            }
+
 
         }
 
@@ -269,19 +244,14 @@ namespace DA.UI.ViewModel
                     {
                         Limpiar();
                         CargaGrillaArbitro();
-                        vieMensaje = new Mensaje(viewModelAmArbitro.TipoMensaje, "Edición de Arbitro",
-                            "Se editó el Arbitro seleccionado");
+             
                     }
-                    else
-                    {
-                        vieMensaje = new Mensaje(viewModelAmArbitro.TipoMensaje, "Edición de Arbitro",
-                            "El Arbitro no pudo ser editado");
-                    }
+         
                 }
 
             }
             else
-                vieMensaje = new Mensaje(TipoMensaje.NORMAL, "Editar Arbitro", "Debe seleccionar un Arbitro");
+                vieMensaje = new Mensaje(TipoMensaje.NORMAL, "Editar árbitro", "Debe seleccionar un árbitro para editar");
 
             if (vieMensaje != null)
             {

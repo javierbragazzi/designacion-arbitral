@@ -8,14 +8,18 @@
              xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
              xmlns:ui="clr-namespace:DA.UI"
              xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
+             xmlns:converters="clr-namespace:DA.UI.Converters"
              mc:Ignorable="d" 
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              HorizontalAlignment="Stretch"
-             VerticalAlignment="Stretch" IsVisibleChanged="UserControl_IsVisibleChanged">
-    <!--<UserControl.DataContext>
+             VerticalAlignment="Stretch" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             IsVisibleChanged="UserControl_IsVisibleChanged">
+    <UserControl.DataContext>
         <viewModel:UCAsignarNivelesViewModel />
-    </UserControl.DataContext>-->
+    </UserControl.DataContext>
     <UserControl.Resources>
+
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -23,15 +27,17 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:BooleanToYesNoConverter x:Key="BooleanToYesNoConverter"/>
         </ResourceDictionary>
+
     </UserControl.Resources>
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="75*"/>
-            <RowDefinition Height="60*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="15*"/>
             <RowDefinition Height="58*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="800"/>
@@ -44,7 +50,7 @@
                   SelectedItem="{Binding NivelSeleccionado}"
                   DisplayMemberPath="NombreNivel"
                   Height="28"/>
-        <TextBlock HorizontalAlignment="Left" Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+        <TextBlock HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
                    Margin="20,12.8,0,12.8" Grid.Row="2" TextWrapping="Wrap" 
                    Text="Arbitros y niveles" 
                    VerticalAlignment="Center" Height="32" 
@@ -56,14 +62,15 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="680"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="680*"></ColumnDefinition>
+
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" 
                                 Visibility="{Binding Visibilidad}"
-                                Orientation="Vertical" Margin="40 20 40 10">
-                    <StackPanel Orientation="Horizontal" >
+                                Orientation="Vertical" Margin="30 20 30 10">
+
+                    <!--<StackPanel Orientation="Horizontal" >-->
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>
@@ -76,7 +83,11 @@
                                                        FullItemsSource="{Binding ColeccionArbitros}" 
                                                        CanUserAddRows="false" CanUserDeleteRows="False" AutoGenerateColumns="False" >
                                 <dataGrid:SortableDataGrid.Columns>
-                                    <DataGridTextColumn Binding="{Binding Nombre}"  Header="Nombre" IsReadOnly="True" />
+                                    <DataGridTextColumn Binding="{Binding Ranking}"  Header="Ranking" IsReadOnly="True" />
+                                    <DataGridTextColumn Binding="{Binding NombreCompleto}"  Header="Nombre" IsReadOnly="True" />
+                                    <DataGridTextColumn Binding="{Binding PoseeLicenciaInternacional, Converter={StaticResource BooleanToYesNoConverter}}"    Header="Licencia Inter."/>
+                                    <DataGridTextColumn Binding="{Binding AniosExperiencia}"  Header="Años Experiencia" IsReadOnly="True" />
+                                    <DataGridTextColumn Binding="{Binding NotaAFA}"  Header="Nota AFA" IsReadOnly="True" />
                                     <DataGridTextColumn Binding="{Binding Nivel.NombreNivel}"  Header="Nivel"/>
                                 </dataGrid:SortableDataGrid.Columns>
                             </dataGrid:SortableDataGrid>
@@ -132,20 +143,21 @@
 
                         </Grid>
 
-                    </StackPanel>
+                    <!--</StackPanel>-->
                 </StackPanel>
-
-                <materialDesign:PopupBox Grid.Column="1" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
-                                              HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="32" >
-                    <StackPanel>
-                        <Button Name="btnAsignar" ToolTip="Asignar"  Command="{Binding RunAsignarNiveles}"  >
-                            <materialDesign:PackIcon Kind="AssignmentReturn"  Height="20" Width="20" />
-                        </Button>
-                    </StackPanel>
-                </materialDesign:PopupBox>
-
+            
             </Grid>
+        
         </Grid>
-
+        <Button Grid.Row="4"
+                Tag="btnAsignar" 
+                Content="Asignar niveles" 
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                Margin="300 2 300 2"
+                Command="{Binding RunAsignarNiveles}"
+                Height="35"
+                Width="135"
+                IsEnabled="{Binding HabilitadoAsignar}">
+        </Button>
     </Grid>
 </UserControl>

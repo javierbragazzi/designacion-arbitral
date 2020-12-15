@@ -45,7 +45,7 @@
                     <ColumnDefinition Width="880*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="40 20 40 10">
+                <StackPanel x:Name="stackPanelGrilla" Grid.Column="0" Orientation="Vertical" Margin="40 20 40 10" >
                     <StackPanel Orientation="Horizontal" >
                         <Grid>
                             <Grid.RowDefinitions>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using DA.SS;
 using DA.UI.DataGrid;
@@ -41,7 +42,6 @@ namespace DA.UI.ViewModel
             get => _habilitadoCalcular;
             set => SetProperty(ref _habilitadoCalcular, value);
         }
-
 
         public UCPromocionDescensoViewModel()
         {
@@ -126,7 +126,6 @@ namespace DA.UI.ViewModel
             HabilitadoCalcular = false;
             HabilitadoGuardar = true;
             HabilitadoBorrar = true;
-  
         }
 
         private void CargaGrillaPuntajes()

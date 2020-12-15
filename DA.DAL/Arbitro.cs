@@ -112,11 +112,6 @@ namespace DA.DAL
         }
 
 
-        /// <summary>
-        /// Actualiza un Arbitro.
-        /// </summary>
-        /// <param name="pArbitro">Arbitro.</param>
-        /// <returns></returns>
         public ResultadoBd Actualizar(BE.Arbitro pArbitro, BE.Arbitro pArbitroAnt, int idBitacora)
         {
             ResultadoBd resultado = _accesoBaseDeDatos.Actualizar(pArbitro);
@@ -128,11 +123,6 @@ namespace DA.DAL
             return resultado;
         }
 
-        /// <summary>
-        /// Borra un Arbitro.
-        /// </summary>
-        /// <param name="pArbitro">Arbitro.</param>
-        /// <returns></returns>
         public ResultadoBd Borrar(BE.Arbitro pArbitro, BE.Arbitro pArbitroAnt, int idBitacora)
         {
             ResultadoBd resultado = _accesoBaseDeDatos.Borrar(pArbitro);

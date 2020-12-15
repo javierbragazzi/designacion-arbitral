@@ -291,13 +291,14 @@ namespace DA.UI.ViewModel
 
             if (SeGuardo)
             {
-                
                 var vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Árbitro", "El árbitro se guardo con éxito");
 
                 if (vieMensaje != null)
                 {
                     var result = await DialogHost.Show(vieMensaje, "dhMensajes");
                 }
+
+                SeCancelo = false;
 
             }
             else
@@ -317,10 +318,10 @@ namespace DA.UI.ViewModel
 
         private void ExecuteRunCancelar(object obj)
         {
-            SeCancelo = true;
+            SeCancelo = !SeGuardo;
+
 
             DialogHost.CloseDialogCommand.Execute(null,null);
-
         }
 
         private void ExecuteSelectedItemChangedDeporteCommand(object obj)

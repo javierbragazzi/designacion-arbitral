@@ -154,6 +154,7 @@
     <Compile Include="ABM\AmArbitro.xaml.cs">
       <DependentUpon>AmArbitro.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BooleanToYesNoConverter.cs" />
     <Compile Include="EnConstruccion.xaml.cs">
       <DependentUpon>EnConstruccion.xaml</DependentUpon>
     </Compile>
