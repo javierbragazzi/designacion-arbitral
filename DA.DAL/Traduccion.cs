@@ -7,38 +7,25 @@ namespace DA.DAL
 {
     public class Traduccion
     {
-         /// <summary>
-        /// Acceso a la base de datos
-        /// </summary>
         private readonly AccesoBaseDeDatos _accesoBaseDeDatos = new AccesoBaseDeDatos();
 
-        /// <summary>
-        /// Inserta un Traduccion.
-        /// </summary>
-        /// <param name="pTraduccion">Traduccion.</param>
-        /// <returns></returns>
-        public ResultadoBd Insertar(BE.Traduccion pTraduccion)
+        public ResultadoBd Insertar(BE.Traduccion pTraduccion, int idIdioma, int idLeyenda)
         {
+            string query = string.Format(@"INSERT INTO TRADUCCION([IdIdioma],[IdLeyenda],[TextoTraducido]) VALUES('{0}','{1}','{2}')",
+                            idIdioma,
+                            idLeyenda,
+                            pTraduccion.TextoTraducido
+            );
 
-            return _accesoBaseDeDatos.Insertar(pTraduccion);
+            return _accesoBaseDeDatos.Ejecutar(query);
+
         }
 
-
-        /// <summary>
-        /// Actualiza un Traduccion.
-        /// </summary>
-        /// <param name="pTraduccion">Traduccion.</param>
-        /// <returns></returns>
         public ResultadoBd Actualizar(BE.Traduccion pTraduccion)
         {
             return _accesoBaseDeDatos.Actualizar(pTraduccion);
         }
 
-        /// <summary>
-        /// Borra un Traduccion.
-        /// </summary>
-        /// <param name="pTraduccion">Traduccion.</param>
-        /// <returns></returns>
         public ResultadoBd Borrar(BE.Traduccion pTraduccion)
         {
             return _accesoBaseDeDatos.Borrar(pTraduccion);
@@ -47,8 +34,6 @@ namespace DA.DAL
         public List<BE.Traduccion> Leer()
         {
             var ls = new List<BE.Traduccion>();
-
-            BE.Traduccion beTraduccion = new BE.Traduccion();
 
             var dt = _accesoBaseDeDatos.Seleccionar(new BE.Traduccion(), false);
 

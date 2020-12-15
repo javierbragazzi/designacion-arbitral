@@ -123,7 +123,7 @@ namespace DA.UI.ViewModel
               
             }
             else
-                vieMensaje = new Mensaje(TipoMensaje.NORMAL, "Eliminar Idioma", "Debe seleccionar un idioma");
+                vieMensaje = new Mensaje(TipoMensaje.NORMAL, "Guardar Idioma", "Debe seleccionar un idioma");
 
 
             if (vieMensaje != null)

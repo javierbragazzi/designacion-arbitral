@@ -6,30 +6,15 @@ using DA.SS;
 
 namespace DA.BLL
 {
-    /// <summary>
-    /// Clase BLL de Usuario
-    /// </summary>
     public class Usuario
     {
-        /// <summary>
-        /// Dal manager usuario
-        /// </summary>
         private readonly DAL.Usuario _dalManagerUsuario = new DAL.Usuario();
 
-   
-        /// <summary>
-        /// The BLL DVV
-        /// </summary>
         private readonly BLL.DVV _bllDvv = new BLL.DVV();
 
         private readonly string USUARIO_SERVICIO = "servicio";
         private readonly string PASS_USUARIO_SERVICIO = "servicio1";
 
-        /// <summary>
-        /// Agrega un nuevo usuario al sistema.
-        /// </summary>
-        /// <param name="pUsuario">Usuario a agregar.</param>
-        /// <returns></returns>
         public Resultado Agregar(BE.Usuario pUsuario, int idPermiso)
         {
             pUsuario.Password = Encriptador.EncriptarCadena(pUsuario.Password);
@@ -62,11 +47,6 @@ namespace DA.BLL
             return new Resultado(false, "No se dio de alta el usuario.");
         }
 
-        /// <summary>
-        /// Edita un usuario.
-        /// </summary>
-        /// <param name="pUsuario">Usuario a editar.</param>
-        /// <returns></returns>
         public ResultadoBd Editar(BE.Usuario pUsuario)
         {
             pUsuario.DVH = GenerarDvh(pUsuario);
@@ -85,11 +65,6 @@ namespace DA.BLL
             return resultado;
         }
 
-        /// <summary>
-        /// Quita un usuario.
-        /// </summary>
-        /// <param name="pUsuario">Usuario a quitar.</param>
-        /// <returns></returns>
         public ResultadoBd Quitar(BE.Usuario pUsuario)
         {
             pUsuario.DVH = GenerarDvh(pUsuario);
@@ -109,10 +84,6 @@ namespace DA.BLL
 
         }
 
-        /// <summary>
-        /// Obtiene todos los usuarios.
-        /// </summary>
-        /// <returns></returns>
         public List<BE.Usuario> ObtenerUsuarios()
         {
             BLL.Idioma bllIdioma = new BLL.Idioma();
@@ -129,11 +100,6 @@ namespace DA.BLL
             return usuarios;
         }
 
-        /// <summary>
-        /// Obtiene un usuario por nombre de usuario.
-        /// </summary>
-        /// <param name="nombreUsuario">The nombre usuario.</param>
-        /// <returns></returns>
         public BE.Usuario ObtenerUsuarioPorNombreDeUsuario(string nombreUsuario)
         {
             BLL.Idioma bllIdioma = new BLL.Idioma();
@@ -146,7 +112,6 @@ namespace DA.BLL
 
                 aUsuario.Idioma = bllIdioma.ObtenerIdiomaDeUsuario(aUsuario.Id);
 
-                //return aUsuario;
             }
 
             return aUsuario;
@@ -166,11 +131,6 @@ namespace DA.BLL
             return aUsuario;
         }
 
-        /// <summary>
-        /// Iniciars the sesion.
-        /// </summary>
-        /// <param name="usuario">The usuario.</param>
-        /// <returns></returns>
         public Resultado IniciarSesion(BE.Usuario usuario, EstadoBaseDeDatos estadoBaseDeDatos)
         {
             BLL.Bitacora bllBitacora = new BLL.Bitacora();
@@ -222,13 +182,6 @@ namespace DA.BLL
             }
         }
 
- 
-
-        /// <summary>
-        /// Cerrars the sesion.
-        /// </summary>
-        /// <param name="usuario">The usuario.</param>
-        /// <returns></returns>
         public bool CerrarSesion(BE.Usuario usuario)
         {
             if (usuario != null)
@@ -248,11 +201,6 @@ namespace DA.BLL
             return false;
         }
 
-        /// <summary>
-        /// Obtiene el DVH para el usuario.
-        /// </summary>
-        /// <param name="usuario">The usuario.</param>
-        /// <returns></returns>
         public  string GenerarDvh(BE.Usuario usuario)
         {
             return DigitoVerificador.CrearHash(usuario.Id + usuario.Apellido + usuario.Nombre + usuario.NombreUsuario +
@@ -269,11 +217,6 @@ namespace DA.BLL
             return _bllDvv.ActualizarDvvDeTabla(atributoTabla.Nombre, lstDvh);
         }
 
-        /// <summary>
-        /// Obtener los DVH.
-        /// </summary>
-        /// <param name="lstUsuarios">The LST usuarios.</param>
-        /// <returns></returns>
         private List<string> ObtenerDvh(List<BE.Usuario> lstUsuarios)
         {
             List<string> lstDvh = new List<string>();
@@ -288,8 +231,6 @@ namespace DA.BLL
 
         public Resultado ActualizarPermisos(BE.Usuario usuario)
         {
-            //List<int> nuevosPermisos = new List<int>();
-            //List<int> permisosQuitados = new List<int>();
             try
             {
                 BLL.Permiso bllPermiso = new BLL.Permiso();
@@ -301,14 +242,12 @@ namespace DA.BLL
                 {
                     if (!bllPermiso.TienePermiso(permiso.Id, permisosOriginales))
                         bllUsuarioPermiso.Agregar(new BE.UsuarioPermiso() { IdPermiso = permiso.Id, IdUsuario = usuario.Id });
-                    // nuevosPermisos.Add(permiso.Id);
                 }
 
                 foreach (PermisoComponente permiso in permisosOriginales)
                 {
                     if (!bllPermiso.TienePermiso(permiso.Id, usuario.Permisos))
                         bllUsuarioPermiso.Quitar(new BE.UsuarioPermiso() { IdPermiso = permiso.Id, IdUsuario = usuario.Id });
-                    //permisosQuitados.Add(permiso.Id);
                 }
 
                 return new Resultado(false, "Permisos actualizados correctamente", TipoMensaje.CORRECTO, "Actualizar permisos");
@@ -319,16 +258,6 @@ namespace DA.BLL
             }
 
 
-            //foreach (int permisoId in nuevosPermisos)
-            //{
-            //    bllUsuarioPermiso.Agregar(new BE.UsuarioPermiso() {IdPermiso = permisoId, IdUsuario = usuario.Id});
-            //}
-
-
-            //foreach (int permisoId in nuevosPermisos)
-            //{
-            //    bllUsuarioPermiso.Agregar(new BE.UsuarioPermiso() { IdPermiso = permisoId, IdUsuario = usuario.Id });
-            //}
 
         }
     }

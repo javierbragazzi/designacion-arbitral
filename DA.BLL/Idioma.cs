@@ -1,44 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DA.BE;
 using DA.SS;
 
 namespace DA.BLL
 {
     public class Idioma
     {
-        /// <summary>
-        /// Dal manager Idioma
-        /// </summary>
         private readonly DAL.Idioma _dalManagerIdioma = new DAL.Idioma();
 
-   
-  /// <summary>
-        /// Agrega un nuevo Idioma al sistema.
-        /// </summary>
-        /// <param name="pIdioma">Idioma a agregar.</param>
-        /// <returns></returns>
         public Resultado Agregar(BE.Idioma pIdioma)
         {
+            BLL.Traduccion bllTraduccion = new Traduccion();
             var resultado = _dalManagerIdioma.Insertar(pIdioma);
 
+            pIdioma = ObtnerIdiomaPorNombre(pIdioma.Descripcion);
+
+            foreach (BE.Leyenda leyenda in pIdioma.Leyendas)
+            {
+                leyenda.Traduccion.TextoTraducido = "Sin traducir";
+                bllTraduccion.Agregar(leyenda.Traduccion, pIdioma.Id, leyenda.Id);
+            }
+            
             if (resultado == ResultadoBd.OK)
                 return new Resultado(false, "Ok");
 
             return new Resultado(false, "No se dio de alta el Idioma.");
         }
 
-        /// <summary>
-        /// Edita un Idioma.
-        /// </summary>
-        /// <param name="pIdioma">Idioma a editar.</param>
-        /// <returns></returns>
         public Resultado Editar(BE.Idioma pIdioma)
         {
-            //ResultadoBd resultado = _dalManagerIdioma.Actualizar(pIdioma);
             try
             {
                 BLL.Leyenda bllLeyenda = new BLL.Leyenda();
@@ -47,7 +37,6 @@ namespace DA.BLL
                 foreach (BE.Leyenda leyenda in pIdioma.Leyendas)
                 {
                     bllTraduccion.Editar(leyenda.Traduccion);
-                   // bllLeyenda.Editar(leyenda);
                 }
 
                 return new Resultado(false, "Ok");
@@ -60,11 +49,6 @@ namespace DA.BLL
  
         }
 
-        /// <summary>
-        /// Quita un Idioma.
-        /// </summary>
-        /// <param name="pIdioma">Idioma a quitar.</param>
-        /// <returns></returns>
         public Resultado Quitar(BE.Idioma pIdioma)
         {
             ResultadoBd resultado = _dalManagerIdioma.Borrar(pIdioma);
@@ -77,10 +61,6 @@ namespace DA.BLL
 
         }
 
-        /// <summary>
-        /// Obtiene todos los Idiomas.
-        /// </summary>
-        /// <returns></returns>
         public List<BE.Idioma> ObtenerIdiomas()
         {
             BLL.Leyenda bllLeyenda = new BLL.Leyenda();
@@ -100,8 +80,6 @@ namespace DA.BLL
             BLL.Leyenda bllLeyenda = new BLL.Leyenda();
             BE.Idioma beIdioma = _dalManagerIdioma.ObtenerIdiomaDeUsuario(idUsuario);
 
-           // beIdioma.Idioma.Descripcion = (IdiomaEnum) beIdioma.Id;
-
             beIdioma.Leyendas = bllLeyenda.ObtenerLeyendasPorIdIdioma(beIdioma.Id);
 
             return beIdioma;
@@ -113,7 +91,18 @@ namespace DA.BLL
             BLL.Leyenda bllLeyenda = new BLL.Leyenda();
             BE.Idioma beIdioma = _dalManagerIdioma.ObtenerIdiomaPorId(idIdioma);
 
-            beIdioma.Leyendas = bllLeyenda.ObtenerLeyendasPorIdIdioma(beIdioma.Id);
+            beIdioma.Leyendas = bllLeyenda.ObtenerLeyendasPorIdIdioma(beIdioma.Id) ?? bllLeyenda.ObtenerLeyendas();
+
+            return beIdioma;
+
+        }
+
+        public BE.Idioma ObtnerIdiomaPorNombre(string nombreIdioma)
+        {
+            BLL.Leyenda bllLeyenda = new BLL.Leyenda();
+            BE.Idioma beIdioma = _dalManagerIdioma.ObtenerIdiomaPorNombre(nombreIdioma);
+
+            beIdioma.Leyendas = bllLeyenda.ObtenerLeyendasPorIdIdioma(beIdioma.Id) ?? bllLeyenda.ObtenerLeyendas();
 
             return beIdioma;
 
