@@ -91,8 +91,9 @@
                                                     materialDesign:HintAssist.Hint="Seleccione idioma"
                                                     MinWidth="72"
                                                     Margin="5 0 0 0"
-                                                    ItemsSource="{Binding LongListToTestComboVirtualization}"
-                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="CmbIdioma_SelectionChanged">
+                                                    DisplayMemberPath="Descripcion"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                                                    SelectionChanged="CmbIdioma_SelectionChanged">
                                                     <ComboBox.ItemsPanel>
                                                         <ItemsPanelTemplate>
                                                             <VirtualizingStackPanel />

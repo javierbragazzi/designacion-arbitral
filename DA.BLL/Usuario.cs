@@ -34,7 +34,7 @@ namespace DA.BLL
         {
             pUsuario.Password = Encriptador.EncriptarCadena(pUsuario.Password);
 
-            // pUsuario.DVH = GenerarDvh(pUsuario);
+            pUsuario.DVH = GenerarDvh(pUsuario);
 
             var resultado = _dalManagerUsuario.Insertar(pUsuario);
 
@@ -69,10 +69,10 @@ namespace DA.BLL
         /// <returns></returns>
         public ResultadoBd Editar(BE.Usuario pUsuario)
         {
-            ResultadoBd resultado = _dalManagerUsuario.Actualizar(pUsuario); 
-
             pUsuario.DVH = GenerarDvh(pUsuario);
 
+            ResultadoBd resultado = _dalManagerUsuario.Actualizar(pUsuario); 
+            
             if (resultado == ResultadoBd.OK)
             {
                 if (ActualizarDvv() == ResultadoBd.OK)
@@ -92,10 +92,10 @@ namespace DA.BLL
         /// <returns></returns>
         public ResultadoBd Quitar(BE.Usuario pUsuario)
         {
-            ResultadoBd resultado = _dalManagerUsuario.Borrar(pUsuario);
-
             pUsuario.DVH = GenerarDvh(pUsuario);
 
+            ResultadoBd resultado = _dalManagerUsuario.Borrar(pUsuario);
+            
             if (resultado == ResultadoBd.OK)
             {
                 if (ActualizarDvv() == ResultadoBd.OK)
