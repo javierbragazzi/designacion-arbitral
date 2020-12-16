@@ -21,7 +21,7 @@ namespace DA.UI.ViewModel
         private DateTime _fechanacimiento;
         private Nivel _nivel;
         private string _dni;
-        private string _genero;
+        private BE.Genero _genero;
         private Deporte _deporte;
         private int _ranking;
         private int _aniosexperiencia;
@@ -31,6 +31,7 @@ namespace DA.UI.ViewModel
         private string _titulo;
         private List<BE.Nivel> _niveles = new List<Nivel>();
         private List<BE.Deporte> _deportes = new List<Deporte>();
+        private List<BE.Genero> _generos = new List<Genero>();
         private bool? _habilitado;
         private bool? _titulovalidoargentina;
         private bool? _licenciainternacional;
@@ -113,7 +114,7 @@ namespace DA.UI.ViewModel
             set => SetProperty(ref _dni, value);
         }
 
-        public string Genero
+        public BE.Genero Genero
         {
             get => _genero;
             set => SetProperty(ref _genero, value);
@@ -171,7 +172,13 @@ namespace DA.UI.ViewModel
             get => _deportes;
             set => SetProperty(ref _deportes, value);
         }
-        
+
+        public List<BE.Genero> Generos
+        {
+            get => _generos;
+            set => SetProperty(ref _generos, value);
+        }
+
         public Arbitro ArbitroSeleccionado
         {
             get => _arbitroSeleccionado;
@@ -193,6 +200,11 @@ namespace DA.UI.ViewModel
             Deportes = bllDeporte.ObtenerDeportes();
         }
 
+        public void CargarComboGeneros()
+        {
+            Generos.Add(Genero.FEMENINO);
+            Generos.Add(Genero.MASCULINO);
+        }
         public bool SeGuardo { get;  set; }
 
         public Resultado ResultadoAltaModificacion { get;  set; }
@@ -212,6 +224,7 @@ namespace DA.UI.ViewModel
         {
             Habilitado = false;
             CargarComboDeportes();
+            CargarComboGeneros();
             this.Visibilidad = Visibility.Visible;
             RunGuardar = new RelayCommand(ExecuteRunGuardar);
             RunCancelar = new RelayCommand(ExecuteRunCancelar);
@@ -235,14 +248,14 @@ namespace DA.UI.ViewModel
                         Genero = Genero,
                         DNI = DNI,
                         Deporte = Deporte,
-                        Estado = Activo,
+                        Habilitado = Activo,
                         Ranking = Ranking,
                         AniosExperiencia = AniosExperiencia,
                         NotaAFA = NotaAFA,
-                        TituloValidoArgentina = TituloValidoArgentina,
-                        LicenciaInternacional = LicenciaInternacional,
-                        ExamenFisico = ExamenFisico,
-                        ExamenTeorico = ExamenTeorico                       
+                        PoseeTituloValidoArgentina = TituloValidoArgentina,
+                        PoseeLicenciaInternacional = LicenciaInternacional,
+                        ExamenFisicoAprobado = ExamenFisico,
+                        ExamenTeoricoAprobado = ExamenTeorico                       
                     });
 
                     break;
@@ -256,16 +269,16 @@ namespace DA.UI.ViewModel
                         FechaNacimiento = FechaNacimiento,
                         Genero = Genero,
                         DNI = DNI,
-                        Estado = Activo,
+                        Habilitado = Activo,
                         Nivel = Nivel,
                         Deporte = Deporte,
                         Ranking = Ranking,
                         AniosExperiencia = AniosExperiencia,
                         NotaAFA = NotaAFA,
-                        TituloValidoArgentina = TituloValidoArgentina,
-                        LicenciaInternacional = LicenciaInternacional,
-                        ExamenFisico = ExamenFisico,
-                        ExamenTeorico = ExamenTeorico
+                        PoseeTituloValidoArgentina = TituloValidoArgentina,
+                        PoseeLicenciaInternacional = LicenciaInternacional,
+                        ExamenFisicoAprobado = ExamenFisico,
+                        ExamenTeoricoAprobado = ExamenTeorico
 
                     });
 
@@ -276,12 +289,8 @@ namespace DA.UI.ViewModel
             this.TipoMensaje = ResultadoAltaModificacion.HayError == false ? TipoMensaje.CORRECTO : TipoMensaje.ERROR;
             this.Visibilidad = Visibility.Collapsed;
 
-           // var vieMensaje = new Mensaje(ResultadoAltaModificacion.TipoMensaje, "Árbitro", ResultadoAltaModificacion.Descripcion);
-
-
             if (SeGuardo)
             {
-                
                 var vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Árbitro", "El árbitro se guardo con éxito");
 
                 if (vieMensaje != null)
@@ -289,10 +298,8 @@ namespace DA.UI.ViewModel
                     var result = await DialogHost.Show(vieMensaje, "dhMensajes");
                 }
 
-                //DialogHostInstance.IsOpen = false;
+                SeCancelo = false;
 
-                //DialogHost.CloseDialogCommand.Execute(null, null);
-                //DialogHost.CloseDialogCommand.Execute(null, null);
             }
             else
             {
@@ -311,10 +318,10 @@ namespace DA.UI.ViewModel
 
         private void ExecuteRunCancelar(object obj)
         {
-            SeCancelo = true;
+            SeCancelo = !SeGuardo;
+
 
             DialogHost.CloseDialogCommand.Execute(null,null);
-
         }
 
         private void ExecuteSelectedItemChangedDeporteCommand(object obj)

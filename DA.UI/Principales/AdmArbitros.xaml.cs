@@ -13,11 +13,12 @@ namespace DA.UI.Principales
         public AdmArbitros()
         {
             InitializeComponent();
+            InicializarControl();
         }
 
         public void InicializarControl()
         {
-     
+            //this.DataContext = new AdmArbitroViewModel();
         }
 
         public void LimpiarControl()
@@ -29,7 +30,7 @@ namespace DA.UI.Principales
         {
             if (this.Visibility == Visibility.Visible)
             {
-                this.DataContext = new AdmArbitroViewModel();
+              //  this.DataContext = new AdmArbitroViewModel();
             }
         }
     }

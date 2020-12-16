@@ -56,8 +56,14 @@
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
 
-                        <dataGrid:SortableDataGrid Grid.Row="0" dgx:DataGridFilter.IsAutoFilterEnabled="True" Style="{StaticResource MaterialDesignDataGrid }" ItemsSource="{Binding ColeccionBitacora.CurrentPageItems}" 
-                            AutoGenerateColumns="False" FullItemsSource="{Binding ColeccionBitacora}" CanUserAddRows="false" CanUserDeleteRows="False" >
+                        <dataGrid:SortableDataGrid Grid.Row="0" 
+                                                   dgx:DataGridFilter.IsAutoFilterEnabled="True" 
+                                                   Style="{StaticResource MaterialDesignDataGrid }" 
+                                                   ItemsSource="{Binding ColeccionBitacora.CurrentPageItems}" 
+                                                   FullItemsSource="{Binding ColeccionBitacora}"
+                                                   AutoGenerateColumns="False" 
+                                                   CanUserAddRows="false" 
+                                                   CanUserDeleteRows="False" >
                                 <dataGrid:SortableDataGrid.Columns>
                                     <DataGridTextColumn Binding="{Binding Usuario.NombreUsuario}"  Header="Usuario" IsReadOnly="True" />
                                     <DataGridTextColumn Binding="{Binding TipoEvento}"  Header="Tipo de evento" IsReadOnly="True"/>

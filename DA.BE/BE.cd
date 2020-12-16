@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DA.BE.Arbitro">
+    <Position X="4" Y="2" Width="2.25" />
+    <AssociationLine Name="UltimosEquiposDirigidos" Type="DA.BE.Equipo" FixedToPoint="true">
+      <Path>
+        <Point X="6.25" Y="6.312" />
+        <Point X="9.25" Y="6.312" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ECSACIAABAAAAAQMAAAAgCIAAAEAAJAABCAAABABAyA=</HashCode>
+      <FileName>Arbitro.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="UltimosEquiposDirigidos" />
+      <Property Name="UltimosPartidosDirigidos" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DA.BE.ArbitroAud" Collapsed="true">
+    <Position X="7.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ArbitroAud.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Bitacora" Collapsed="true">
+    <Position X="18.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAEAAAAAAAABAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Bitacora.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Calificacion" Collapsed="true">
+    <Position X="27.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAEAQAABAAAAAAAAAgAEAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Calificacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Campeonato" Collapsed="true">
+    <Position X="34.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAgAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Campeonato.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Categoria" Collapsed="true">
+    <Position X="41.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAACABAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>Categoria.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Columna" Collapsed="true">
+    <Position X="48.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAABAAAAACAAAAAAAAAAIAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Columna.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Deporte" Collapsed="true">
+    <Position X="14.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Deporte.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DA.BE.DVV" Collapsed="true">
+    <Position X="21" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DVV.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.EntidadBase" Collapsed="true">
+    <Position X="25.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntidadBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Equipo" Collapsed="true">
+    <Position X="9.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAggAAAgAAAAAAAAoAAAAAAAAAAAiA=</HashCode>
+      <FileName>Equipo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Fecha" Collapsed="true">
+    <Position X="43.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAgAAAiAAAABEAAIAAAAAAAAABAig=</HashCode>
+      <FileName>Fecha.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Fixture" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Fixture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Idioma">
+    <Position X="23.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAABAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Idioma.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Leyendas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DA.BE.Leyenda" Collapsed="true">
+    <Position X="29" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Leyenda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Nivel" Collapsed="true">
+    <Position X="45.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQCAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Nivel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.NivelRegla" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NivelRegla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Partido">
+    <Position X="16.5" Y="1.75" Width="1.5" />
+    <AssociationLine Name="ArbitrosYTipos" Type="DA.BE.TipoArbitro" ManuallyRouted="true">
+      <Path>
+        <Point X="16.5" Y="3.155" />
+        <Point X="12.75" Y="3.155" />
+        <Point X="12.75" Y="2.441" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AEAEAAEAAAAAAAUAAAAAAAAAAAAAAAAAAJAAAAQAIAQ=</HashCode>
+      <FileName>Partido.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ArbitrosYTipos" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DA.BE.Puntaje" Collapsed="true">
+    <Position X="50" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACBAIIBGAAAAAA0ACAAgAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Puntaje.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Resguardo" Collapsed="true">
+    <Position X="30" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgQAAAAAA=</HashCode>
+      <FileName>Resguardo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Tabla" Collapsed="true">
+    <Position X="48.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tabla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.TipoArbitro" Collapsed="true">
+    <Position X="12" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAACABAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>TipoArbitro.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Traduccion">
+    <Position X="25.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Traduccion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA.BE.Usuario" Collapsed="true">
+    <Position X="32.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAQEAQAAgABAAAAAAAAiAYAAAAAAAAI=</HashCode>
+      <FileName>Usuario.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DA.BE.UsuarioPermiso" Collapsed="true">
+    <Position X="50" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>UsuarioPermiso.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="DA.BE.Genero" Collapsed="true">
+    <Position X="48.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Genero.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DA.BE.IdiomaEnum" Collapsed="true">
+    <Position X="50" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>IdiomaEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DA.BE.Situacion" Collapsed="true">
+    <Position X="48.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQ=</HashCode>
+      <FileName>Situacion.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DA.BE.TipoEvento" Collapsed="true">
+    <Position X="50" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAgAAAAEAAAAAACBAAAAAAAAhAAAA=</HashCode>
+      <FileName>TipoEvento.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

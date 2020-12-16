@@ -105,8 +105,6 @@ namespace DA.UI.ViewModel
             CargarComboFiltros();
             Visibilidad = Visibility.Collapsed;
 
-            //ColeccionLeyenda = new SortablePageableCollection<BE.Leyenda>(_coleccionCompleta);
-            //ListaTipoEventos = new ObservableCollection<string>(ObtenerTiposEventos());
             GoToNextPageCommand = new RelayCommand(a => Partidos.GoToNextPage());
             GoToPreviousPageCommand = new RelayCommand(a => Partidos.GoToPreviousPage());
             CleanCommand = new RelayCommand(ExecuteCleanCommand);

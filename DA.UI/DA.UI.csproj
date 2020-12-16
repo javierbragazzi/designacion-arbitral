@@ -154,6 +154,10 @@
     <Compile Include="ABM\AmArbitro.xaml.cs">
       <DependentUpon>AmArbitro.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BooleanToYesNoConverter.cs" />
+    <Compile Include="EnConstruccion.xaml.cs">
+      <DependentUpon>EnConstruccion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IControlUsuario.cs" />
     <Compile Include="SetupInstaller.cs">
       <SubType>Component</SubType>
@@ -259,6 +263,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Cargando.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EnConstruccion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -385,6 +393,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="EnConstruccion.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

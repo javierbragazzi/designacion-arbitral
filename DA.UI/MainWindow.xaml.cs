@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,9 +14,6 @@ using UserControl = System.Windows.Controls.UserControl;
 
 namespace DA.UI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window, IObserverIdioma
     {
         private UserControl _userControlActual;
@@ -28,15 +27,17 @@ namespace DA.UI
             _bllPermiso = new BLL.Permiso();
 
             InicializarComboIdioma();
-  
+
             if (ManejadorSesion.Instancia.ObtenerSesion().EstadoBaseDeDatos.EsValida)
+            {
                 HabilitarOpciones();
+                cmbIdioma.SelectedItem = ((List<BE.Idioma>) cmbIdioma.ItemsSource).FirstOrDefault(p => p.Id == ManejadorSesion.Instancia.ObtenerSesion().Usuario.Idioma.Id); //ManejadorSesion.Instancia.ObtenerSesion().Usuario.Idioma;
+                cmbIdioma.SelectedValue = ((List<BE.Idioma>)cmbIdioma.ItemsSource).FirstOrDefault(p => p.Id == ManejadorSesion.Instancia.ObtenerSesion().Usuario.Idioma.Id); //ManejadorSesion.Instancia.ObtenerSesion().Usuario.Idioma;
+            }
             else
             {
                 HabilitarSoloRestore();
             }
-
-
 
         }
 
@@ -162,22 +163,22 @@ namespace DA.UI
 
         private void ItemCampeonatos_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            MostrarEnConstruccion();
         }
 
         private void ItemCategorias_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            MostrarEnConstruccion();
         }
 
         private void ItemEquipos_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            MostrarEnConstruccion();
         }
 
         private void ItemPartidos_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            MostrarEnConstruccion();
         }
 
         private void ItemRealizarDesignación_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -478,6 +479,20 @@ namespace DA.UI
             itemAsignarNiveles.Visibility = Visibility.Visible;
         }
 
+        private void MostrarEnConstruccion()
+        {
+            if (_userControlActual != null)
+            {
+                _userControlActual.Visibility = Visibility.Collapsed;
+            }
+
+            _userControlActual = EnConstruccion;
+
+            EnConstruccion.Visibility = Visibility.Visible;
+
+            MenuToggleButton.IsChecked = false;
+        }
+
         private void CmbIdioma_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!IsInitialized) return;
@@ -487,6 +502,14 @@ namespace DA.UI
                 SingletonIdioma.Instancia.IdiomaSubject.Idioma = idioma;
 
                 SingletonIdioma.Instancia.IdiomaSubject.Descripcion = idioma.Descripcion;
+
+                BLL.Usuario bllUsuario = new BLL.Usuario();
+
+                BE.Usuario beUsuario = ManejadorSesion.Instancia.ObtenerSesion().Usuario;
+
+                beUsuario.Idioma = (BE.Idioma) cmbIdioma.SelectedItem;
+
+                bllUsuario.Editar(beUsuario);
             }
         }
 

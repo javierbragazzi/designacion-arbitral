@@ -28,7 +28,7 @@ namespace DA.BE
             set;
         }
 
-        public string Genero
+        public Genero Genero
         {
             [Columna("Genero", "Genero", typeof(string), false, false)]
             get;
@@ -77,41 +77,46 @@ namespace DA.BE
             set;
         }
 
-        public bool? Estado
+        public bool? Habilitado
         {
-            [Columna("Estado", "Estado", typeof(bool?), false, false)]
+            [Columna("Habilitado", "Habilitado", typeof(bool?), false, false)]
             get;
             set;
         }
 
-        public bool? TituloValidoArgentina
+        public bool? PoseeTituloValidoArgentina
         {
-            [Columna("TituloValidoArgentina", "TituloValidoArgentina", typeof(bool?), false, false)]
+            [Columna("PoseeTituloValidoArgentina", "PoseeTituloValidoArgentina", typeof(bool?), false, false)]
             get;
             set;
         }
 
-        public bool? LicenciaInternacional
+        public bool? PoseeLicenciaInternacional
         {
-            [Columna("LicenciaInternacional", "LicenciaInternacional", typeof(bool?), false, false)]
+            [Columna("PoseeLicenciaInternacional", "PoseeLicenciaInternacional", typeof(bool?), false, false)]
             get;
             set;
         }
 
-        public bool? ExamenFisico
+        public bool? ExamenFisicoAprobado
         {
-            [Columna("ExamenFisico", "ExamenFisico", typeof(bool?), false, false)]
+            [Columna("ExamenFisicoAprobado", "ExamenFisicoAprobado", typeof(bool?), false, false)]
             get;
             set;
         }
-        public bool? ExamenTeorico
+        public bool? ExamenTeoricoAprobado
         {
-            [Columna("ExamenTeorico", "ExamenTeorico", typeof(bool?), false, false)]
+            [Columna("ExamenTeoricoAprobado", "ExamenTeoricoAprobado", typeof(bool?), false, false)]
             get;
             set;
         }
 
         public string NombreCompleto => Nombre + " " + Apellido;
+
+        public string ObtenerNombreCompleto()
+        {
+            return Nombre + " " + Apellido;
+        }
 
         public string NombreCompletoTipoArbitro { get; set; }
         
@@ -125,11 +130,6 @@ namespace DA.BE
             this.UltimosEquiposDirigidos = new Queue<Equipo>();
         }
 
-          /// <summary>
-        /// Compare two Referees by priority. There are not exist two iquals referees.
-        /// </summary>
-        /// <param name="otroArbitro">The other referee.</param>
-        /// <returns></returns>
         public int CompareTo(BE.Arbitro otroArbitro)
         {
             if (this.Ranking > otroArbitro.Ranking)
@@ -142,54 +142,23 @@ namespace DA.BE
             }
         }
 
+        public int CompareTo(BE.Deporte deporte)
+        {
+            return String.Compare(this.Deporte.Descripcion, deporte.Descripcion, StringComparison.CurrentCulture);
+        }
 
-        //{
-        //    BE.Arbitro arbitro;
-        //    if (obj != null)
-        //    {
-        //        arbitro = (BE.Arbitro) obj;
-        //    }
-        //    else
-        //    {
-        //        arbitro = null;
-        //    }
 
-        //    return arbitro != null && this.Id == arbitro.Id;
-        //}
-
-        /// <summary>
-        /// Returns a hash code for this instance.
-        /// </summary>
-        /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
-        /// </returns>
         public override int GetHashCode()
         {
 
             return Id;
         }
 
-        /// <summary>
-        /// Implements the operator ==.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
         public static bool operator ==(BE.Arbitro left, BE.Arbitro right)
         {
             return Equals(left, right);
         }
 
-        /// <summary>
-        /// Implements the operator !=.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
         public static bool operator !=(BE.Arbitro left, BE.Arbitro right)
         {
             return !Equals(left, right);

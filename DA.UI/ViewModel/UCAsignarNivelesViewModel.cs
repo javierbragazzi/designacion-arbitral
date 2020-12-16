@@ -19,6 +19,14 @@ namespace DA.UI.ViewModel
             set => SetProperty(ref _visibilidad, value);
         }
 
+        private bool _habilitadoAsignar;
+
+        public bool HabilitadoAsignar
+        {
+            get => _habilitadoAsignar;
+            set => SetProperty(ref _habilitadoAsignar, value);
+        }
+
         public UCAsignarNivelesViewModel()
         {
             CargarArbitros();
@@ -51,12 +59,15 @@ namespace DA.UI.ViewModel
         {
             BLL.Nivel _nivelBLL = new BLL.Nivel();
             Mensaje vieMensaje = null;
-            if (_nivelBLL.AsignarNiveles(ArbitrosFiltrados))
+            List < BE.Arbitro > lstNueva = _nivelBLL.AsignarNiveles(ArbitrosFiltrados);
+
+            if (lstNueva != null)
             {
-                vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Niveles Asignados", "Operacion finalizada correctamente");
+                ColeccionArbitros = new SortablePageableCollection<Arbitro>(lstNueva);
+                vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Niveles Asignados", "Operación finalizada correctamente");
             }else
             {
-                vieMensaje = new Mensaje(TipoMensaje.ERROR, "Niveles No Asignados", "Operacion finalizada con errores");
+                vieMensaje = new Mensaje(TipoMensaje.ERROR, "Niveles No Asignados", "Operación finalizada con errores");
             }
 
             if (vieMensaje != null)
@@ -64,7 +75,7 @@ namespace DA.UI.ViewModel
                 var result = await DialogHost.Show(vieMensaje, "dhMensajes");
             }
 
-            Limpiar();
+            //Limpiar();
         }
 
         #region Propiedades
@@ -182,6 +193,11 @@ namespace DA.UI.ViewModel
                 {
                     ArbitrosFiltrados = Arbitros.Where(arbitro => arbitro.Nivel == null).ToList();
                     ColeccionArbitros = new SortablePageableCollection<Arbitro>(ArbitrosFiltrados);
+                    HabilitadoAsignar = true;
+                }
+                else
+                {
+                    HabilitadoAsignar = false;
                 }
                 Visibilidad = Visibility.Visible;
             }

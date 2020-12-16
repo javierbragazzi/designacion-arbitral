@@ -7,20 +7,22 @@
              xmlns:dataGrid="clr-namespace:DA.UI.DataGrid"
              xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
+             xmlns:converters="clr-namespace:DA.UI.Converters"
              mc:Ignorable="d" 
              IsVisibleChanged="UserControl_IsVisibleChanged" >
-    <!--<UserControl.DataContext>
+    <UserControl.DataContext>
         <viewModel:AdmArbitroViewModel />
-    </UserControl.DataContext>-->
+    </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
-                <!-- throw in some extra colour for our floating action button -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:BooleanToYesNoConverter x:Key="BooleanToYesNoConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <xctk:BusyIndicator IsBusy="{Binding BusyIndicator}"  BusyContent="Cargando...">
@@ -74,7 +76,7 @@
                                     <DataGridTextColumn Binding="{Binding Nivel.Id}"  Header="Nivel" IsReadOnly="True" />
                                     <DataGridTextColumn Binding="{Binding Genero}"  Header="Genero" IsReadOnly="True" />
                                     <DataGridTextColumn Binding="{Binding Deporte.Descripcion}"  Header="Deporte" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding Estado}"  Header="Estado" IsReadOnly="True" />
+                                    <DataGridTextColumn Binding="{Binding Habilitado, Converter={StaticResource BooleanToYesNoConverter}}"  Header="Habilitado" IsReadOnly="True" />
                                     <!--<DataGridTextColumn Binding="{Binding TituloValidoArgentina}" Header="TituloValidoArgentina" IsReadOnly="True" />
                                     <DataGridTextColumn Binding="{Binding ExamenFisico}"  Header="ExamenFisico" IsReadOnly="True" />
                                     <DataGridTextColumn Binding="{Binding ExamenTeorico}" Header="ExamenTeorico" IsReadOnly="True" />-->
@@ -120,7 +122,7 @@
                                             <Run Text=" de " Name="txtDe" Tag="txtDe"/>
                                             <Run Text="{Binding ColeccionArbitro.TotalPagesNumber, Mode=OneWay}"/>
                                         </TextBlock>
-                                        <Button ToolTip="Página siguiente" Width="70" Command="{Binding GoToNextPageCommand}">
+                                            <Button ToolTip="Página siguiente" Width="70" Command="{Binding GoToNextPageCommand}">
                                             <materialDesign:PackIcon
                                                 Kind="PageNextOutline"
                                                 Height="24"

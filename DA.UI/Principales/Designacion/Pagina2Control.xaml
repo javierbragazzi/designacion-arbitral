@@ -9,6 +9,7 @@
              xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
              xmlns:ui="clr-namespace:DA.UI"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:converters="clr-namespace:DA.UI.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="1100">
     <UserControl.DataContext>
@@ -22,6 +23,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:BooleanToYesNoConverter x:Key="BooleanToYesNoConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid >
@@ -129,7 +131,7 @@
                                 <DataGridTextColumn Binding="{Binding Nombre }"  Header="Nombre" IsReadOnly="True"/>
                                 <DataGridTextColumn Binding="{Binding Apellido}"  Header="Apellido" IsReadOnly="True"/>
                                 <DataGridTextColumn Binding="{Binding Nivel.NombreNivel}"  Header="Nivel" IsReadOnly="True"/>
-                                <DataGridTextColumn Binding="{Binding Estado}"  Header="Habilitado" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Habilitado, Converter={StaticResource BooleanToYesNoConverter}}"  Header="Habilitado" IsReadOnly="True"/>
                        
                             </DataGrid.Columns>
                         </DataGrid>

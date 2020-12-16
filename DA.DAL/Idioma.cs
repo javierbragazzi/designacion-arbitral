@@ -68,6 +68,25 @@ namespace DA.DAL
 
         }
 
+        public BE.Idioma ObtenerIdiomaPorNombre(string nombreIdioma)
+        {
+            var dtIdioma = _accesoBaseDeDatos.Seleccionar(new BE.Idioma() { Descripcion = nombreIdioma }, true);
+
+            if (dtIdioma.Rows.Count == 0)
+                return null;
+
+            var row = dtIdioma.Rows[0];
+            var aIdioma = new BE.Idioma
+            {
+                Id = Convert.ToInt32(row["Id"]),
+                Descripcion = row["Descripcion"].ToString().Trim(),
+
+            };
+
+            return aIdioma;
+
+        }
+
         public BE.Idioma ObtenerIdiomaDeUsuario(int idUsuario)
         {
             var pars = new IDbDataParameter[1];

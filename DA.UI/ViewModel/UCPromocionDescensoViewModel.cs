@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using DA.SS;
 using DA.UI.DataGrid;
@@ -18,39 +19,43 @@ namespace DA.UI.ViewModel
             set => SetProperty(ref _busyIndicator, value);
         }
 
-        private bool _habilitado;
+        private bool _habilitadoGuardar;
 
-        public bool Habilitado
+        public bool HabilitadoGuardar
         {
-            get => _habilitado;
-            set => SetProperty(ref _habilitado, value);
+            get => _habilitadoGuardar;
+            set => SetProperty(ref _habilitadoGuardar, value);
         }
 
+        private bool _habilitadoBorrar;
+
+        public bool HabilitadoBorrar
+        {
+            get => _habilitadoBorrar;
+            set => SetProperty(ref _habilitadoBorrar, value);
+        }
+
+        private bool _habilitadoCalcular;
+
+        public bool HabilitadoCalcular
+        {
+            get => _habilitadoCalcular;
+            set => SetProperty(ref _habilitadoCalcular, value);
+        }
 
         public UCPromocionDescensoViewModel()
-        { 
-            BackgroundWorker worker = new BackgroundWorker();
+        {
+            //CargaGrillaPuntajes();
+            HabilitadoBorrar = false;
+            HabilitadoGuardar = false;
+            HabilitadoCalcular = true;
 
-            worker.DoWork += (o, ea) =>
-            {
-                CargaGrillaPuntajes();
-
-                GoToNextPageCommand = new RelayCommand(a => Puntajes.GoToNextPage());
-                GoToPreviousPageCommand = new RelayCommand(a => Puntajes.GoToPreviousPage());
-                CleanCommand = new RelayCommand(ExecuteCleanCommand);
-                RunGuardar = new RelayCommand(ExecuteRunGuardar);
-
-
-            };
-            worker.RunWorkerCompleted += (o, ea) =>
-            {
-
-                BusyIndicator = false;
-              
-            };
-       
-            BusyIndicator = true;
-            worker.RunWorkerAsync();
+            GoToNextPageCommand = new RelayCommand(a => Puntajes.GoToNextPage());
+            GoToPreviousPageCommand = new RelayCommand(a => Puntajes.GoToPreviousPage());
+            CleanCommand = new RelayCommand(ExecuteCleanCommand);
+            RunGuardar = new RelayCommand(ExecuteRunGuardar);
+            RunBorrar = new RelayCommand(ExecuteRunBorrar);
+            RunCalcular = new RelayCommand(ExecuteRunCalcular);
 
         }
 
@@ -84,7 +89,6 @@ namespace DA.UI.ViewModel
                         
                     }
 
-
                     if (resultado.HayError == false)
                     {
                         vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Promoción / Descenso", "La operación se realizó con éxito");
@@ -96,20 +100,32 @@ namespace DA.UI.ViewModel
                         vieMensaje = new Mensaje(TipoMensaje.ERROR, "Promoción / Descenso", resultado.Descripcion);
                     }
                     break;
+
                 default:
                     break;
             }
   
-          //  vieMensaje = new Mensaje(TipoMensaje.NORMAL, "Promoción / Descenso", "Debe seleccionar un Arbitro");
+            //vieMensaje = new Mensaje(TipoMensaje.NORMAL, "Promoción / Descenso", "Debe seleccionar un Arbitro");
 
-        if (vieMensaje != null)
-        {
-            var resul = await DialogHost.Show(vieMensaje, "dhMensajes");
+            if (vieMensaje != null)
+            {
+                var resul = await DialogHost.Show(vieMensaje, "dhMensajes");
+            }
+
         }
 
+        private void ExecuteRunBorrar(object obj)
+        {
+            Puntajes = null;
+            HabilitadoGuardar = false;
+        }
 
-
-
+        private void ExecuteRunCalcular(object obj)
+        {
+            CargaGrillaPuntajes();
+            HabilitadoCalcular = false;
+            HabilitadoGuardar = true;
+            HabilitadoBorrar = true;
         }
 
         private void CargaGrillaPuntajes()
@@ -121,13 +137,12 @@ namespace DA.UI.ViewModel
 
             if (Puntajes.GetAllObjects().Count != 0)
             {
-                Habilitado = true;
+                HabilitadoCalcular = true;
             }
             else
             {
-                Habilitado = false;
+                HabilitadoCalcular = false;
             }
-
 
         }
 
@@ -163,6 +178,10 @@ namespace DA.UI.ViewModel
         public ICommand CleanCommand { get; private set; }
 
         public ICommand RunGuardar { get; private set; }
+        
+        public ICommand RunBorrar { get; private set; }
+
+        public ICommand RunCalcular { get; private set; }
 
 
 

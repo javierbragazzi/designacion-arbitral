@@ -27,6 +27,7 @@
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
+            <RowDefinition Height="15*"/>
             <RowDefinition Height="60*"/>
             <RowDefinition Height="58*"/>
         </Grid.RowDefinitions>
@@ -34,7 +35,8 @@
             <ColumnDefinition Width="1000*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignHeadline4TextBlock}" TextWrapping="Wrap" HorizontalAlignment="Center">Promoción / Descenso</TextBlock>
-        <Grid Grid.Row="1">
+        <TextBlock Grid.Row="1" Style="{StaticResource MaterialDesignHeadline5TextBlock}" TextWrapping="Wrap" HorizontalAlignment="Center">Resultado del cálculo de la situación de cada árbitro</TextBlock>
+            <Grid Grid.Row="2">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
@@ -43,7 +45,7 @@
                     <ColumnDefinition Width="880*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="40 20 40 10">
+                <StackPanel x:Name="stackPanelGrilla" Grid.Column="0" Orientation="Vertical" Margin="40 20 40 10" >
                     <StackPanel Orientation="Horizontal" >
                         <Grid>
                             <Grid.RowDefinitions>
@@ -142,7 +144,7 @@
                        </Grid>
         </Grid>
 
-        <Button Grid.Row="2"
+        <Button Grid.Row="3"
                 Tag="btnGuardar" 
                 Content="Guardar" 
                 Style="{StaticResource MaterialDesignFlatMidBgButton}"
@@ -150,12 +152,39 @@
                 Command="{Binding RunGuardar}"
                 Height="35"
                 Width="120"
-                IsEnabled="{Binding Habilitado}"
+                IsEnabled="{Binding HabilitadoGuardar}"
             >
          
         </Button>
 
-    </Grid>
+        <Button Grid.Row="3"
+                Tag="btnBorrar" 
+                Content="Borrar" 
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                Margin="481,68,199,68"
+                Command="{Binding RunBorrar}"
+                Height="35"
+                Width="120"
+                IsEnabled="{Binding HabilitadoBorrar}"
+        >
+
+        </Button>
+
+        <Button Grid.Row="3"
+                Tag="btnCalcular" 
+                Content="Calcular" 
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                Margin="196,68,484,68"
+                Command="{Binding RunCalcular}"
+                Height="35"
+                Width="120"
+                IsEnabled="{Binding HabilitadoCalcular}"
+        >
+
+        </Button>
+
+
+        </Grid>
 
     </xctk:BusyIndicator>
 </UserControl>

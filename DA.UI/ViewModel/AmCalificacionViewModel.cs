@@ -183,63 +183,22 @@ namespace DA.UI.ViewModel
             {
                 foreach (KeyValuePair<Arbitro, TipoArbitro> arbitroYTipo in Partido.ArbitrosYTipos)
                 {
-                    arbitroYTipo.Key.NombreCompletoTipoArbitro += arbitroYTipo.Key.NombreCompleto + " - " +arbitroYTipo.Value.Descripcion;
+                    arbitroYTipo.Key.NombreCompletoTipoArbitro += arbitroYTipo.Key.ObtenerNombreCompleto() + " - " +arbitroYTipo.Value.Descripcion;
                     Arbitros.Add(arbitroYTipo.Key);
 
                     if (Partido.CalificacionesArbitros.Count != 0)
                     {
                         if (arbitroYTipo.Value.Descripcion.Equals("Principal"))
+                        {
                             CalifTemporalPrincipal = Partido.CalificacionesArbitros.FirstOrDefault(x => ((BE.TipoArbitro) x.Key).Descripcion == "Principal").Value;
+                            EstablecerCalificaciones("Principal");
+                        }
                         else
+                        {
                             CalifTemporalAsistente = Partido.CalificacionesArbitros.FirstOrDefault(x => ((BE.TipoArbitro) x.Key).Descripcion == "Asistente").Value;
-
-                        ReglasPuntajePrincipal = CalifTemporalPrincipal.ReglasPuntaje;
-                        CondicionPuntajePrincipal = CalifTemporalPrincipal.CondicionFisicaPuntaje;
-                        DisciplinaPuntajePrincipal = CalifTemporalPrincipal.DisciplinaPuntaje;
-                        JugadasPuntajePrincipal = CalifTemporalPrincipal.JugadasPuntaje;
-            
-                        switch (CalifTemporalPrincipal.DificultadPartidoPuntaje)
-                        {
-                            case 0D:
-                                DificultadPuntajePrincipal = 1;
-                                break;
-
-                            case 0.25D:
-                                DificultadPuntajePrincipal = 2;
-                                break;
-
-                            case 0.50D:
-                                DificultadPuntajePrincipal = 3;
-                                break;
-
-                            case 0.75D:
-                                DificultadPuntajePrincipal = 4;
-                                break;
+                            EstablecerCalificaciones("Asistente");
                         }
 
-                        ReglasPuntajeAsistente = CalifTemporalAsistente.ReglasPuntaje;
-                        CondicionPuntajeAsistente = CalifTemporalAsistente.CondicionFisicaPuntaje;
-                        DisciplinaPuntajeAsistente = CalifTemporalAsistente.DisciplinaPuntaje;
-                        JugadasPuntajeAsistente = CalifTemporalAsistente.JugadasPuntaje;
-            
-                        switch (CalifTemporalAsistente.DificultadPartidoPuntaje)
-                        {
-                            case 0D:
-                                DificultadPuntajeAsistente = 1;
-                                break;
-
-                            case 0.25D:
-                                DificultadPuntajeAsistente = 2;
-                                break;
-
-                            case 0.50D:
-                                DificultadPuntajeAsistente = 3;
-                                break;
-
-                            case 0.75D:
-                                DificultadPuntajeAsistente = 4;
-                                break;
-                        }
                     }
                     else
                     {
@@ -263,6 +222,66 @@ namespace DA.UI.ViewModel
             RunCancelar = new RelayCommand(ExecuteRunCancelar);
             SelectedItemChangedCommand = new RelayCommand(ExecuteSelectedItemChangedCommand);
  
+
+        }
+
+        private void EstablecerCalificaciones(string tipoArbitro)
+        {
+            if (tipoArbitro.Equals("Principal"))
+            {
+                ReglasPuntajePrincipal = CalifTemporalPrincipal.ReglasPuntaje;
+                CondicionPuntajePrincipal = CalifTemporalPrincipal.CondicionFisicaPuntaje;
+                DisciplinaPuntajePrincipal = CalifTemporalPrincipal.DisciplinaPuntaje;
+                JugadasPuntajePrincipal = CalifTemporalPrincipal.JugadasPuntaje;
+
+                switch (CalifTemporalPrincipal.DificultadPartidoPuntaje)
+                {
+                    case 0D:
+                        DificultadPuntajePrincipal = 1;
+                        break;
+
+                    case 0.25D:
+                        DificultadPuntajePrincipal = 2;
+                        break;
+
+                    case 0.50D:
+                        DificultadPuntajePrincipal = 3;
+                        break;
+
+                    case 0.75D:
+                        DificultadPuntajePrincipal = 4;
+                        break;
+                }
+
+            }
+            else
+            {
+                switch (CalifTemporalAsistente.DificultadPartidoPuntaje)
+                {
+                    case 0D:
+                        DificultadPuntajeAsistente = 1;
+                        break;
+
+                    case 0.25D:
+                        DificultadPuntajeAsistente = 2;
+                        break;
+
+                    case 0.50D:
+                        DificultadPuntajeAsistente = 3;
+                        break;
+
+                    case 0.75D:
+                        DificultadPuntajeAsistente = 4;
+                        break;
+                }
+
+
+                ReglasPuntajeAsistente = CalifTemporalAsistente.ReglasPuntaje;
+                CondicionPuntajeAsistente = CalifTemporalAsistente.CondicionFisicaPuntaje;
+                DisciplinaPuntajeAsistente = CalifTemporalAsistente.DisciplinaPuntaje;
+                JugadasPuntajeAsistente = CalifTemporalAsistente.JugadasPuntaje;
+
+            }
 
         }
 

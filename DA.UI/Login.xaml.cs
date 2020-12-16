@@ -13,22 +13,17 @@ using MaterialDesignThemes.Wpf;
 
 namespace DA.UI
 {
-    /// <summary>
-    /// Interaction logic for Login.xaml
-    /// </summary>
+
     public partial class Login : Window , IObserverIdioma
     {
         private EstadoBaseDeDatos _estadoBd;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Login"/> class.
-        /// </summary>
+
         public Login()
         {
             InitializeComponent();
             this.DataContext = new LoginViewModel();
             InicializarComboIdioma();
             
-
         }
 
         private async Task ValidarBaseDeDatos()
@@ -40,8 +35,7 @@ namespace DA.UI
             if (!_estadoBd.EsValida)
             {
                 string mensaje = String.Empty;
-
-
+                
                 foreach (string registro in _estadoBd.RegistrosCorruptos)
                 {
                     mensaje += registro + Environment.NewLine;
@@ -62,48 +56,26 @@ namespace DA.UI
 
             cmbIdioma.ItemsSource = bllIdioma.ObtenerIdiomas();
 
-            //this column will display as text
             cmbIdioma.DisplayMemberPath = "Descripcion";
 
-            //this column will use as back end value who can you use in selectedValue property
             cmbIdioma.SelectedValuePath = "Id";
         }
 
-        /// <summary>
-        /// Handles the OnMouseLeftButtonDown event of the Border control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void Border_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
 
-        /// <summary>
-        /// Handles the OnClick event of the BtnCerrar control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void BtnCerrar_OnClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
-        /// <summary>
-        /// Handles the OnClick event of the BtnIniciar control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void BtnIniciar_OnClick(object sender, RoutedEventArgs e)
         {
             IniciarSesion();
         }
 
-        /// <summary>
-        /// Handles the KeyDown event of the TxtPassword control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void TxtPassword_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter || e.Key == Key.Return)
@@ -113,9 +85,6 @@ namespace DA.UI
             }
         }
 
-        /// <summary>
-        /// Iniciar sesion.
-        /// </summary>
         private async void IniciarSesion()
         {
             BE.Usuario usuario = new BE.Usuario();
@@ -139,40 +108,37 @@ namespace DA.UI
 
             if (resultado.HayError == false)
             {
-                //BLL.DVV bllDvv = new BLL.DVV();
+                // BLL.DVV bllDvv = new BLL.DVV();
 
-               // BLL.Usuario bllUsuario = new BLL.Usuario();
+                // BLL.Usuario bllUsuario = new BLL.Usuario();
 
-               // string dvh = bllUsuario.GenerarDvh(ManejadorSesion.Instancia.ObtenerSesion().Usuario);
+                //  string dvh = bllUsuario.GenerarDvh(ManejadorSesion.Instancia.ObtenerSesion().Usuario);
 
                 //bllUsuario.ActualizarDvv();
 
-               // EstadoBaseDeDatos estado = bllDvv.ValidarBasedeDatos(true);
+                // EstadoBaseDeDatos estado = bllDvv.ValidarBasedeDatos(true);
                 //EstadoBaseDeDatos estado = bllDvv.ValidarBasedeDatos();
 
                 //if (!estado.EsValida)
                 //{
                 //    string mensaje = String.Empty;
-                    
 
                 //    foreach (string registro in estado.RegistrosCorruptos)
                 //    {
                 //        mensaje += registro + Environment.NewLine;
                 //    }
 
-                //    ManejadorSesion.Instancia.ObtenerSesion().BaseValida = false;
+                //    ManejadorSesion.Instancia.ObtenerSesion().EstadoBaseDeDatos.EsValida = false;
 
                 //    Mensaje vieMensaje = new Mensaje(TipoMensaje.ERROR, "Base de datos corrupta", mensaje + @"Se habilitará solo la opción de restore");
 
                 //    var resultadoMensaje = await DialogHost.Show(vieMensaje, "dhMensajes");
                 //}
                 //else
-                //    ManejadorSesion.Instancia.ObtenerSesion().BaseValida = true;
+                //    ManejadorSesion.Instancia.ObtenerSesion().EstadoBaseDeDatos.EsValida = true;
+                SingletonIdioma.Instancia.IdiomaSubject.Idioma = ManejadorSesion.Instancia.ObtenerSesion()?.Usuario?.Idioma;
 
-                //SingletonIdioma.Instancia.IdiomaSubject.IdiomaSubject = ManejadorSesion.Instancia.ObtenerSesion().Usuario.IdiomaSubject;
-
-                //SingletonIdioma.Instancia.IdiomaSubject.Descripcion = ManejadorSesion.Instancia.ObtenerSesion().Usuario.IdiomaSubject.Descripcion;
-
+                SingletonIdioma.Instancia.IdiomaSubject.Descripcion = ManejadorSesion.Instancia.ObtenerSesion()?.Usuario?.Idioma?.Descripcion;
 
                 MainWindow main = new MainWindow();
 
@@ -314,9 +280,9 @@ namespace DA.UI
         }
 
    
-        private void Window_ContentRendered(object sender, EventArgs e)
+        private async void Window_ContentRendered(object sender, EventArgs e)
         {
-            ValidarBaseDeDatos();
+            await ValidarBaseDeDatos();
         }
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)

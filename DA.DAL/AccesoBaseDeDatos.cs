@@ -12,23 +12,12 @@ using DA.SS;
 
 namespace DA.DAL
 {
-    /// <summary>
-    /// Clase para proporciona los metodos para interactuar con la base de datos
-    /// </summary>
     public class AccesoBaseDeDatos
     {
-        /// <summary>
-        /// The connection
-        /// </summary>
         private readonly SqlConnection _connection;
-        /// <summary>
-        /// The database provider factory
-        /// </summary>
+
         private readonly DbProviderFactory _dbProviderFactory;
 
-        /// <summary>
-        /// Opens the connection.
-        /// </summary>
         public void AbrirConexion()
         {
 
@@ -38,17 +27,11 @@ namespace DA.DAL
 
         }
 
-        /// <summary>
-        /// Closes the connection.
-        /// </summary>
         public void CerrarConexion()
         {
             _connection.Close();
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AccesoBaseDeDatos"/> class.
-        /// </summary>
         public AccesoBaseDeDatos()
         {
             _connection = new SqlConnection();
@@ -56,17 +39,11 @@ namespace DA.DAL
 
         }
 
-        /// <summary>
-        /// Inserta el objeto entidad.
-        /// </summary>
-        /// <param name="objetoEntidad">The objeto entidad.</param>
-        /// <returns></returns>
         public ResultadoBd Insertar(object objetoEntidad)
         {
             try
             {
-                //return ResultadoBd.ERROR;
-                DbCommand command = CrearComandoInsert(objetoEntidad);
+              DbCommand command = CrearComandoInsert(objetoEntidad);
                 command.Connection = _connection;
 
                 AbrirConexion();
@@ -90,11 +67,6 @@ namespace DA.DAL
 
         }
 
-        /// <summary>
-        /// Actualiza el objeto entidad.
-        /// </summary>
-        /// <param name="objetoEntidad">The objeto entidad.</param>
-        /// <returns></returns>
         public ResultadoBd Actualizar(object objetoEntidad)
         {
             try
@@ -124,11 +96,6 @@ namespace DA.DAL
 
         }
 
-        /// <summary>
-        /// Borra el objeto entidad.
-        /// </summary>
-        /// <param name="objetoEntidad">The objeto entidad.</param>
-        /// <returns></returns>
         public ResultadoBd Borrar(object objetoEntidad)
         {
             try
@@ -158,12 +125,6 @@ namespace DA.DAL
 
         }
 
-        /// <summary>
-        /// Obtiene las entidades que coinciden con el objeto entidad.
-        /// </summary>
-        /// <param name="objetoEntidad">The objeto entidad.</param>
-        /// <param name="conFiltros"></param>
-        /// <returns></returns>
         public DataTable Seleccionar(object objetoEntidad, bool conFiltros)
         {
             try
@@ -397,12 +358,6 @@ namespace DA.DAL
             return ds.Tables[0]; 
         }
 
-        /// <summary>
-        /// Crea el comando select.
-        /// </summary>
-        /// <param name="dataObject">The data object.</param>
-        /// <param name="conFiltros"></param>
-        /// <returns></returns>
         private DbCommand CrearComandoSelect(object dataObject, bool conFiltros)
         {
             Type t = dataObject.GetType();
@@ -653,11 +608,6 @@ namespace DA.DAL
             return cmd;
         }
 
-        /// <summary>
-        /// Crea el comando insert.
-        /// </summary>
-        /// <param name="dataObject">The data object.</param>
-        /// <returns></returns>
         private DbCommand CrearComandoInsert(object dataObject)
         {
             Type type = dataObject.GetType();
@@ -732,11 +682,7 @@ namespace DA.DAL
             
         }
 
-        /// <summary>
-        /// Crea el comando update.
-        /// </summary>
-        /// <param name="dataObject">The data object.</param>
-        /// <returns></returns>
+
         private DbCommand CrearComandoUpdate(object dataObject)
         {
             Type t = dataObject.GetType();
@@ -788,11 +734,6 @@ namespace DA.DAL
             return cmd;
         }
 
-        /// <summary>
-        /// Crea el comando delete.
-        /// </summary>
-        /// <param name="dataObject">The data object.</param>
-        /// <returns></returns>
         private DbCommand CrearComandoDelete(object dataObject)
         {
             Type t = dataObject.GetType();
@@ -846,12 +787,6 @@ namespace DA.DAL
             return cmd;
         }
 
-        /// <summary>
-        /// Crea los distintos tipos de parametro.
-        /// </summary>
-        /// <param name="nombre">The nombre.</param>
-        /// <param name="valor">The valor.</param>
-        /// <returns></returns>
         public IDbDataParameter CrearParametro(string nombre, object valor)
         {
             var param = new SqlParameter
@@ -895,19 +830,19 @@ namespace DA.DAL
 
             if (valor is TipoEvento)
             {
-                param.DbType = DbType.DateTime;
+                param.DbType = DbType.String;
+                param.Value = "'" + param.Value + "'";
+            }
+
+            if (valor is Genero)
+            {
+                param.DbType = DbType.String;
                 param.Value = "'" + param.Value + "'";
             }
 
             return param;
         }
 
-        /// <summary>
-        /// Crea los parametros para un comando.
-        /// </summary>
-        /// <param name="pObjeto">The p objeto.</param>
-        /// <param name="llavePrimaria">if set to <c>true</c> [llave primaria].</param>
-        /// <returns></returns>
         private IDbDataParameter[] CrearParametrosParaComando(object pObjeto, bool llavePrimaria)
         {
             Dictionary<string, string> atributosColumnas = ObtenerNombresDeColumnasYAtributos(pObjeto, llavePrimaria);
@@ -954,34 +889,7 @@ namespace DA.DAL
             return pars;
         }
 
-        //private IDbDataParameter[] CrearParametrosParaInsert(object pObjeto, bool llavePrimaria)
-        //{
-        //    Dictionary<string, string> atributosColumnas = ObtenerNombresDeColumnasYAtributos(pObjeto, llavePrimaria);
-
-        //    var pars = new IDbDataParameter[atributosColumnas.Count];
-        //    int i = 0;
-
-        //    foreach (KeyValuePair<string, string> atributoColumna in atributosColumnas)
-        //    {
-        //        var valor = pObjeto.GetType().GetProperty(atributoColumna.Value).GetValue(pObjeto, null);
-
-        //        if (valor != null && valor.GetType().BaseType == typeof(BE.EntidadBase))
-        //        {
-        //            pars[i] = CrearParametro(atributoColumna.Key, ((BE.EntidadBase)valor).Id);
-        //        }
-        //        else
-        //            pars[i] = CrearParametro(atributoColumna.Key, valor);
-        //        i++;
-        //    }
-
-        //    return pars;
-        //}
-
-        /// <summary>
-        /// Crea los parametros para delete.
-        /// </summary>
-        /// <param name="pObjeto">The p objeto.</param>
-        /// <returns></returns>
+      
         private IDbDataParameter[] CrearParametrosParaDelete(object pObjeto)
         {
             Dictionary<string, string> atributosColumnas = ObtenerLlavePrimaria(pObjeto);
@@ -1000,12 +908,6 @@ namespace DA.DAL
             return pars;
         }
 
-        /// <summary>
-        /// Obtiene los nombres de columnas y atributos.
-        /// </summary>
-        /// <param name="pObjeto">The p objeto.</param>
-        /// <param name="llavePrimaria">if set to <c>true</c> [llave primaria].</param>
-        /// <returns></returns>
         private Dictionary<string, string> ObtenerNombresDeColumnasYAtributos(object pObjeto, bool llavePrimaria)
         {
             Dictionary<string, string> atributosColumnas = new Dictionary<string, string>();
@@ -1059,29 +961,6 @@ namespace DA.DAL
                     {
                         var dao = (Columna)att;
 
-                        //if (llavePrimaria && conFiltros)
-                        //{
-                        //    if (dao.Filtro == true || dao.LlavePrimaria == true)
-                        //    {
-                        //        atributosColumnas.Add(dao.NombreColumna, dao.NombreAtributo);
-                        //    }
-                        //    //atributosColumnas.Add(dao.NombreColumna, dao.NombreAtributo);
-                        //}
-                        //else
-                        //{
-                        //    if (dao.LlavePrimaria == false)
-                        //    {
-                        //        atributosColumnas.Add(dao.NombreColumna, dao.NombreAtributo);
-                        //    }
-                        //    else
-                        //    {
-                        //        if (dao.Filtro == true)
-                        //        {
-                        //            atributosColumnas.Add(dao.NombreColumna, dao.NombreAtributo);
-                        //        }
-                        //    }
-                        //}
-
                         if (llavePrimaria)
                         {
                             if (dao.LlavePrimaria == true)
@@ -1094,10 +973,8 @@ namespace DA.DAL
                             
                             if (conFiltros)
                             {
-                                //if (dao.Filtro == true)
-                                //{
                                 atributosColumnas.Add(dao.NombreColumna, dao.NombreAtributo);
-                                //}
+
                             }
                         }
                     }
@@ -1107,11 +984,6 @@ namespace DA.DAL
             return atributosColumnas;
         }
 
-        /// <summary>
-        /// Obtiene la llave primaria de la entidad.
-        /// </summary>
-        /// <param name="pObjeto">The p objeto.</param>
-        /// <returns></returns>
         private Dictionary<string, string> ObtenerLlavePrimaria(object pObjeto)
         {
             Dictionary<string, string> atributosColumnas = new Dictionary<string, string>();

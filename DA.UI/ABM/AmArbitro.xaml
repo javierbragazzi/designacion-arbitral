@@ -56,13 +56,21 @@
                             </TextBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Name="txtGenero" Margin="0 15 10 0" Width="150" materialDesign:HintAssist.Hint="Genero"
+                            <!--<TextBox Name="txtGenero" Margin="0 15 10 0" Width="150" materialDesign:HintAssist.Hint="Genero"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Text="{Binding Genero}">
-                            </TextBox>
-                            <TextBox Name="txtDni" Margin="0 15 10 0" Width="150" materialDesign:HintAssist.Hint="DNI"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Text="{Binding DNI}">
+                            </TextBox>-->
+                            <ComboBox Name="cmbGenero" HorizontalAlignment="Left"  Margin="0 15 10 0"  Width="150"  materialDesign:HintAssist.Hint="Seleccione Genero"
+                                ItemsSource="{Binding Generos}" 
+                                SelectedItem="{Binding Genero}"
+                                Height="28"
+                                IsSynchronizedWithCurrentItem="True"
+                            />
+
+
+<TextBox Name="txtDni" Margin="0 15 10 0" Width="150" materialDesign:HintAssist.Hint="DNI"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     Text="{Binding DNI}">
                             </TextBox>
                             
                         </StackPanel>
