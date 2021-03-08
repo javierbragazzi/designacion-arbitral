@@ -65,6 +65,7 @@
     <Compile Include="Nivel.cs" />
     <Compile Include="NivelRegla.cs" />
     <Compile Include="Partido.cs" />
+    <Compile Include="PartidoArbitro.cs" />
     <Compile Include="Resguardo.cs" />
     <Compile Include="Bitacora.cs" />
     <Compile Include="DVV.cs" />
