@@ -72,9 +72,9 @@
                                 <dataGrid:SortableDataGrid.Columns>
                                     <DataGridTextColumn Binding="{Binding Nombre}"  Header="Nombre" IsReadOnly="True" />
                                     <DataGridTextColumn Binding="{Binding Apellido}"  Header="Apellido" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding FechaNacimiento}"  Header="Fecha Nac" IsReadOnly="True" />
+                                    <DataGridTextColumn Binding="{Binding FechaNacimiento, StringFormat=\{0:dd/MM/yyyy\}}"  Header="Fecha Nac" IsReadOnly="True" />
                                     <DataGridTextColumn Binding="{Binding Nivel.Id}"  Header="Nivel" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding Genero}"  Header="Genero" IsReadOnly="True" />
+                                    <DataGridTextColumn Binding="{Binding Genero.Descripcion}"  Header="Genero" IsReadOnly="True" />
                                     <DataGridTextColumn Binding="{Binding Deporte.Descripcion}"  Header="Deporte" IsReadOnly="True" />
                                     <DataGridTextColumn Binding="{Binding Habilitado, Converter={StaticResource BooleanToYesNoConverter}}"  Header="Habilitado" IsReadOnly="True" />
                                     <!--<DataGridTextColumn Binding="{Binding TituloValidoArgentina}" Header="TituloValidoArgentina" IsReadOnly="True" />

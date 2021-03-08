@@ -64,12 +64,15 @@ namespace DA.BLL
         public List<BE.Bitacora> ObtenerBitacoras()
         {
             BLL.Usuario bllUsuario = new BLL.Usuario();
+            BLL.TipoEvento bllTipoEvento = new TipoEvento();
             List<BE.Bitacora> bitacoras = _dalManagerBitacora.Leer();
             List<BE.Usuario> lstUsuarios = bllUsuario.ObtenerUsuarios();
+            List<BE.TipoEvento> lsTipoEventos = bllTipoEvento.ObtenerTipoEventos();
 
             foreach (BE.Bitacora bitacora in bitacoras)
             {
                 bitacora.Usuario = lstUsuarios.Find(usuario => usuario.Id == bitacora.Usuario.Id);
+                bitacora.TipoEvento = lsTipoEventos.Find(tipoEvento => tipoEvento.Id == bitacora.TipoEvento.Id);
             }
 
             return bitacoras;
@@ -84,7 +87,7 @@ namespace DA.BLL
         }
 
 
-        public void GrabarBitacora(BE.Usuario usuario, string mensaje, TipoEvento evento)
+        public void GrabarBitacora(BE.Usuario usuario, string mensaje, BE.TipoEvento evento)
         {
             BE.Bitacora beBitacora = new BE.Bitacora();
 

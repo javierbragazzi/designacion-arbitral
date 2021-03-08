@@ -19,7 +19,7 @@ namespace DA.DAL
         {
             ArbitroAud arbitroAud = new ArbitroAud()
             {
-                IdArbitro = pArbitro.Id,
+                //IdArbitro = pArbitro.Id,
                 Nombre = pArbitro.Nombre,
                 Apellido = pArbitro.Apellido,
                 Habilitado = pArbitro.Habilitado,
@@ -31,7 +31,8 @@ namespace DA.DAL
                 Ranking = pArbitro.Ranking,
                 AniosExperiencia = pArbitro.AniosExperiencia,
                 NotaAFA = pArbitro.NotaAFA,
-                IdBitacora = idBitacora,
+                //IdBitacora = idBitacora,
+                Bitacora = new BE.Bitacora(){Id = idBitacora},
                 PoseeTituloValidoArgentina = pArbitro.PoseeTituloValidoArgentina,
                 PoseeLicenciaInternacional = pArbitro.PoseeLicenciaInternacional,
                 ExamenFisicoAprobado = pArbitro.ExamenFisicoAprobado,
@@ -41,13 +42,13 @@ namespace DA.DAL
 
             if (arbitroAud.Nivel != null)
             {
-                query = string.Format(@"INSERT INTO ARBITROAUD([Nombre],[Apellido],[FechaNacimiento],[Genero],[Dni],[Ranking],[AniosExperiencia],[NotaAFA],[IdNivel],[IdDeporte],[Habilitado],[IdArbitro],[IdBitacora],
+                query = string.Format(@"INSERT INTO ARBITROAUD([Nombre],[Apellido],[FechaNacimiento],[IdGenero],[Dni],[Ranking],[AniosExperiencia],[NotaAFA],[IdNivel],[IdDeporte],[Habilitado],[IdArbitro],[IdBitacora],
                             [PoseeTituloValidoArgentina],[PoseeLicenciaInternacional],[ExamenFisicoAprobado],[ExamenTeoricoAprobado]) 
                             VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}', '{16}')",
                             arbitroAud.Nombre,
                             arbitroAud.Apellido,
                             arbitroAud.FechaNacimiento.ToString("yyyy-MM-dd"),
-                            arbitroAud.Genero,
+                            arbitroAud.Genero.Id,
                             arbitroAud.DNI,
                             arbitroAud.Ranking,
                             arbitroAud.AniosExperiencia,
@@ -55,8 +56,9 @@ namespace DA.DAL
                             arbitroAud.Nivel.Id,
                             arbitroAud.Deporte.Id,
                             arbitroAud.Habilitado == true ? 1 : 0,
-                            arbitroAud.IdArbitro,
-                            arbitroAud.IdBitacora,
+                            arbitroAud.Id,
+                            //arbitroAud.IdBitacora,
+                            arbitroAud.Bitacora.Id,
                             arbitroAud.PoseeTituloValidoArgentina == true ? 1 : 0,
                             arbitroAud.PoseeLicenciaInternacional == true ? 1 : 0,
                             arbitroAud.ExamenFisicoAprobado == true ? 1 : 0,
@@ -65,21 +67,22 @@ namespace DA.DAL
             }
             else
             {
-                query = string.Format(@"INSERT INTO ARBITROAUD([Nombre],[Apellido],[FechaNacimiento],[Genero],[Dni],[Ranking],[AniosExperiencia],[NotaAFA],[IdDeporte],[Habilitado],[IdArbitro],[IdBitacora],
+                query = string.Format(@"INSERT INTO ARBITROAUD([Nombre],[Apellido],[FechaNacimiento],[IdGenero],[Dni],[Ranking],[AniosExperiencia],[NotaAFA],[IdDeporte],[Habilitado],[IdArbitro],[IdBitacora],
                            [PoseeTituloValidoArgentina],[PoseeLicenciaInternacional],[ExamenFisicoAprobado],[ExamenTeoricoAprobado]) 
                             VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}')",
                             arbitroAud.Nombre,
                             arbitroAud.Apellido,
                             arbitroAud.FechaNacimiento.ToString("yyyy-MM-dd"),
-                            arbitroAud.Genero,
+                            arbitroAud.Genero.Id,
                             arbitroAud.DNI,
                             arbitroAud.Ranking,
                             arbitroAud.AniosExperiencia,
                             arbitroAud.NotaAFA,
                             arbitroAud.Deporte.Id,
                             arbitroAud.Habilitado == true ? 1 : 0,
-                            arbitroAud.IdArbitro,
-                            arbitroAud.IdBitacora,
+                            arbitroAud.Id,
+                            //arbitroAud.IdBitacora,
+                            arbitroAud.Bitacora.Id,
                             arbitroAud.PoseeTituloValidoArgentina == true ? 1 : 0,
                             arbitroAud.PoseeLicenciaInternacional == true ? 1 : 0,
                             arbitroAud.ExamenFisicoAprobado == true ? 1 : 0,
@@ -95,6 +98,8 @@ namespace DA.DAL
         /// Inserta un Arbitro.
         /// </summary>
         /// <param name="pArbitro">Arbitro.</param>
+        /// <param name="pArbitroAnt"></param>
+        /// <param name="idBitacora"></param>
         /// <returns></returns>
         public ResultadoBd Insertar(BE.Arbitro pArbitro, BE.Arbitro pArbitroAnt, int idBitacora)
         {
@@ -151,7 +156,7 @@ namespace DA.DAL
                 Deporte = new BE.Deporte() { Id = Convert.ToInt32(row["IdDeporte"]) },
                 Habilitado = Convert.ToBoolean(row["Habilitado"].ToString().Trim()),
                 FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"].ToString().Trim()),
-                Genero = row["Genero"].ToString().Trim().Equals(BE.Genero.MASCULINO.ToString()) ? BE.Genero.MASCULINO : BE.Genero.FEMENINO,
+                Genero = new BE.Genero() { Id = Convert.ToInt32(row["IdGenero"]) },
                 DNI = row["Dni"].ToString().Trim(),
                 Ranking = int.Parse(row["Ranking"].ToString()),
                 AniosExperiencia = int.Parse(row["AniosExperiencia"].ToString()),
@@ -195,7 +200,7 @@ namespace DA.DAL
                     Deporte = new BE.Deporte() { Id = Convert.ToInt32(row["IdDeporte"]) },
                     Habilitado = row["Habilitado"].ToString() == "True" ? true : false,
                     FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"].ToString().Trim()),
-                    Genero = row["Genero"].ToString().Trim().Equals(BE.Genero.MASCULINO.ToString()) ? BE.Genero.MASCULINO : BE.Genero.FEMENINO,
+                    Genero = new BE.Genero() { Id = Convert.ToInt32(row["IdGenero"]) },
                     DNI = row["Dni"].ToString().Trim(),
                     Ranking = int.Parse(row["Ranking"].ToString()),
                     AniosExperiencia = int.Parse(row["AniosExperiencia"].ToString()),
@@ -207,6 +212,7 @@ namespace DA.DAL
                     UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
                     UltimosPartidosDirigidos = new Queue<BE.Partido>()
                 };
+
                 if (string.IsNullOrEmpty(row["IdNivel"].ToString()))
                 {
                     aArbitro.Nivel = null;
@@ -248,7 +254,7 @@ namespace DA.DAL
                     Deporte = new BE.Deporte() { Id = Convert.ToInt32(row["IdDeporte"]) },
                     Habilitado = Convert.ToBoolean(row["Habilitado"].ToString().Trim()),
                     FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"].ToString().Trim()),
-                    Genero = row["Genero"].ToString().Trim().Equals(BE.Genero.MASCULINO.ToString()) ? BE.Genero.MASCULINO : BE.Genero.FEMENINO,
+                    Genero = new BE.Genero() { Id = Convert.ToInt32(row["IdGenero"]) },
                     DNI = row["Dni"].ToString().Trim(),
                     Ranking = int.Parse(row["Ranking"].ToString()),
                     AniosExperiencia = int.Parse(row["AniosExperiencia"].ToString()),
@@ -301,7 +307,7 @@ namespace DA.DAL
                     Deporte = new BE.Deporte() { Id = Convert.ToInt32(row["IdDeporte"]) },
                     Habilitado = Convert.ToBoolean(row["Habilitado"].ToString().Trim()),
                     FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"].ToString().Trim()),
-                    Genero = row["Genero"].ToString().Trim().Equals(BE.Genero.MASCULINO.ToString()) ? BE.Genero.MASCULINO : BE.Genero.FEMENINO,
+                    Genero = new BE.Genero() { Id = Convert.ToInt32(row["IdGenero"]) },
                     DNI = row["Dni"].ToString().Trim(),
                     Ranking = Convert.ToInt32(row["Id"]),
                     NotaAFA = int.Parse(row["NotaAFA"].ToString()),

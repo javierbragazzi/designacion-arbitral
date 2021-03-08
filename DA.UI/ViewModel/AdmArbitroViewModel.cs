@@ -162,7 +162,7 @@ namespace DA.UI.ViewModel
             ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Ranking = 0;
             ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).AniosExperiencia = 0;
             ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).NotaAFA = 0;
-            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Genero = Genero.MASCULINO;
+            ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Genero = new Genero() {Id = 1, Descripcion = "Masculino"};
             ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).DNI = string.Empty;
             ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).Activo = true;
             ((AmArbitroViewModel)_viewModelAmArbitro.DataContext).FechaNacimiento = DateTime.Now;
@@ -215,7 +215,7 @@ namespace DA.UI.ViewModel
                 viewModelAmArbitro.AniosExperiencia = ArbitroSeleccionado.AniosExperiencia;
                 viewModelAmArbitro.NotaAFA = ArbitroSeleccionado.NotaAFA;
                 viewModelAmArbitro.LicenciaInternacional = ArbitroSeleccionado.PoseeLicenciaInternacional;
-                viewModelAmArbitro.Genero = ArbitroSeleccionado.Genero;
+                
                 viewModelAmArbitro.DNI = ArbitroSeleccionado.DNI;
                 viewModelAmArbitro.Activo = ArbitroSeleccionado.Habilitado;
                 viewModelAmArbitro.FechaNacimiento = ArbitroSeleccionado.FechaNacimiento;
@@ -225,11 +225,12 @@ namespace DA.UI.ViewModel
                 viewModelAmArbitro.ExamenFisico = ArbitroSeleccionado.ExamenFisicoAprobado;
 
                 viewModelAmArbitro.CargarComboDeportes();
-                viewModelAmArbitro.CargarComboGeneros();
+                viewModelAmArbitro.CargarComboGeneros(ArbitroSeleccionado.Genero);
                 viewModelAmArbitro.Deporte = ArbitroSeleccionado.Deporte;
                 viewModelAmArbitro.Habilitado = true;
                 viewModelAmArbitro.CargarComboNivel(ArbitroSeleccionado.Deporte.Id);
                 viewModelAmArbitro.Nivel = ArbitroSeleccionado.Nivel;
+                //viewModelAmArbitro.Genero = ArbitroSeleccionado.Genero;
                 viewModelAmArbitro.Visibilidad = Visibility.Visible;
 
                 viewModelAmArbitro.Editar = true;

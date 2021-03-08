@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DA.BE;
 using DA.SS;
 
 namespace DA.BLL
@@ -22,7 +21,7 @@ namespace DA.BLL
             Resultado result = CorrerValidaciones(pArbitro);
             if (!result.HayError)
             {
-                _bllBitacora.GrabarBitacora(ManejadorSesion.Instancia.ObtenerSesion().Usuario, "ALTA ARBITRO", TipoEvento.ALTA);
+                _bllBitacora.GrabarBitacora(ManejadorSesion.Instancia.ObtenerSesion().Usuario, "Alta de Árbitro", new BE.TipoEvento(){Id = 5, Descripcion = "Alta"});
 
                 ResultadoBd resultado = _dalManagerArbitro.Insertar(pArbitro, _dalManagerArbitro.ObtenerArbitroPorId(pArbitro.Id), _bllBitacora.ObtenerBitacoraMaxId());
 
@@ -43,7 +42,7 @@ namespace DA.BLL
             Resultado result = CorrerValidaciones(pArbitro);
             if (!result.HayError)
             {
-                _bllBitacora.GrabarBitacora(ManejadorSesion.Instancia.ObtenerSesion().Usuario, "MODIFICACION ARBITRO", TipoEvento.MODIFICACION);
+                _bllBitacora.GrabarBitacora(ManejadorSesion.Instancia.ObtenerSesion().Usuario, "Modificación de Árbitro", new BE.TipoEvento(){Id = 7, Descripcion = "Modificación"});
 
                 ResultadoBd resultado = _dalManagerArbitro.Actualizar(pArbitro, _dalManagerArbitro.ObtenerArbitroPorId(pArbitro.Id), _bllBitacora.ObtenerBitacoraMaxId());
 
@@ -61,7 +60,7 @@ namespace DA.BLL
         /// <returns></returns>
         public Resultado Quitar(BE.Arbitro pArbitro)
         {
-            _bllBitacora.GrabarBitacora(ManejadorSesion.Instancia.ObtenerSesion().Usuario, "BAJA ARBITRO", TipoEvento.BAJA);
+            _bllBitacora.GrabarBitacora(ManejadorSesion.Instancia.ObtenerSesion().Usuario, "Baja de Árbitro", new BE.TipoEvento(){Id = 6, Descripcion = "Baja"});
 
             ResultadoBd resultado = _dalManagerArbitro.Borrar(pArbitro, _dalManagerArbitro.ObtenerArbitroPorId(pArbitro.Id), _bllBitacora.ObtenerBitacoraMaxId());
 
@@ -135,7 +134,6 @@ namespace DA.BLL
 
             foreach (BE.Partido item in bllPartido.ObtenerPartidosDirigidosUltimos15Dias(pId))
             {
-               // BE.Partido match = (BE.Match)_dalManagerMatch.GetEntityById(int.Parse(item.ToString()));
                 queue.Enqueue(item);
             }
             return queue;
@@ -148,6 +146,7 @@ namespace DA.BLL
         public List<BE.Arbitro> ObtenerArbitrosReducido()
         {
             List<BE.Arbitro> lstArbitros = _dalManagerArbitro.Leer();
+            BLL.Genero bllGenero = new Genero();
 
             foreach (BE.Arbitro unArbitro in lstArbitros)
             {
@@ -155,9 +154,15 @@ namespace DA.BLL
                 {
                     unArbitro.Nivel = _bllNivel.ObtnerNivelReducidoPorId(unArbitro.Nivel.Id);
                 }
+
                 if (unArbitro.Deporte != null)
                 {
                     unArbitro.Deporte = _bllDeporte.ObtnerDeportePorId(unArbitro.Deporte.Id);
+                }
+
+                if (unArbitro.Genero != null)
+                {
+                    unArbitro.Genero = bllGenero.ObtnerGeneroPorId(unArbitro.Genero.Id);
                 }
             }
 

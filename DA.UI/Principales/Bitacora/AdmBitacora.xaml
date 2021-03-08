@@ -66,7 +66,7 @@
                                                    CanUserDeleteRows="False" >
                                 <dataGrid:SortableDataGrid.Columns>
                                     <DataGridTextColumn Binding="{Binding Usuario.NombreUsuario}"  Header="Usuario" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding TipoEvento}"  Header="Tipo de evento" IsReadOnly="True"/>
+                                    <DataGridTextColumn Binding="{Binding TipoEvento.Descripcion}"  Header="Tipo de evento" IsReadOnly="True"/>
                                     <DataGridTextColumn Binding="{Binding Descripcion}"  Header="Descripción" IsReadOnly="True"/>
                                     <DataGridTextColumn Binding="{Binding Fecha, StringFormat=\{0:dd/MM/yyyy HH:mm:ss\}}"  Header="Fecha" IsReadOnly="True"/>
                                 </dataGrid:SortableDataGrid.Columns>

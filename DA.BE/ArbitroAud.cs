@@ -5,20 +5,21 @@ namespace DA.BE
     public class ArbitroAud : Arbitro
     {
 
-        public int IdBitacora
+        public BE.Bitacora Bitacora
         {
 
-            [Columna("idBitacora", "idBitacora", typeof(int), false, false)]
+            [Columna("IdBitacora", "Bitacora", typeof(long), false, false)]
             get;
             set;
         }
-        public int IdArbitro
-        {
 
-            [Columna("idArbitro", "idArbitro", typeof(int), false, false)]
-            get;
-            set;
-        }
+        //public int IdArbitro
+        //{
+
+        //    [Columna("idArbitro", "idArbitro", typeof(int), false, false)]
+        //    get;
+        //    set;
+        //}
 
     
 

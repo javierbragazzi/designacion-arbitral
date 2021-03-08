@@ -828,17 +828,17 @@ namespace DA.DAL
             if (valor is int)
                 param.DbType = DbType.Int32;
 
-            if (valor is TipoEvento)
-            {
-                param.DbType = DbType.String;
-                param.Value = "'" + param.Value + "'";
-            }
+            //if (valor is TipoEvento)
+            //{
+            //    param.DbType = DbType.String;
+            //    param.Value = "'" + param.Value + "'";
+            //}
 
-            if (valor is Genero)
-            {
-                param.DbType = DbType.String;
-                param.Value = "'" + param.Value + "'";
-            }
+            //if (valor is Genero)
+            //{
+            //    param.DbType = DbType.String;
+            //    param.Value = "'" + param.Value + "'";
+            //}
 
             return param;
         }

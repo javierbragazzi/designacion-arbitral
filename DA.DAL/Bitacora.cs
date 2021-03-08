@@ -65,7 +65,7 @@ namespace DA.DAL
                 {
                     Id = Convert.ToInt32(row["Id"]),
                     Usuario = new BE.Usuario() { Id = Convert.ToInt32(row["IdUsuario"]) },
-                    TipoEvento = ResolverTipoEvento(row["TipoEvento"].ToString().Trim()),
+                    TipoEvento = new BE.TipoEvento(){ Id = Convert.ToInt32(row["IdTipoEvento"])},
                     Descripcion = row["Descripcion"].ToString().Trim(),
                     Fecha = Convert.ToDateTime((row["Fecha"]))
                 };
@@ -77,7 +77,7 @@ namespace DA.DAL
             return ls;
         }
 
-        public int obtenerMaxId()
+        public int ObtenerMaxId()
         {
             var ls = new List<BE.Bitacora>();
 
@@ -91,25 +91,25 @@ namespace DA.DAL
             return 0;
         }
 
-        private TipoEvento ResolverTipoEvento(string tipoEvento)
-        {
-            switch (tipoEvento)
-            {
-                case "MENSAJE":
-                    return TipoEvento.MENSAJE;
-                break;
+        //private TipoEvento ResolverTipoEvento(string tipoEvento)
+        //{
+        //    switch (tipoEvento)
+        //    {
+        //        case "MENSAJE":
+        //            return TipoEvento.MENSAJE;
+        //        break;
 
-                case "ERROR":
-                    return TipoEvento.ERROR;
-                    break;
+        //        case "ERROR":
+        //            return TipoEvento.ERROR;
+        //            break;
 
-                case "ADVERTENCIA":
-                    return TipoEvento.ADVERTENCIA;
-                    break;
+        //        case "ADVERTENCIA":
+        //            return TipoEvento.ADVERTENCIA;
+        //            break;
          
-                default:
-                    return TipoEvento.MENSAJE;  
-            }
-        }
+        //        default:
+        //            return TipoEvento.MENSAJE;  
+        //    }
+        //}
     }
 }

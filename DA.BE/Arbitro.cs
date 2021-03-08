@@ -30,7 +30,7 @@ namespace DA.BE
 
         public Genero Genero
         {
-            [Columna("Genero", "Genero", typeof(string), false, false)]
+            [Columna("IdGenero", "Genero", typeof(long), false, false)]
             get;
             set;
         }

@@ -13,9 +13,9 @@ namespace DA.BE
             set;
         }
 
-        public TipoEvento TipoEvento
+        public BE.TipoEvento TipoEvento
         {
-            [Columna("TipoEvento", "TipoEvento", typeof(string), false, false)]
+            [Columna("IdTipoEvento", "TipoEvento", typeof(long), false, false)]
             get;
             set;
         }
@@ -36,7 +36,7 @@ namespace DA.BE
 
         public Bitacora()
         {
-            TipoEvento = TipoEvento.NULO;
+            TipoEvento = new TipoEvento(){Id = 1, Descripcion = "NULO"};
         }
     }
 }

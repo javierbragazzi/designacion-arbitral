@@ -5,7 +5,7 @@ using System.Windows.Input;
 using DA.SS;
 using DA.UI.DataGrid;
 using MaterialDesignThemes.Wpf;
-using Situacion = DA.BE.Situacion;
+using Situacion = DA.SS.Situacion;
 
 namespace DA.UI.ViewModel
 {
@@ -62,7 +62,7 @@ namespace DA.UI.ViewModel
         private async void ExecuteRunGuardar(object obj)
         {
 
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
             Mensaje vieMensaje = null;
             
             MensajeConsulta mensajeConsulta = new MensajeConsulta();
@@ -75,12 +75,12 @@ namespace DA.UI.ViewModel
                 case Respuesta.Si:
                     Resultado resultado = new Resultado(false,"");
                     
-                    foreach (BE.Puntaje puntaje in Puntajes.GetAllObjects())
+                    foreach (PuntajeArbitro puntaje in Puntajes.GetAllObjects())
                     {
-                        resultado = puntaje.IdNivelNuevo == -1 ? bllPuntaje.ActualizarProcesado(puntaje) : bllPuntaje.ActualizarNuevoNivel(puntaje);
+                        resultado = puntaje.IdNivelNuevo == -1 ? bllCalificacion.ActualizarProcesado(puntaje) : bllCalificacion.ActualizarNuevoNivel(puntaje);
                        
                         if (puntaje.Situacion == Situacion.Baja)
-                            resultado = bllPuntaje.ActualizarBaja(puntaje);
+                            resultado = bllCalificacion.ActualizarBaja(puntaje);
                         
                         if (resultado.HayError)
                         {
@@ -131,9 +131,9 @@ namespace DA.UI.ViewModel
         private void CargaGrillaPuntajes()
         {
             Puntajes = null;
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
 
-            Puntajes = new SortablePageableCollection<BE.Puntaje>(bllPuntaje.ObtenerPuntajeDeTemporada());
+            Puntajes = new SortablePageableCollection<PuntajeArbitro>(bllCalificacion.ObtenerPuntajeDeTemporada());
 
             if (Puntajes.GetAllObjects().Count != 0)
             {
@@ -150,9 +150,9 @@ namespace DA.UI.ViewModel
         #region Propiedades
 
      
-        private SortablePageableCollection<BE.Puntaje> _puntajes;
+        private SortablePageableCollection<PuntajeArbitro> _puntajes;
 
-        public SortablePageableCollection<BE.Puntaje> Puntajes
+        public SortablePageableCollection<PuntajeArbitro> Puntajes
         {
             get => _puntajes;
             set => SetProperty(ref _puntajes, value);
