@@ -152,7 +152,7 @@ namespace DA.DAL
                     };
                     arbitro.Nivel = ObtenerNivel(arbitro);
                     lstActualizada.Add(arbitro);
-                    rdb = arbitroDal.Actualizar(arbitro, arbitroAnt, bitacora.obtenerMaxId());
+                    rdb = arbitroDal.Actualizar(arbitro, arbitroAnt, bitacora.ObtenerMaxId());
                 }
 
                 return lstActualizada;

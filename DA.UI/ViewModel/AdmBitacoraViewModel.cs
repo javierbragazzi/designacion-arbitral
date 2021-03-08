@@ -129,7 +129,7 @@ namespace DA.UI.ViewModel
         {
             get
             {
-                return new List<string>() { "", "MENSAJE", "ADVERTENCIA", "ERROR" };
+                return new List<string>() { "", "MENSAJE", "ADVERTENCIA", "ERROR", "ALTA", "BAJA", "MODIFICACION" };
             }
 
 
@@ -142,7 +142,7 @@ namespace DA.UI.ViewModel
                                             from bitacora in _coleccionCompleta
                                             where (NombreUsuario == null || bitacora.Usuario.NombreUsuario.ToLowerInvariant().Contains(NombreUsuario.ToLowerInvariant()) 
                                                && (Descripcion == null || bitacora.Descripcion.ToLowerInvariant().Contains(Descripcion.ToLowerInvariant())))
-                                               && (TipoEventoSeleccionado == null || bitacora.TipoEvento.ToString().ToLowerInvariant().Contains(TipoEventoSeleccionado.ToLowerInvariant()))
+                                               && (TipoEventoSeleccionado == null || bitacora.TipoEvento.Descripcion.ToString().ToLowerInvariant().Contains(TipoEventoSeleccionado.ToLowerInvariant()))
                                                && (bitacora.Fecha.Date >= FechaDesde.Date &&  bitacora.Fecha.Date <= FechaHasta.Date)
                                             select bitacora;
     

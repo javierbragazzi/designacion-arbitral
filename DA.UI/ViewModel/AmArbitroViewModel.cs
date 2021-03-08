@@ -200,10 +200,25 @@ namespace DA.UI.ViewModel
             Deportes = bllDeporte.ObtenerDeportes();
         }
 
-        public void CargarComboGeneros()
+        public void CargarComboGeneros(Genero selectedGenero)
         {
-            Generos.Add(Genero.FEMENINO);
-            Generos.Add(Genero.MASCULINO);
+            BLL.Genero bllGenero = new BLL.Genero();
+
+            Generos.Clear();
+
+            foreach (Genero genero in bllGenero.ObtenerGeneros())
+            {
+                Generos.Add(genero);
+            }
+
+            if (selectedGenero != null)
+            {
+                Genero = selectedGenero;
+            }
+            
+
+            //Generos.Add(Genero.FEMENINO);
+            //Generos.Add(Genero.MASCULINO);
         }
         public bool SeGuardo { get;  set; }
 
@@ -224,7 +239,7 @@ namespace DA.UI.ViewModel
         {
             Habilitado = false;
             CargarComboDeportes();
-            CargarComboGeneros();
+            CargarComboGeneros(null);
             this.Visibilidad = Visibility.Visible;
             RunGuardar = new RelayCommand(ExecuteRunGuardar);
             RunCancelar = new RelayCommand(ExecuteRunCancelar);

@@ -1,13 +1,15 @@
 ﻿namespace DA.BE
 {
-    public enum  TipoEvento
+  
+    [Tabla("TipoEvento")]
+    public class TipoEvento : EntidadBase
     {
-        NULO,
-        MENSAJE,
-        ADVERTENCIA,
-        ERROR,
-        ALTA,
-        BAJA,
-        MODIFICACION
+        public string Descripcion
+        {
+            [Columna("Descripcion", "Descripcion", typeof(string), false, false)]
+            get;
+            set;
+        }
+
     }
 }

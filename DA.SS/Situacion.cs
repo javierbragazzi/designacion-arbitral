@@ -4,6 +4,7 @@
     {
         Asciende,
         Desciende,
-        Mantiene
+        Mantiene,
+        Baja
     }
 }

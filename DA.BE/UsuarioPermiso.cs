@@ -1,18 +1,34 @@
-﻿namespace DA.BE
+﻿using DA.BE.Composite;
+
+namespace DA.BE
 {
     [Tabla("UsuarioPermiso")]
     public class UsuarioPermiso
     {
-        public int IdPermiso
+        //public int IdPermiso
+        //{
+        //    [Columna("IdPermiso", "IdPermiso", typeof(int), true, true)]
+        //    get;
+        //    set;
+        //}
+
+        //public int IdUsuario
+        //{
+        //    [Columna("IdUsuario", "IdUsuario", typeof(int), true, true)]
+        //    get;
+        //    set;
+        //}
+
+        public PermisoComponente Permiso
         {
-            [Columna("IdPermiso", "IdPermiso", typeof(int), true, true)]
+            [Columna("IdPermiso", "Permiso", typeof(long), true, true)]
             get;
             set;
         }
 
-        public int IdUsuario
+        public BE.Usuario Usuario
         {
-            [Columna("IdUsuario", "IdUsuario", typeof(int), true, true)]
+            [Columna("IdUsuario", "Usuario", typeof(long), true, true)]
             get;
             set;
         }

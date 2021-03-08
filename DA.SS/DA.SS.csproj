@@ -88,6 +88,7 @@
     <Compile Include="MultiFieldValueConverter.cs" />
     <Compile Include="DigitoVerificador.cs" />
     <Compile Include="Encriptador.cs" />
+    <Compile Include="PuntajeArbitro.cs" />
     <Compile Include="Respuesta.cs" />
     <Compile Include="Resultado.cs" />
     <Compile Include="EstadoBaseDeDatos.cs" />

@@ -58,7 +58,6 @@
     <Compile Include="Nivel.cs" />
     <Compile Include="NivelRegla.cs" />
     <Compile Include="Partido.cs" />
-    <Compile Include="Puntaje.cs" />
     <Compile Include="Resguardo.cs" />
     <Compile Include="Bitacora.cs" />
     <Compile Include="Columna.cs" />
@@ -71,7 +70,6 @@
     <Compile Include="Observer\IdiomaSubject.cs" />
     <Compile Include="Observer\IObserverIdioma.cs" />
     <Compile Include="Observer\Subject.cs" />
-    <Compile Include="Situacion.cs" />
     <Compile Include="Tabla.cs" />
     <Compile Include="EntidadBase.cs" />
     <Compile Include="TipoArbitro.cs" />

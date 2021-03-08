@@ -1,6 +1,6 @@
-﻿namespace DA.BE
+﻿namespace DA.SS
 {
-    public class Puntaje
+    public class PuntajeArbitro
     {
         public int IdArbitro { get; set; }
 

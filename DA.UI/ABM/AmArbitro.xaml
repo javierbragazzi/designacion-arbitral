@@ -60,15 +60,16 @@
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Text="{Binding Genero}">
                             </TextBox>-->
-                            <ComboBox Name="cmbGenero" HorizontalAlignment="Left"  Margin="0 15 10 0"  Width="150"  materialDesign:HintAssist.Hint="Seleccione Genero"
+                            <ComboBox Name="cmbGenero" HorizontalAlignment="Left"  Margin="0 15 10 0"  Width="150"  materialDesign:HintAssist.Hint="Seleccione genero"
                                 ItemsSource="{Binding Generos}" 
                                 SelectedItem="{Binding Genero}"
+                                DisplayMemberPath="Descripcion"
                                 Height="28"
                                 IsSynchronizedWithCurrentItem="True"
                             />
 
 
-<TextBox Name="txtDni" Margin="0 15 10 0" Width="150" materialDesign:HintAssist.Hint="DNI"
+                            <TextBox Name="txtDni" Margin="0 15 10 0" Width="150" materialDesign:HintAssist.Hint="DNI"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                      Text="{Binding DNI}">
                             </TextBox>

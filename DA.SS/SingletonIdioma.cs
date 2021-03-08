@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using DA.BE;
 using DA.BE.Observer;
@@ -10,25 +8,6 @@ namespace DA.SS
 {
     public class SingletonIdioma
     {
-        //private static SingletonIdioma _instance;
-
-        //public IdiomaSubject IdiomaSubject { get; set; }
-
-        //private SingletonIdioma()
-        //{
-        //    IdiomaSubject = new IdiomaSubject();
-        //}
-
-        //public static SingletonIdioma GetInstance()
-        //{
-        //    if (_instance != null)
-        //        return _instance;
-        //    else
-        //    {
-        //        _instance = new SingletonIdioma();
-        //        return _instance;
-        //    }
-        //}
 
         /// <summary>
         /// Instancia

@@ -1,6 +1,7 @@
 ﻿using System;
 using DA.BE;
 using DA.BLL;
+using DA.SS;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DA.UnitTest
@@ -15,198 +16,198 @@ namespace DA.UnitTest
         [TestMethod]
         public void BajaPorEdadTest()
         {
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
-            BE.Puntaje bePuntaje = new BE.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            PuntajeArbitro puntaje = new PuntajeArbitro();
 
-            bePuntaje.Edad = 52;
+            puntaje.Edad = 52;
 
-            bllPuntaje.CalcularSituacion(bePuntaje);
+            bllCalificacion.CalcularSituacion(puntaje);
 
-            Assert.AreEqual(Situacion.Baja, bePuntaje.Situacion);
+            Assert.AreEqual(Situacion.Baja, puntaje.Situacion);
 
         }
 
         [TestMethod]
         public void BajaPorMinimoPartidosTest()
         {
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
-            BE.Puntaje bePuntaje = new BE.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            PuntajeArbitro puntaje = new PuntajeArbitro();
 
-            bePuntaje.CantidadPartidos = 2;
+            puntaje.CantidadPartidos = 2;
 
-            bllPuntaje.CalcularSituacion(bePuntaje);
+            bllCalificacion.CalcularSituacion(puntaje);
 
-            Assert.AreEqual(Situacion.Desciende, bePuntaje.Situacion);
+            Assert.AreEqual(Situacion.Desciende, puntaje.Situacion);
 
         }
 
         [TestMethod]
         public void DescensoPorPuntajeNivel1Test()
         {
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
-            BE.Puntaje bePuntaje = new BE.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            PuntajeArbitro puntaje = new PuntajeArbitro();
 
-            bePuntaje.IdNivel = 1;
-            bePuntaje.PuntajePromedio = 7.25D;
-            bePuntaje.CantidadPartidos = 10;
+            puntaje.IdNivel = 1;
+            puntaje.PuntajePromedio = 7.25D;
+            puntaje.CantidadPartidos = 10;
 
-            bllPuntaje.CalcularSituacion(bePuntaje);
+            bllCalificacion.CalcularSituacion(puntaje);
 
-            Assert.AreEqual(Situacion.Desciende, bePuntaje.Situacion);
-            Assert.AreEqual(2,bePuntaje.IdNivelNuevo);
+            Assert.AreEqual(Situacion.Desciende, puntaje.Situacion);
+            Assert.AreEqual(2,puntaje.IdNivelNuevo);
 
         }
 
         [TestMethod]
         public void DescensoPorPuntajeNivel2Test()
         {
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
-            BE.Puntaje bePuntaje = new BE.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            PuntajeArbitro puntaje = new PuntajeArbitro();
 
-            bePuntaje.IdNivel = 2;
-            bePuntaje.PuntajePromedio = 6.25;
-            bePuntaje.CantidadPartidos = 10;
+            puntaje.IdNivel = 2;
+            puntaje.PuntajePromedio = 6.25;
+            puntaje.CantidadPartidos = 10;
 
-            bllPuntaje.CalcularSituacion(bePuntaje);
+            bllCalificacion.CalcularSituacion(puntaje);
 
-            Assert.AreEqual(Situacion.Desciende, bePuntaje.Situacion);
-            Assert.AreEqual(3,bePuntaje.IdNivelNuevo);
+            Assert.AreEqual(Situacion.Desciende, puntaje.Situacion);
+            Assert.AreEqual(3,puntaje.IdNivelNuevo);
 
         }
 
         [TestMethod]
         public void DescensoPorPuntajeNivel3Test()
         {
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
-            BE.Puntaje bePuntaje = new BE.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            PuntajeArbitro puntaje = new PuntajeArbitro();
 
-            bePuntaje.IdNivel = 3;
-            bePuntaje.PuntajePromedio = 5.25D;
-            bePuntaje.CantidadPartidos = 10;
+            puntaje.IdNivel = 3;
+            puntaje.PuntajePromedio = 5.25D;
+            puntaje.CantidadPartidos = 10;
 
-            bllPuntaje.CalcularSituacion(bePuntaje);
+            bllCalificacion.CalcularSituacion(puntaje);
 
-            Assert.AreEqual(Situacion.Desciende, bePuntaje.Situacion);
-            Assert.AreEqual(4,bePuntaje.IdNivelNuevo);
+            Assert.AreEqual(Situacion.Desciende, puntaje.Situacion);
+            Assert.AreEqual(4,puntaje.IdNivelNuevo);
 
         }
 
         [TestMethod]
         public void DescensoPorPuntajeNivel4Test()
         {
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
-            BE.Puntaje bePuntaje = new BE.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            PuntajeArbitro puntaje = new PuntajeArbitro();
 
-            bePuntaje.IdNivel = 4;
-            bePuntaje.PuntajePromedio = 4.25D;
-            bePuntaje.CantidadPartidos = 10;
+            puntaje.IdNivel = 4;
+            puntaje.PuntajePromedio = 4.25D;
+            puntaje.CantidadPartidos = 10;
 
-            bllPuntaje.CalcularSituacion(bePuntaje);
+            bllCalificacion.CalcularSituacion(puntaje);
 
-            Assert.AreEqual(Situacion.Desciende, bePuntaje.Situacion);
-            Assert.AreEqual(5,bePuntaje.IdNivelNuevo);
+            Assert.AreEqual(Situacion.Desciende, puntaje.Situacion);
+            Assert.AreEqual(5,puntaje.IdNivelNuevo);
 
         }
 
         [TestMethod]
         public void AscensoPorPuntajeNivel2Test()
         {
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
-            BE.Puntaje bePuntaje = new BE.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            PuntajeArbitro puntaje = new PuntajeArbitro();
 
-            bePuntaje.IdNivel = 2;
-            bePuntaje.PuntajePromedio = 9.25D;
-            bePuntaje.CantidadPartidos = 10;
+            puntaje.IdNivel = 2;
+            puntaje.PuntajePromedio = 9.25D;
+            puntaje.CantidadPartidos = 10;
 
-            bllPuntaje.CalcularSituacion(bePuntaje);
+            bllCalificacion.CalcularSituacion(puntaje);
 
-            Assert.AreEqual(Situacion.Asciende, bePuntaje.Situacion);
-            Assert.AreEqual(1,bePuntaje.IdNivelNuevo);
+            Assert.AreEqual(Situacion.Asciende, puntaje.Situacion);
+            Assert.AreEqual(1,puntaje.IdNivelNuevo);
 
         }
 
         [TestMethod]
         public void AscensoPorPuntajeNivel3Test()
         {
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
-            BE.Puntaje bePuntaje = new BE.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            PuntajeArbitro puntaje = new PuntajeArbitro();
 
-            bePuntaje.IdNivel = 3;
-            bePuntaje.PuntajePromedio = 8.25D;
-            bePuntaje.CantidadPartidos = 10;
+            puntaje.IdNivel = 3;
+            puntaje.PuntajePromedio = 8.25D;
+            puntaje.CantidadPartidos = 10;
 
-            bllPuntaje.CalcularSituacion(bePuntaje);
+            bllCalificacion.CalcularSituacion(puntaje);
 
-            Assert.AreEqual(Situacion.Asciende, bePuntaje.Situacion);
-            Assert.AreEqual(2,bePuntaje.IdNivelNuevo);
+            Assert.AreEqual(Situacion.Asciende, puntaje.Situacion);
+            Assert.AreEqual(2,puntaje.IdNivelNuevo);
 
         }
 
         [TestMethod]
         public void AscensoPorPuntajeNivel4Test()
         {
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
-            BE.Puntaje bePuntaje = new BE.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            PuntajeArbitro puntaje = new PuntajeArbitro();
 
-            bePuntaje.IdNivel = 4;
-            bePuntaje.PuntajePromedio = 7.25D;
-            bePuntaje.CantidadPartidos = 10;
+            puntaje.IdNivel = 4;
+            puntaje.PuntajePromedio = 7.25D;
+            puntaje.CantidadPartidos = 10;
 
-            bllPuntaje.CalcularSituacion(bePuntaje);
+            bllCalificacion.CalcularSituacion(puntaje);
 
-            Assert.AreEqual(Situacion.Asciende, bePuntaje.Situacion);
-            Assert.AreEqual(3,bePuntaje.IdNivelNuevo);
+            Assert.AreEqual(Situacion.Asciende, puntaje.Situacion);
+            Assert.AreEqual(3,puntaje.IdNivelNuevo);
 
         }
 
         [TestMethod]
         public void AscensoPorPuntajeNivel5Test()
         {
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
-            BE.Puntaje bePuntaje = new BE.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            PuntajeArbitro puntaje = new PuntajeArbitro();
 
-            bePuntaje.IdNivel = 5;
-            bePuntaje.PuntajePromedio = 9.25D;
-            bePuntaje.CantidadPartidos = 10;
+            puntaje.IdNivel = 5;
+            puntaje.PuntajePromedio = 9.25D;
+            puntaje.CantidadPartidos = 10;
 
-            bllPuntaje.CalcularSituacion(bePuntaje);
+            bllCalificacion.CalcularSituacion(puntaje);
 
-            Assert.AreEqual(Situacion.Asciende, bePuntaje.Situacion);
-            Assert.AreEqual(4,bePuntaje.IdNivelNuevo);
+            Assert.AreEqual(Situacion.Asciende, puntaje.Situacion);
+            Assert.AreEqual(4,puntaje.IdNivelNuevo);
 
         }
 
         [TestMethod]
         public void MantieneNivel1Test()
         {
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
-            BE.Puntaje bePuntaje = new BE.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            PuntajeArbitro puntaje = new PuntajeArbitro();
 
-            bePuntaje.IdNivel = 1;
-            bePuntaje.PuntajePromedio = 10D;
-            bePuntaje.CantidadPartidos = 10;
+            puntaje.IdNivel = 1;
+            puntaje.PuntajePromedio = 10D;
+            puntaje.CantidadPartidos = 10;
 
-            bllPuntaje.CalcularSituacion(bePuntaje);
+            bllCalificacion.CalcularSituacion(puntaje);
 
-            Assert.AreEqual(Situacion.Mantiene, bePuntaje.Situacion);
-            Assert.AreEqual(-1,bePuntaje.IdNivelNuevo);
+            Assert.AreEqual(Situacion.Mantiene, puntaje.Situacion);
+            Assert.AreEqual(-1,puntaje.IdNivelNuevo);
 
         }
 
         [TestMethod]
         public void MantieneNivel2Test()
         {
-            BLL.Puntaje bllPuntaje = new BLL.Puntaje();
-            BE.Puntaje bePuntaje = new BE.Puntaje();
+            BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            PuntajeArbitro puntaje = new PuntajeArbitro();
 
-            bePuntaje.IdNivel = 2;
-            //bePuntaje.PuntajePromedio = 1D;
-            bePuntaje.PuntajePromedio = 8.25D;
-            bePuntaje.CantidadPartidos = 10;
+            puntaje.IdNivel = 2;
+            //puntaje.PuntajePromedio = 1D;
+            puntaje.PuntajePromedio = 8.25D;
+            puntaje.CantidadPartidos = 10;
 
-            bllPuntaje.CalcularSituacion(bePuntaje);
+            bllCalificacion.CalcularSituacion(puntaje);
 
-            Assert.AreEqual(Situacion.Mantiene, bePuntaje.Situacion);
+            Assert.AreEqual(Situacion.Mantiene, puntaje.Situacion);
 
         }
     }

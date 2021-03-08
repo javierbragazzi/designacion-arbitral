@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GemBox.Spreadsheet, Version=45.0.35.1061, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <HintPath>..\packages\GemBox.Spreadsheet.45.0.0.1061\lib\net35\GemBox.Spreadsheet.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -58,10 +61,10 @@
     <Compile Include="Equipo.cs" />
     <Compile Include="Fecha.cs" />
     <Compile Include="Fixture.cs" />
+    <Compile Include="Genero.cs" />
     <Compile Include="Nivel.cs" />
     <Compile Include="NivelRegla.cs" />
     <Compile Include="Partido.cs" />
-    <Compile Include="Puntaje.cs" />
     <Compile Include="Resguardo.cs" />
     <Compile Include="Bitacora.cs" />
     <Compile Include="DVV.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="Permiso.cs" />
     <Compile Include="Sistema.cs" />
     <Compile Include="TipoArbitro.cs" />
+    <Compile Include="TipoEvento.cs" />
     <Compile Include="Traduccion.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

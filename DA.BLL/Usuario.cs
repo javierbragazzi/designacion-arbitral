@@ -33,7 +33,8 @@ namespace DA.BLL
 
                 BLL.UsuarioPermiso bllUsuarioPermiso = new UsuarioPermiso();
 
-                bllUsuarioPermiso.Agregar(new BE.UsuarioPermiso() {IdPermiso = idPermiso, IdUsuario = usuarioBase.Id});
+                //bllUsuarioPermiso.Agregar(new BE.UsuarioPermiso() {IdPermiso = idPermiso, IdUsuario = usuarioBase.Id});
+                bllUsuarioPermiso.Agregar(new BE.UsuarioPermiso() {Permiso = new BE.Composite.Permiso(){Id = idPermiso}, Usuario = new BE.Usuario(){Id = usuarioBase.Id}});
 
                 if (ActualizarDvv() == ResultadoBd.OK)
                     return new Resultado(false, "Ok"); 
@@ -150,7 +151,7 @@ namespace DA.BLL
                     {
                         ManejadorSesion manejadorSesion = ManejadorSesion.Instancia;
 
-                        bllBitacora.GrabarBitacora(usuarioBase, "Inicio de sesión", TipoEvento.MENSAJE);
+                        bllBitacora.GrabarBitacora(usuarioBase, "Inicio de sesión", new BE.TipoEvento() {Id = 2, Descripcion = "Mensaje"});
 
                         manejadorSesion.EstablecerSesion(usuarioBase, estadoBaseDeDatos);
 
@@ -241,13 +242,17 @@ namespace DA.BLL
                 foreach (PermisoComponente permiso in usuario.Permisos)
                 {
                     if (!bllPermiso.TienePermiso(permiso.Id, permisosOriginales))
-                        bllUsuarioPermiso.Agregar(new BE.UsuarioPermiso() { IdPermiso = permiso.Id, IdUsuario = usuario.Id });
+                        //bllUsuarioPermiso.Agregar(new BE.UsuarioPermiso() { IdPermiso = permiso.Id, IdUsuario = usuario.Id });
+                        bllUsuarioPermiso.Agregar(new BE.UsuarioPermiso() {Permiso = new BE.Composite.Permiso(){Id = permiso.Id}, Usuario = new BE.Usuario(){Id = usuario.Id}});
+
                 }
 
                 foreach (PermisoComponente permiso in permisosOriginales)
                 {
                     if (!bllPermiso.TienePermiso(permiso.Id, usuario.Permisos))
-                        bllUsuarioPermiso.Quitar(new BE.UsuarioPermiso() { IdPermiso = permiso.Id, IdUsuario = usuario.Id });
+                        //bllUsuarioPermiso.Quitar(new BE.UsuarioPermiso() { IdPermiso = permiso.Id, IdUsuario = usuario.Id });
+                        bllUsuarioPermiso.Agregar(new BE.UsuarioPermiso() {Permiso = new BE.Composite.Permiso(){Id = permiso.Id}, Usuario = new BE.Usuario(){Id = usuario.Id}});
+
                 }
 
                 return new Resultado(false, "Permisos actualizados correctamente", TipoMensaje.CORRECTO, "Actualizar permisos");

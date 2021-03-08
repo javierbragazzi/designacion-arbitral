@@ -1,8 +1,14 @@
 ﻿namespace DA.BE
 {
-    public enum Genero
+ [Tabla("Genero")]
+    public class Genero : EntidadBase
     {
-        FEMENINO,
-        MASCULINO
+        public string Descripcion
+        {
+            [Columna("Descripcion", "Descripcion", typeof(string), false, false)]
+            get;
+            set;
+        }
+
     }
 }
