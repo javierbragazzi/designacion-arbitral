@@ -147,8 +147,8 @@ namespace DA.DAL
                         NotaAFA = arbitro.NotaAFA,
                         Ranking = arbitro.Ranking,
                         PoseeTituloValidoArgentina = arbitro.PoseeTituloValidoArgentina,
-                        UltimosEquiposDirigidos = arbitro.UltimosEquiposDirigidos,
-                        UltimosPartidosDirigidos = arbitro.UltimosPartidosDirigidos
+                        //UltimosEquiposDirigidos = arbitro.UltimosEquiposDirigidos,
+                        //UltimosPartidosDirigidos = arbitro.UltimosPartidosDirigidos
                     };
                     arbitro.Nivel = ObtenerNivel(arbitro);
                     lstActualizada.Add(arbitro);

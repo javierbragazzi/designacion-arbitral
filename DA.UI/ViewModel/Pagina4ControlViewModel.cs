@@ -4,19 +4,22 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Input;
+using DA.BLL;
 using DA.SS;
 using DA.UI.DataGrid;
 using DA.UI.Principales.Designacion;
 using GemBox.Spreadsheet;
 using MaterialDesignThemes.Wpf;
+using Arbitro = DA.BE.Arbitro;
 using SelectionType = GemBox.Spreadsheet.SelectionType;
+using TipoArbitro = DA.BE.TipoArbitro;
 
 
 namespace DA.UI.ViewModel
 {
     public class Pagina4ControlViewModel : ViewModelBaseLocal, ITransitionerViewModel
     {
-        private List<BE.Partido> _partidosDesignados;
+        private List<PartidoHelperUI> _partidosDesignados;
 
         private bool _exportoExcel;
 
@@ -32,12 +35,15 @@ namespace DA.UI.ViewModel
         
         public ICommand RunExportarExcelCommand { get; private set; }
 
+        public List<BE.Fecha> FechasDisponibles { get; set; }
+
         public Pagina4ControlViewModel()
         {
+            FechasDisponibles = new List<BE.Fecha>();
             RunExportarPdfCommand = new RelayCommand(ExecuteRunExportarPDF);
             RunExportarExcelCommand = new RelayCommand(ExecuteRunExportarExcel);
         }
-
+        
         private async void ExecuteRunExportarPDF(object obj)
         {
             try
@@ -70,7 +76,7 @@ namespace DA.UI.ViewModel
         private bool ExportarAPdf()
         {
             BackgroundWorker worker = new BackgroundWorker();
-        
+
             string excelName = "Planilla de designaciones Fecha " + DateTime.Now.ToShortDateString().Replace('/', '-') + ".pdf";
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -85,7 +91,7 @@ namespace DA.UI.ViewModel
                 {
 
                     string rutaExcel = ExportToExcel.ExportFutsal(_partidosDesignados[0].Equipo1.Categoria,
-                        _partidosDesignados[0].FechaDelCampeonato.Numero, _partidosDesignados,
+                        _partidosDesignados[0].FechaDelCampeonato.Numero, _partidosDesignados, 
                         Path.GetDirectoryName(saveFileDialog.FileName), Path.GetFileName(saveFileDialog.FileName));
 
                     SpreadsheetInfo.SetLicense("FREE-LIMITED-KEY");
@@ -131,8 +137,7 @@ namespace DA.UI.ViewModel
         {
             try
             {
-
-                string excelName = "Planilla de designaciones Fecha " + DateTime.Now.ToShortDateString().Replace('/', '-') + ".xlsx";
+               string excelName = "Planilla de designaciones Fecha " + DateTime.Now.ToShortDateString().Replace('/', '-') + ".xlsx";
                
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.FileName = excelName;
@@ -142,7 +147,7 @@ namespace DA.UI.ViewModel
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string rutaExcel = ExportToExcel.ExportFutsal(_partidosDesignados[0].Equipo1.Categoria,
-                        _partidosDesignados[0].FechaDelCampeonato.Numero, _partidosDesignados,
+                        _partidosDesignados[0].FechaDelCampeonato.Numero, _partidosDesignados, 
                         Path.GetDirectoryName(saveFileDialog.FileName), Path.GetFileName(saveFileDialog.FileName));
 
 
@@ -210,8 +215,6 @@ namespace DA.UI.ViewModel
             ////System.Diagnostics.Process.Start("sample.pdf");
         }
 
-  
-   
         public void Hidden(ITransitionerViewModel newViewModel)
         {
             
@@ -221,9 +224,44 @@ namespace DA.UI.ViewModel
         {
             Pagina3ControlViewModel pag3Vm = (Pagina3ControlViewModel)previousViewModel;
 
+            FechasDisponibles = pag3Vm.FechasDisponibles;
+
             _partidosDesignados = pag3Vm.PartidosDesignados;
             
             _exportoExcel = false;
+
+            GuardarDesignacion();
+        }
+
+        private void GuardarDesignacion()
+        {
+            BLL.PartidoArbitro bllPartidoArbitro = new PartidoArbitro();
+            BLL.Fecha bllFecha = new Fecha();
+
+            foreach (PartidoHelperUI designado in _partidosDesignados)
+            {
+                BE.PartidoArbitro partidoArbitro = new BE.PartidoArbitro();
+                partidoArbitro.Partido = designado.ConvertirAPartido();
+                foreach (KeyValuePair<Arbitro, TipoArbitro> designadoArbitrosYTipo in designado.ArbitrosYTipos)
+                {
+                    partidoArbitro.Arbitro = designadoArbitrosYTipo.Key;
+                    partidoArbitro.TipoArbitro = designadoArbitrosYTipo.Value;
+                    partidoArbitro.Procesado = false;
+                    partidoArbitro.Calificacion = null;
+                }
+                
+
+                bllPartidoArbitro.Agregar(partidoArbitro);
+
+            }
+
+            foreach (BE.Fecha fechasDisponible in FechasDisponibles)
+            {
+                fechasDisponible.Designado = true;
+                bllFecha.Editar(fechasDisponible);
+            }
+            
+     
         }
     }
 }

@@ -24,6 +24,7 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "RD.Instalador", "RD.Instala
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BD", "BD", "{571133F0-112A-4A86-A741-26AE36CE01FA}"
 	ProjectSection(SolutionItems) = preProject
+		BackupBD.bak = BackupBD.bak
 		BaseDeDatos.sql = BaseDeDatos.sql
 	EndProjectSection
 EndProject

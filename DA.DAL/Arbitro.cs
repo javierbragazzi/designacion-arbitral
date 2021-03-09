@@ -165,8 +165,8 @@ namespace DA.DAL
                 PoseeLicenciaInternacional = row["PoseeLicenciaInternacional"].ToString() == "1" ? true : false,
                 ExamenFisicoAprobado = row["ExamenFisicoAprobado"].ToString() == "1" ? true : false,
                 ExamenTeoricoAprobado = row["ExamenTeoricoAprobado"].ToString() == "1" ? true : false,
-                UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
-                UltimosPartidosDirigidos = new Queue<BE.Partido>()
+                //UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
+                //UltimosPartidosDirigidos = new Queue<BE.Partido>()
      
             };
             if (string.IsNullOrEmpty(row["IdNivel"].ToString()))
@@ -209,8 +209,8 @@ namespace DA.DAL
                     PoseeLicenciaInternacional = row["PoseeLicenciaInternacional"].ToString() == "True" ? true : false,
                     ExamenFisicoAprobado = row["ExamenFisicoAprobado"].ToString() == "True" ? true : false,
                     ExamenTeoricoAprobado = row["ExamenTeoricoAprobado"].ToString() == "True" ? true : false,
-                    UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
-                    UltimosPartidosDirigidos = new Queue<BE.Partido>()
+                    //UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
+                    //UltimosPartidosDirigidos = new Queue<BE.Partido>()
                 };
 
                 if (string.IsNullOrEmpty(row["IdNivel"].ToString()))
@@ -263,8 +263,8 @@ namespace DA.DAL
                     PoseeLicenciaInternacional = row["PoseeLicenciaInternacional"].ToString() == "1" ? true : false,
                     ExamenFisicoAprobado = row["ExamenFisicoAprobado"].ToString() == "1" ? true : false,
                     ExamenTeoricoAprobado = row["ExamenTeoricoAprobado"].ToString() == "1" ? true : false,
-                    UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
-                    UltimosPartidosDirigidos = new Queue<BE.Partido>()
+                    //UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
+                    //UltimosPartidosDirigidos = new Queue<BE.Partido>()
                 };
                 if (string.IsNullOrEmpty(row["IdNivel"].ToString()))
                 {
@@ -316,8 +316,8 @@ namespace DA.DAL
                     ExamenFisicoAprobado = row["ExamenFisicoAprobado"].ToString() == "1" ? true : false,
                     ExamenTeoricoAprobado = row["ExamenTeoricoAprobado"].ToString() == "1" ? true : false,
                     Nivel = new BE.Nivel() { Id = Convert.ToInt32(row["IdNivel"]) },
-                    UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
-                    UltimosPartidosDirigidos = new Queue<BE.Partido>()
+                    //UltimosEquiposDirigidos = new Queue<BE.Equipo>(),
+                    //UltimosPartidosDirigidos = new Queue<BE.Partido>()
                 };
 
                 ls.Add(aArbitro);

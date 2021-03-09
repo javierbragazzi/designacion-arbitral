@@ -96,47 +96,36 @@ namespace DA.BLL
             foreach (BE.Arbitro unArbitro in lstArbitros)
             {
                 unArbitro.Nivel = _bllNivel.ObtnerNivelPorId(unArbitro.Nivel.Id);
-                unArbitro.UltimosEquiposDirigidos = this.ObtenerUltimosEquiposDirigidos(unArbitro.Id);
-                unArbitro.UltimosPartidosDirigidos = this.ObtenerUltimosPartidosDirigidos(unArbitro.Id);
+                //unArbitro.UltimosEquiposDirigidos = this.ObtenerUltimosEquiposDirigidos(unArbitro.Id);
+                //unArbitro.UltimosPartidosDirigidos = this.ObtenerUltimosPartidosDirigidos(unArbitro.Id);
             }
 
             return lstArbitros;
         }
 
-        /// <summary>
-        /// Gets the last refereed teams.
-        /// </summary>
-        /// <param name="pId">The p identifier.</param>
-        /// <returns></returns>
-        public Queue<BE.Equipo> ObtenerUltimosEquiposDirigidos(int pId)
+        public List<BE.Equipo> ObtenerUltimosEquiposDirigidos(int arbitroId)
         {
-            Queue<BE.Equipo> queue = new Queue<BE.Equipo>();
+            List<BE.Equipo> list = new List<BE.Equipo>();
 
             BLL.Equipo bllEquipo = new BLL.Equipo();
 
-            foreach (BE.Equipo equipo in bllEquipo.ObtenerUltimosEquiposDirigidos(pId))
+            foreach (BE.Equipo equipo in bllEquipo.ObtenerUltimosEquiposDirigidos(arbitroId))
             {
-               // BE.Equipo team = bllEquipo.ObtnerEquipoPorId(equipo.Id);
-                queue.Enqueue(equipo);
+                list.Add(equipo);
             }
-            return queue;
+            return list;
         }
 
-        /// <summary>
-        /// Gets the last fifty days refered.
-        /// </summary>
-        /// <param name="pId">The p identifier.</param>
-        /// <returns></returns>
-        public Queue<BE.Partido> ObtenerUltimosPartidosDirigidos(int pId)
+        public List<BE.Partido> ObtenerUltimosPartidosDirigidos(int arbitroId)
         {
-            Queue<BE.Partido> queue = new Queue<BE.Partido>();
+            List<BE.Partido> list = new List<BE.Partido>();
             BLL.Partido bllPartido = new BLL.Partido();
 
-            foreach (BE.Partido item in bllPartido.ObtenerPartidosDirigidosUltimos15Dias(pId))
+            foreach (BE.Partido item in bllPartido.ObtenerPartidosDirigidosUltimos15Dias(arbitroId))
             {
-                queue.Enqueue(item);
+                list.Add(item);
             }
-            return queue;
+            return list;
         }
 
         /// <summary>
@@ -206,7 +195,7 @@ namespace DA.BLL
             return lstArbitros;
         }
 
-        public bool PuedeDirigir(BE.Arbitro arbitro, BE.Partido partido, BE.TipoArbitro tipoArbitro)
+        public bool PuedeDirigir(BE.Arbitro arbitro, PartidoHelperUI partido, BE.TipoArbitro tipoArbitro)
         {
             BLL.NivelRegla levelRule = new NivelRegla();
 
@@ -216,9 +205,9 @@ namespace DA.BLL
             return true;
         }
 
-        private bool EquipoDirigido(BE.Partido partido, BE.Arbitro arbitro)
+        private bool EquipoDirigido(PartidoHelperUI partido, BE.Arbitro arbitro)
         {
-            foreach (var team in arbitro.UltimosEquiposDirigidos)
+            foreach (var team in ObtenerUltimosEquiposDirigidos(arbitro.Id))
             {
                 if (partido.Equipo1.Equals(team))
                 {
@@ -236,12 +225,13 @@ namespace DA.BLL
             return false;
         }
 
-        private bool DirigidoLosUltimos15Dias(BE.Partido partido, BE.Arbitro arbitro)
+        private bool DirigidoLosUltimos15Dias(PartidoHelperUI partido, BE.Arbitro arbitro)
         {
+            List<BE.Partido> lstUltimosPartidosDirigidos = ObtenerUltimosPartidosDirigidos(arbitro.Id);
 
-            if (arbitro.UltimosPartidosDirigidos != null)
+            if (lstUltimosPartidosDirigidos != null)
             {
-                foreach (var partidoViejo in arbitro.UltimosPartidosDirigidos)
+                foreach (var partidoViejo in lstUltimosPartidosDirigidos)
                 {
                     if (partidoViejo.Equipo1.Equals(partido.Equipo1))
                     {

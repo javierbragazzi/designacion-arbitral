@@ -51,7 +51,7 @@
                                       ui:SelectionChangedBehaviour.Command="{Binding SelectedItemChangedCommand}"
                                       ItemsSource="{Binding Arbitros}" 
                                       SelectedItem="{Binding ArbitroSeleccionado}"
-                                      DisplayMemberPath="NombreCompletoTipoArbitro"
+                                      DisplayMemberPath="NombreCompletoYTipoArbitro"
                                       Height="30"/>
               
                         </StackPanel>

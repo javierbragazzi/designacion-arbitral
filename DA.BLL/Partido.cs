@@ -78,20 +78,20 @@ namespace DA.BLL
             return lstPartidos;
         }
 
-        public List<BE.Partido> ObtenerPartidosConCalificacion()
+        public List<PartidoHelperUI> ObtenerPartidosConCalificacion()
         {
             BLL.Equipo bllEquipo = new BLL.Equipo();
             BLL.Fecha bllFecha = new BLL.Fecha();
-            List<BE.Partido> lstPartidos = _dalManagerPartido.ObtenerPartidosConCalificacion();
+            List<PartidoHelperUI> lstPartidos = _dalManagerPartido.ObtenerPartidosConCalificacion();
             BLL.Arbitro bllArbitro = new BLL.Arbitro();
             BLL.Calificacion bllCalificacion = new Calificacion();
 
-            foreach (BE.Partido bePartido in lstPartidos)
+            foreach (PartidoHelperUI partido in lstPartidos)
             {
-                bePartido.Equipo1 = bllEquipo.ObtnerEquipoPorId(bePartido.Equipo1.Id);
-                bePartido.Equipo2 = bllEquipo.ObtnerEquipoPorId(bePartido.Equipo2.Id);
-                bePartido.FechaDelCampeonato = bllFecha.ObtenerFechaPorIdReducido(bePartido.FechaDelCampeonato.Id);
-                bePartido.ArbitrosYTipos = bllArbitro.ObtnerArbitrosYTiposPorPartidoId(bePartido.Id);
+                partido.Equipo1 = bllEquipo.ObtnerEquipoPorId(partido.Equipo1.Id);
+                partido.Equipo2 = bllEquipo.ObtnerEquipoPorId(partido.Equipo2.Id);
+                partido.FechaDelCampeonato = bllFecha.ObtenerFechaPorIdReducido(partido.FechaDelCampeonato.Id);
+                partido.ArbitrosYTipos = bllArbitro.ObtnerArbitrosYTiposPorPartidoId(partido.Id);
 
     
             }
@@ -99,19 +99,19 @@ namespace DA.BLL
             return lstPartidos;
         }
 
-        public List<BE.Partido> ObtenerPartidosSinCalificacion()
+        public List<PartidoHelperUI> ObtenerPartidosSinCalificacion()
         {
             BLL.Equipo bllEquipo = new BLL.Equipo();
             BLL.Fecha bllFecha = new BLL.Fecha();
-            List<BE.Partido> lstPartidos = _dalManagerPartido.ObtenerPartidosSinCalificacion();
+            List<PartidoHelperUI> lstPartidos = _dalManagerPartido.ObtenerPartidosSinCalificacion();
             BLL.Arbitro bllArbitro = new BLL.Arbitro();
 
-            foreach (BE.Partido bePartido in lstPartidos)
+            foreach (PartidoHelperUI partido in lstPartidos)
             {
-                bePartido.Equipo1 = bllEquipo.ObtnerEquipoPorIdReducido(bePartido.Equipo1.Id);
-                bePartido.Equipo2 = bllEquipo.ObtnerEquipoPorIdReducido(bePartido.Equipo2.Id);
-                bePartido.FechaDelCampeonato = bllFecha.ObtenerFechaPorIdReducido(bePartido.FechaDelCampeonato.Id);
-                bePartido.ArbitrosYTipos = bllArbitro.ObtnerArbitrosYTiposPorPartidoId(bePartido.Id);
+                partido.Equipo1 = bllEquipo.ObtnerEquipoPorIdReducido(partido.Equipo1.Id);
+                partido.Equipo2 = bllEquipo.ObtnerEquipoPorIdReducido(partido.Equipo2.Id);
+                partido.FechaDelCampeonato = bllFecha.ObtenerFechaPorIdReducido(partido.FechaDelCampeonato.Id);
+                partido.ArbitrosYTipos = bllArbitro.ObtnerArbitrosYTiposPorPartidoId(partido.Id);
             }
 
             return lstPartidos;
@@ -125,7 +125,7 @@ namespace DA.BLL
 
             bePartido.Equipo1 = bllEquipo.ObtnerEquipoPorId(bePartido.Equipo1.Id);
             bePartido.Equipo2 = bllEquipo.ObtnerEquipoPorId(bePartido.Equipo2.Id);
-            bePartido.FechaDelCampeonato = bllFecha.ObtenerFechaPorId(bePartido.FechaDelCampeonato.Id);
+            bePartido.FechaDelCampeonato = bllFecha.ObtenerFechaPorIdReducido(bePartido.FechaDelCampeonato.Id);
 
             return bePartido;
 

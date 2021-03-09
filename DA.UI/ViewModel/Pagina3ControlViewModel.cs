@@ -1,25 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using DA.BE;
+using DA.SS;
 using DA.UI.Principales.Designacion;
-using GalaSoft.MvvmLight;
 
 namespace DA.UI.ViewModel
 {
     public class Pagina3ControlViewModel : ViewModelBaseLocal, ITransitionerViewModel
     {
-        private List<BE.Partido> _partidosDesignados;
+        private List<PartidoHelperUI> _partidosDesignados;
         
-        public List<BE.Partido> PartidosDesignados
+        public List<PartidoHelperUI> PartidosDesignados
         {
             get => _partidosDesignados;
             set => SetProperty(ref _partidosDesignados, value);
         }
 
+        public List<BE.Fecha> FechasDisponibles { get; set; }
 
         public Pagina3ControlViewModel()
         {
-            PartidosDesignados = new List<Partido>();
+            FechasDisponibles = new List<Fecha>();
+            PartidosDesignados = new List<PartidoHelperUI>();
         }
 
         public void Hidden(ITransitionerViewModel newViewModel)
@@ -30,6 +32,8 @@ namespace DA.UI.ViewModel
         public void Shown(ITransitionerViewModel previousViewModel)
         {
             Pagina2ControlViewModel pag2Vm = (Pagina2ControlViewModel)previousViewModel;
+
+            FechasDisponibles = pag2Vm.FechasDisponibles;
 
             Cursor.Current = Cursors.WaitCursor;
             BLL.Designacion business = new BLL.Designacion();

@@ -46,7 +46,7 @@ namespace DA.DAL
        
         public BE.TipoArbitro ObtenerTipoArbitroPorId(int idTipoArbitro)
         {
-            var dtTipoArbitro = _accesoBaseDeDatos.Seleccionar(new BE.TipoArbitro(){Id = idTipoArbitro}, true);
+            var dtTipoArbitro = _accesoBaseDeDatos.Seleccionar(new BE.TipoArbitro(){Id = idTipoArbitro}, true, true);
      
             if (dtTipoArbitro.Rows.Count == 0)
                 return null;

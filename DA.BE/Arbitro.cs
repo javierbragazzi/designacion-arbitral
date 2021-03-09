@@ -118,16 +118,16 @@ namespace DA.BE
             return Nombre + " " + Apellido;
         }
 
-        public string NombreCompletoTipoArbitro { get; set; }
+        public string NombreCompletoYTipoArbitro { get; set; }
         
-        public Queue<Equipo> UltimosEquiposDirigidos { get; set; }
+        //public Queue<Equipo> UltimosEquiposDirigidos { get; set; }
 
-        public Queue<Partido> UltimosPartidosDirigidos { get; set; }
+        //public Queue<Partido> UltimosPartidosDirigidos { get; set; }
 
 
         public Arbitro() {
-            this.UltimosPartidosDirigidos = new Queue<Partido>();
-            this.UltimosEquiposDirigidos = new Queue<Equipo>();
+            //this.UltimosPartidosDirigidos = new Queue<Partido>();
+            //this.UltimosEquiposDirigidos = new Queue<Equipo>();
         }
 
         public int CompareTo(BE.Arbitro otroArbitro)

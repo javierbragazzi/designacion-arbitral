@@ -19,8 +19,16 @@ namespace DA.DAL
         /// <returns></returns>
         public ResultadoBd Insertar(BE.PartidoArbitro pPartidoArbitro)
         {
+            //INSERT [dbo].[PartidoArbitro] ([IdPartido], [IdArbitro], [IdTipoArbitro], [IdCalificacion], [Procesado]) VALUES (1, 1, 1, 9, 0)
+            string query = string.Format(@"INSERT [dbo].[PartidoArbitro] ([IdPartido], [IdArbitro], [IdTipoArbitro], [IdCalificacion], [Procesado]) VALUES ({0},{1},{2},{3},'{4}')",
+                pPartidoArbitro.Partido.Id,
+                pPartidoArbitro.Arbitro.Id,
+                pPartidoArbitro.TipoArbitro.Id,
+                pPartidoArbitro.Calificacion == null ? "NULL" : pPartidoArbitro.Calificacion.Id.ToString(),
+                pPartidoArbitro.Procesado.ToString()
+            );
 
-            return _accesoBaseDeDatos.Insertar(pPartidoArbitro);
+            return _accesoBaseDeDatos.Ejecutar(query);
         }
         
         /// <summary>
@@ -48,9 +56,10 @@ namespace DA.DAL
         {
             var ls = new List<BE.PartidoArbitro>();
 
-            BE.PartidoArbitro bePartidoArbitro = new BE.PartidoArbitro();
+            string query = @"SELECT *
+                             FROM PartidoArbitro";
 
-            var dt = _accesoBaseDeDatos.Seleccionar(new BE.PartidoArbitro(), false);
+            var dt = _accesoBaseDeDatos.Seleccionar(query);
 
             foreach (DataRow row in dt.Rows)
             {
@@ -105,7 +114,7 @@ namespace DA.DAL
 
         }
 
-        public List<BE.PartidoArbitro> ObtenerPartidoArbitroPorArbitroId(int idArbitro)
+        public List<BE.PartidoArbitro> ObtenerPartidosArbitroPorArbitroId(int idArbitro)
         {
             var ls = new List<BE.PartidoArbitro>();
             var pars = new IDbDataParameter[1];
@@ -139,41 +148,38 @@ namespace DA.DAL
 
         }
 
-        //public BE.PartidoArbitro ObtenerPartidoArbitroPorPartidoYArbitroId(int idPartido, int idArbitro)
-        //{
-        //    var ls = new List<BE.PartidoArbitro>();
-        //    var pars = new IDbDataParameter[2];
-        //    pars[0] = _accesoBaseDeDatos.CrearParametro("@IdPartido", idPartido);
-        //    pars[1] = _accesoBaseDeDatos.CrearParametro("@IdArbitro", idArbitro);
+        public BE.PartidoArbitro ObtenerPartidoArbitroPorPartidoIdYArbitroId(int idPartido, int idArbitro)
+        {
+            var ls = new List<BE.PartidoArbitro>();
+            var pars = new IDbDataParameter[2];
+            pars[0] = _accesoBaseDeDatos.CrearParametro("@IdPartido", idPartido);
+            pars[1] = _accesoBaseDeDatos.CrearParametro("@IdArbitro", idArbitro);
 
-        //    string query = @"   select ta.*
-        //                        from PartidoArbitro ta,
-        //                       PartidoArbitro pa
-        //                        where ta.Id = pa.IdPartidoArbitro
-        //                        and   pa.IdPartido = @IdPartido	                            
-        //                        and   pa.IdArbitro = @IdArbitro
-        //                     ";
+            string query = @"   select pa.*
+                                from PartidoArbitro pa
+                                where   pa.IdPartido = @IdPartido	                            
+                                and   pa.IdArbitro = @IdArbitro
+                             ";
 
-        //    var dt = _accesoBaseDeDatos.Seleccionar(query, pars);
+            var dt = _accesoBaseDeDatos.Seleccionar(query, pars);
 
-        //    if (dt.Rows.Count == 0)
-        //        return null;
-        //    var row = dt.Rows[0];
-        // //   foreach (DataRow row in dt.Rows)
-        // //   {
-        //        var aPartidoArbitro = new BE.PartidoArbitro
-        //        {
-        //            Id = Convert.ToInt32(row["Id"]),
-        //            Descripcion  = row["Descripcion"].ToString().Trim(),
-        //            Deporte = new BE.Deporte() { Id = Convert.ToInt32(row["IdDeporte"]) },
+            if (dt.Rows.Count == 0)
+                return null;
+            var row = dt.Rows[0];
+       
+            var aPartidoArbitro = new BE.PartidoArbitro
+            {
+                TipoArbitro  = new BE.TipoArbitro(){ Id = Convert.ToInt32(row["IdTipoArbitro"])},
+                Arbitro  = new BE.Arbitro(){ Id = Convert.ToInt32(row["IdArbitro"])},
+                Partido = new BE.Partido(){ Id = Convert.ToInt32(row["IdPartido"])},
+                Procesado = Convert.ToBoolean(row["Procesado"].ToString().Trim()),
 
-        //        };
+            };
 
-        //        //ls.Add(aPartidoArbitro);
-        //    //}
+            aPartidoArbitro.Calificacion = Convert.IsDBNull(row["IdCalificacion"]) ? null : new BE.Calificacion(){ Id = Convert.ToInt32(row["IdCalificacion"])};
 
-        //    return aPartidoArbitro;
+            return aPartidoArbitro;
 
-        //}
+        }
     }
 }

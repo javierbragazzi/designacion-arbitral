@@ -47,8 +47,22 @@ namespace DA.DAL
        
         public BE.Partido ObtenerPartidoPorId(int idPartido)
         {
-            var dtPartido = _accesoBaseDeDatos.Seleccionar(new BE.Partido(){Id = idPartido}, true);
-     
+            var pars = new IDbDataParameter[1];
+            pars[0] = _accesoBaseDeDatos.CrearParametro("@IdPartido", idPartido);
+
+            string query = @"    SELECT [Id]
+                                ,[IdEquipo1]
+                                ,[IdEquipo2]
+                                ,[Prioridad]
+                                ,[Fecha]
+                                ,[IdFecha]
+                             FROM [DesignacionArbitral].[dbo].[Partido] p
+                             where p.Id = @IdPartido";
+            
+
+
+            var dtPartido = _accesoBaseDeDatos.Seleccionar(query, pars);
+            
             if (dtPartido.Rows.Count == 0)
                 return null;
 
@@ -127,9 +141,9 @@ namespace DA.DAL
             return ls;
         }
 
-        public List<BE.Partido> ObtenerPartidosConCalificacion() 
+        public List<SS.PartidoHelperUI> ObtenerPartidosConCalificacion() 
         {
-            var ls = new List<BE.Partido>();
+            var ls = new List<PartidoHelperUI>();
 
             string query = @"     SELECT DISTINCT par.* , pa.IdCalificacion, ta.Id as 'IdTipoArbitro', ta.Descripcion, cal.ReglasPuntaje, cal.DisciplinaPuntaje, cal.CondicionFisicaPuntaje, cal.JugadasPuntaje ,cal.DificultadPartidoPuntaje
                                   FROM PartidoArbitro pa,
@@ -147,13 +161,13 @@ namespace DA.DAL
                 return null;
 
             int idPartidoAnt = -1;
-            BE.Partido aPartido = new BE.Partido();
+            PartidoHelperUI aPartido = new PartidoHelperUI();
 
             foreach (DataRow row in dt.Rows)
             {
                 if (idPartidoAnt != Convert.ToInt32(row["Id"]))
                 {
-                    aPartido = new BE.Partido
+                    aPartido = new PartidoHelperUI
                     {
                         Id = Convert.ToInt32(row["Id"]),
                         FechaDelCampeonato = new BE.Fecha() {Id = Convert.ToInt32(row["IdFecha"])},
@@ -203,9 +217,9 @@ namespace DA.DAL
 
         }
 
-        public List<BE.Partido> ObtenerPartidosSinCalificacion() 
+        public List<PartidoHelperUI> ObtenerPartidosSinCalificacion() 
         {
-            var ls = new List<BE.Partido>();
+            var ls = new List<PartidoHelperUI>();
 
             string query = @" SELECT DISTINCT TOP (10)  par.*
                               FROM PartidoArbitro pa,
@@ -225,7 +239,7 @@ namespace DA.DAL
             {
                 if (idPartidoAnt != Convert.ToInt32(row["Id"]))
                 {
-                    var aPartido = new BE.Partido
+                    var aPartido = new PartidoHelperUI
                     {
                         Id = Convert.ToInt32(row["Id"]),
                         FechaDelCampeonato = new BE.Fecha() {Id = Convert.ToInt32(row["IdFecha"])},

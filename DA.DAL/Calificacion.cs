@@ -94,7 +94,7 @@ namespace DA.DAL
                 DisciplinaPuntaje  = Convert.ToInt32(row["DisciplinaPuntaje"]),
                 JugadasPuntaje = Convert.ToInt32(row["JugadasPuntaje"]),
                 CondicionFisicaPuntaje = Convert.ToInt32(row["CondicionFisicaPuntaje"]),
-                DificultadPartidoPuntaje = Convert.ToInt32(row["DificultadPartidoPuntaje"]),
+                DificultadPartidoPuntaje = Convert.ToDouble(row["DificultadPartidoPuntaje"]),
               
             };
 

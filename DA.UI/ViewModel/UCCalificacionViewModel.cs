@@ -13,9 +13,9 @@ namespace DA.UI.ViewModel
     {
         #region Propiedades
 
-        private SortablePageableCollection<BE.Partido> _partidos;
+        private SortablePageableCollection<PartidoHelperUI> _partidos;
 
-        public SortablePageableCollection<BE.Partido> Partidos
+        public SortablePageableCollection<PartidoHelperUI> Partidos
         {
             get
             {
@@ -49,9 +49,9 @@ namespace DA.UI.ViewModel
             set => SetProperty(ref _filtroSeleccionado, value);
         }
         
-        private BE.Partido _partidoSeleccionado;
+        private PartidoHelperUI _partidoSeleccionado;
 
-        public BE.Partido PartidoSeleccionado
+        public PartidoHelperUI PartidoSeleccionado
         {
             get => _partidoSeleccionado;
             set => SetProperty(ref _partidoSeleccionado, value);
@@ -124,7 +124,10 @@ namespace DA.UI.ViewModel
 
         private async void ExecuteRunCargarCalificacion(object obj)
         {
-            AmCalificacionViewModel viewModel = new AmCalificacionViewModel(PartidoSeleccionado);
+            BLL.PartidoArbitro bllPartidoArbitro = new PartidoArbitro();
+            List<BE.PartidoArbitro> partidoArbitros = bllPartidoArbitro.ObtenerPartidoArbitroPorPartidoId(PartidoSeleccionado.Id);
+
+            AmCalificacionViewModel viewModel = new AmCalificacionViewModel(PartidoSeleccionado.ConvertirAPartido(), partidoArbitros);
 
             var view = new AmCalificacion
             {
@@ -156,9 +159,9 @@ namespace DA.UI.ViewModel
                 BLL.Partido bllPartido = new Partido();
 
                 if (FiltroSeleccionado.Id == 1)
-                    Partidos = new SortablePageableCollection<BE.Partido>(bllPartido.ObtenerPartidosSinCalificacion());
+                    Partidos = new SortablePageableCollection<PartidoHelperUI>(bllPartido.ObtenerPartidosSinCalificacion());
                 else
-                    Partidos = new SortablePageableCollection<BE.Partido>(bllPartido.ObtenerPartidosConCalificacion());
+                    Partidos = new SortablePageableCollection<PartidoHelperUI>(bllPartido.ObtenerPartidosConCalificacion());
 
 
                 Visibilidad = Visibility.Visible;

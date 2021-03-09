@@ -5,16 +5,17 @@ using System.IO;
 using System.Linq;
 using ClosedXML.Excel;
 using ControlzEx;
+using DocumentFormat.OpenXml.Drawing;
 
 namespace DA.SS
 {
     public static class ExportToExcel
     {
-        public static string ExportFutsal(BE.Categoria categoria, int numeroFecha, List<BE.Partido> partidos, string directorio, string excelName)
+        public static string ExportFutsal(BE.Categoria categoria, int numeroFecha, List<PartidoHelperUI> partidos, string directorio, string excelName)
         {
             //string directorio = @"C:\Designaciones\";
             //string directorio = ConfigurationManager.AppSettings["PathDesignaciones"];
-
+            
             if (!Directory.Exists(directorio))
                 Directory.CreateDirectory(directorio);
 
@@ -26,7 +27,7 @@ namespace DA.SS
             int cont = 1;
             int actualRowNumber = 12;
 
-            foreach (BE.Partido partido in partidos)
+            foreach (PartidoHelperUI partido in partidos)
             {
                 if (partido.Equipo1.Categoria.Id == categoria.Id)
                 {
@@ -72,7 +73,7 @@ namespace DA.SS
 
         }
 
-        private static void AddMatchesToWorksheet(IXLWorksheet worksheet, int actualRowNumber, int cont, BE.Partido partido)
+        private static void AddMatchesToWorksheet(IXLWorksheet worksheet, int actualRowNumber, int cont, PartidoHelperUI partido)//, List<BE.PartidoArbitro> partidoArbitros)
         {
             var actualLetter = 'A';
             worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = cont;
@@ -84,21 +85,13 @@ namespace DA.SS
             worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = partido.Equipo2.Nombre;
             FormatTeamCell(worksheet, actualLetter.ToString() + actualRowNumber);
             actualLetter = GetNextLetter(actualLetter);
-           // worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = partido.Principal.NombreCompleto;
-           worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value =
-               partido.ArbitrosYTipos.FirstOrDefault(x => ((BE.TipoArbitro)x.Value).Descripcion == "Principal" ).Key.ObtenerNombreCompleto();
+            worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = partido.ArbitrosYTipos.FirstOrDefault(x => ((BE.TipoArbitro)x.Value).Descripcion == "Principal" ).Key.ObtenerNombreCompleto();
+            //worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = partidoArbitros.FirstOrDefault(x => (x.TipoArbitro.Id == 1))?.Arbitro.ObtenerNombreCompleto();
             FormatRefereeCell(worksheet, actualLetter.ToString() + actualRowNumber);
-            actualLetter = GetNextLetter(actualLetter);
-            //worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = partido.Asistente.NombreCompleto;
-            worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value =
-                partido.ArbitrosYTipos.FirstOrDefault(x => ((BE.TipoArbitro)x.Value).Descripcion == "Asistente" ).Key.ObtenerNombreCompleto();
+            actualLetter = GetNextLetter(actualLetter); 
+            worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = partido.ArbitrosYTipos.FirstOrDefault(x => ((BE.TipoArbitro)x.Value).Descripcion == "Asistente" ).Key.ObtenerNombreCompleto();
+            //worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = partidoArbitros.FirstOrDefault(x => (x.TipoArbitro.Id == 2))?.Arbitro.ObtenerNombreCompleto();
             FormatRefereeCell(worksheet, actualLetter.ToString() + actualRowNumber);
-            //actualLetter = GetNextLetter(actualLetter);
-            //worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = "PASANTE";
-            //FormatRefereeCell(worksheet, actualLetter.ToString() + actualRowNumber);
-            //actualLetter = GetNextLetter(actualLetter);
-            //worksheet.Cell(actualLetter.ToString() + actualRowNumber).Value = "";
-            //FormatRefereeCell(worksheet, actualLetter.ToString() + actualRowNumber);
         }
 
         private static void AddFooterToWorksheet(IXLWorksheet worksheet, int actualRowNumber)

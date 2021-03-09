@@ -170,7 +170,7 @@ namespace DA.UI.ViewModel
 
         #endregion
 
-        public AmCalificacionViewModel(BE.Partido partido)
+        public AmCalificacionViewModel(BE.Partido partido, List<BE.PartidoArbitro> partidoArbitros)
         {
             Visibilidad = Visibility.Collapsed;
             VisibilidadPrincipal = Visibility.Collapsed;
@@ -181,21 +181,22 @@ namespace DA.UI.ViewModel
 
             if (LicenseManager.UsageMode != LicenseUsageMode.Designtime)
             {
-                foreach (KeyValuePair<Arbitro, TipoArbitro> arbitroYTipo in Partido.ArbitrosYTipos)
+                //foreach (KeyValuePair<Arbitro, TipoArbitro> arbitroYTipo in Partido.ArbitrosYTipos)
+                foreach (PartidoArbitro partidoArbitro in partidoArbitros)
                 {
-                    arbitroYTipo.Key.NombreCompletoTipoArbitro += arbitroYTipo.Key.ObtenerNombreCompleto() + " - " +arbitroYTipo.Value.Descripcion;
-                    Arbitros.Add(arbitroYTipo.Key);
+                    partidoArbitro.Arbitro.NombreCompletoYTipoArbitro += partidoArbitro.Arbitro.NombreCompleto + " - " + partidoArbitro.TipoArbitro.Descripcion;
+                    Arbitros.Add(partidoArbitro.Arbitro);
 
-                    if (Partido.CalificacionesArbitros.Count != 0)
+                    if (partidoArbitro.Calificacion != null)
                     {
-                        if (arbitroYTipo.Value.Descripcion.Equals("Principal"))
+                        if (partidoArbitro.TipoArbitro.Descripcion.Equals("Principal"))
                         {
-                            CalifTemporalPrincipal = Partido.CalificacionesArbitros.FirstOrDefault(x => ((BE.TipoArbitro) x.Key).Descripcion == "Principal").Value;
+                            CalifTemporalPrincipal = partidoArbitro.Calificacion;
                             EstablecerCalificaciones("Principal");
                         }
                         else
                         {
-                            CalifTemporalAsistente = Partido.CalificacionesArbitros.FirstOrDefault(x => ((BE.TipoArbitro) x.Key).Descripcion == "Asistente").Value;
+                            CalifTemporalAsistente = partidoArbitro.Calificacion;
                             EstablecerCalificaciones("Asistente");
                         }
 
@@ -298,9 +299,11 @@ namespace DA.UI.ViewModel
         {
             if (ArbitroSeleccionado != null )
             {
+                BLL.PartidoArbitro partidoArbitro = new BLL.PartidoArbitro();
 
-                BE.TipoArbitro tipoArbitroSelec = Partido.ArbitrosYTipos
-                    .FirstOrDefault(x => ((BE.Arbitro) x.Key).Id == ArbitroSeleccionado.Id).Value;
+                //BE.TipoArbitro tipoArbitroSelec = Partido.ArbitrosYTipos.FirstOrDefault(x => ((BE.Arbitro) x.Key).Id == ArbitroSeleccionado.Id).Value;
+                BE.TipoArbitro tipoArbitroSelec =
+                    partidoArbitro.ObtenerPartidoArbitroPorPartidoIdYArbitroId(Partido.Id, ArbitroSeleccionado.Id).TipoArbitro;
 
                 if (tipoArbitroSelec.Descripcion.Equals("Principal"))
                 {
@@ -325,9 +328,15 @@ namespace DA.UI.ViewModel
         {
 
             BLL.Calificacion bllCalificacion = new BLL.Calificacion();
+            BLL.PartidoArbitro bllPartidoArbitro = new BLL.PartidoArbitro();
+
+            List<BE.PartidoArbitro> partidoArbitros = bllPartidoArbitro.ObtenerPartidoArbitroPorPartidoId(Partido.Id);
           
-            BE.Arbitro arbitro = Arbitros.FirstOrDefault(x => (x.NombreCompletoTipoArbitro.Contains("Principal")));
-            BE.TipoArbitro tipoArbitroSelec = Partido.ArbitrosYTipos.FirstOrDefault(x => arbitro != null && ((BE.Arbitro) x.Key).Id == arbitro.Id).Value;
+            //BE.Arbitro arbitro = Arbitros.FirstOrDefault(x => (x.NombreCompletoTipoArbitro.Contains("Principal")));
+            //BE.TipoArbitro tipoArbitroSelec = Partido.ArbitrosYTipos.FirstOrDefault(x => arbitro != null && ((BE.Arbitro) x.Key).Id == arbitro.Id).Value;
+
+            BE.Arbitro arbitro = partidoArbitros.FirstOrDefault(x => x.TipoArbitro.Descripcion.Contains("Principal"))?.Arbitro;
+            BE.TipoArbitro tipoArbitroSelec = partidoArbitros.FirstOrDefault(x => x.TipoArbitro.Descripcion.Contains("Principal"))?.TipoArbitro;
             BE.Calificacion cal = new Calificacion
             {
                 DisciplinaPuntaje = DisciplinaPuntajePrincipal,
@@ -360,8 +369,8 @@ namespace DA.UI.ViewModel
                 ResultadoAltaModificacion =
                     bllCalificacion.Agregar(cal, Partido, arbitro.Id, tipoArbitroSelec.Id);
 
-            arbitro = Arbitros.FirstOrDefault(x => (x.NombreCompletoTipoArbitro.Contains("Asistente")));
-             tipoArbitroSelec = Partido.ArbitrosYTipos.FirstOrDefault(x => arbitro != null && ((BE.Arbitro) x.Key).Id == arbitro.Id).Value;
+             arbitro = partidoArbitros.FirstOrDefault(x => x.TipoArbitro.Descripcion.Contains("Asistente"))?.Arbitro;
+             tipoArbitroSelec = partidoArbitros.FirstOrDefault(x => x.TipoArbitro.Descripcion.Contains("Asistente"))?.TipoArbitro;
 
             cal.DisciplinaPuntaje = DisciplinaPuntajeAsistente;
             cal.CondicionFisicaPuntaje = CondicionPuntajeAsistente;

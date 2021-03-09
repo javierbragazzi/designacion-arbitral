@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using DA.BLL;
+using DA.SS;
 using DA.UI.Principales.Designacion;
-using GalaSoft.MvvmLight;
 using Fecha = DA.BE.Fecha;
 using Partido = DA.BE.Partido;
 
@@ -13,11 +11,11 @@ namespace DA.UI.ViewModel
     public class Pagina2ControlViewModel : ViewModelBaseLocal, ITransitionerViewModel
     {
 
-        private List<BE.Partido> _partidos;
+        private List<PartidoHelperUI> _partidos;
 
         private ITransitionerViewModel _previousViewModel;
 
-        public List<BE.Partido> Partidos
+        public List<PartidoHelperUI> Partidos
         {
             get => _partidos;
             set => SetProperty(ref _partidos, value);
@@ -30,7 +28,6 @@ namespace DA.UI.ViewModel
             get => _arbitros;
             set => SetProperty(ref _arbitros, value);
         }
-
         
         private BE.Deporte _deporteSeleccionado;
 
@@ -64,9 +61,12 @@ namespace DA.UI.ViewModel
             set => SetProperty(ref _habilitado, value);
         }
 
+        public List<BE.Fecha> FechasDisponibles { get; set; }
+
         public Pagina2ControlViewModel()
         {
-            Partidos = new List<Partido>();
+            FechasDisponibles = new List<Fecha>();
+            Partidos = new List<PartidoHelperUI>();
         }
 
         public void Hidden(ITransitionerViewModel newViewModel)
@@ -76,7 +76,12 @@ namespace DA.UI.ViewModel
 
         public void Shown(ITransitionerViewModel previousViewModel)
         {
-            _previousViewModel = previousViewModel;
+            if (_previousViewModel is Pagina1ControlViewModel)
+            {
+                _previousViewModel = previousViewModel;
+                
+            }
+            
             var task = new Task(CargarVista);
             task.Start();
            // CargarVista(previousViewModel);
@@ -84,8 +89,6 @@ namespace DA.UI.ViewModel
 
         private void CargarVista()
         {
- 
-
             //Cursor.Current = Cursors.WaitCursor;
 
             CargarPartidos();
@@ -130,6 +133,8 @@ namespace DA.UI.ViewModel
             {
                 if (_previousViewModel is Pagina1ControlViewModel)
                 {
+                    //Partidos = new List<PartidoHelperUI>();
+
                     Pagina1ControlViewModel pag1Vm = (Pagina1ControlViewModel) _previousViewModel;
 
                     DeporteSeleccionado = pag1Vm.DeporteSeleccionado;
@@ -138,7 +143,7 @@ namespace DA.UI.ViewModel
                     {
                         foreach (Partido partido in fecha.Partidos)
                         {
-                            Partidos.Add(partido);
+                            Partidos.Add(new PartidoHelperUI(partido));
                         }
                     }
                 }

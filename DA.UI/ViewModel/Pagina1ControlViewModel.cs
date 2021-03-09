@@ -187,7 +187,16 @@ namespace DA.UI.ViewModel
    
         public void Hidden(ITransitionerViewModel newViewModel)
         {
-            
+            //if (newViewModel is Pagina2ControlViewModel)
+            //{
+            //    if(((Pagina2ControlViewModel)newViewModel).Arbitros != null)
+            //        ((Pagina2ControlViewModel)newViewModel).Arbitros.Clear();
+
+            //    if(((Pagina2ControlViewModel)newViewModel).Partidos != null)
+            //        ((Pagina2ControlViewModel)newViewModel).Partidos.Clear();
+
+
+            //}
         }
 
         public void Shown(ITransitionerViewModel previousViewModel)

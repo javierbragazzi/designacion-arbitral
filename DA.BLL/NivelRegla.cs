@@ -111,7 +111,7 @@ namespace DA.BLL
             return lstNivelReglas;
         }
         
-        public bool PuedeDirigirPartidoComoTipoArbitro(BE.Arbitro arbitro, BE.Partido partido, BE.TipoArbitro tipoDeArbitroAAsignar)
+        public bool PuedeDirigirPartidoComoTipoArbitro(BE.Arbitro arbitro, PartidoHelperUI partido, BE.TipoArbitro tipoDeArbitroAAsignar)
         {
             foreach (BE.NivelRegla aLevelRule in arbitro.Nivel.ReglasDeNivel)
             {
