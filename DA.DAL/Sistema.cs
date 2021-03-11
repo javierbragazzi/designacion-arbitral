@@ -37,6 +37,7 @@ namespace DA.DAL
                 string query = "USE MASTER \n";
                 query += "ALTER DATABASE " + nombreBase + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE \n";
                 query += "DROP DATABASE " + nombreBase + " \n";
+                query += "CREATE DATABASE " + nombreBase + " \n";
                 query += "RESTORE DATABASE " + nombreBase + " FROM DISK = '" + directorio + nombreArchivo + "' WITH REPLACE;";
 
                 return _accesoBaseDeDatos.Ejecutar(query);

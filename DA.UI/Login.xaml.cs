@@ -1,5 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.IO;
+using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +18,8 @@ using DA.BE.Observer;
 using DA.SS;
 using DA.UI.ViewModel;
 using MaterialDesignThemes.Wpf;
+using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
 
 namespace DA.UI
 {
@@ -18,12 +28,34 @@ namespace DA.UI
     {
         private EstadoBaseDeDatos _estadoBd;
 
+        //public void ExecuteTransaction(string script)
+        //{
+        //    using (Microsoft.Data.SqlClient.SqlConnection connection = new Microsoft.Data.SqlClient.SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=DesignacionArbitral;Integrated Security=True"))
+        //    {
+        //        Server server = new Server(new ServerConnection(connection));
+        //        try
+        //        {
+        //            server.ConnectionContext.BeginTransaction();
+        //            server.ConnectionContext.ExecuteNonQuery(script);
+        //            server.ConnectionContext.CommitTransaction();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            server.ConnectionContext.RollBackTransaction();
+        //        }
+        //    }
+        //}
+
         public Login()
         {
+            //var script = File.ReadAllText("C:\\Backup\\Script.sql");
+
+            //ExecuteTransaction(script);
+
             InitializeComponent();
             this.DataContext = new LoginViewModel();
             InicializarComboIdioma();
-            
+
         }
 
         private async Task ValidarBaseDeDatos()

@@ -26,6 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BD", "BD", "{571133F0-112A-
 	ProjectSection(SolutionItems) = preProject
 		BackupBD.bak = BackupBD.bak
 		BaseDeDatos.sql = BaseDeDatos.sql
+		Script.sql = Script.sql
 	EndProjectSection
 EndProject
 Global

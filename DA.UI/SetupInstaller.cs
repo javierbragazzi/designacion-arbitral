@@ -9,6 +9,8 @@ using System.IO;
 using System.Reflection;
 using System.Security.Permissions;
 using System.Windows.Forms;
+using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
 
 namespace DA.UI
 {
@@ -99,6 +101,26 @@ namespace DA.UI
 
         }
 
+        public void ExecuteTransaction(string script, bool isMaster)
+        {
+            using (Microsoft.Data.SqlClient.SqlConnection connection = new Microsoft.Data.SqlClient.SqlConnection(isMaster ? Properties.Settings.Default.ConnStringWithSA : Properties.Settings.Default.ConnStringToRefereeDB))
+            {
+                Server server = new Server(new ServerConnection(connection));
+                try
+                {
+                    server.ConnectionContext.BeginTransaction();
+                    server.ConnectionContext.ExecuteNonQuery(script);
+                    server.ConnectionContext.CommitTransaction();
+                }
+                catch (Exception ex)
+                {
+                    server.ConnectionContext.RollBackTransaction();
+                    MessageBox.Show(@"Error al restaurar la base por script. Error: " + ex.Message, "Instalación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw;
+                }
+            }
+        }
+
         public override void Install(IDictionary stateSaver)
         {
             string dataBaseName = Properties.Settings.Default.DataBaseName;
@@ -114,10 +136,12 @@ namespace DA.UI
             query += "CREATE DATABASE " + dataBaseName + " \n";
             query += "RESTORE DATABASE " + dataBaseName + " FROM DISK = '" + GetExecutionDirectory() + "\\" + dataBaseName + ".bak" + "' WITH REPLACE;";
 
-           // MessageBox.Show(query, "Instalación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string script = File.ReadAllText(GetExecutionDirectory() + "\\Script.sql");
+            // MessageBox.Show(query, "Instalación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             //GetExecutionDirectory();
-            ExecuteSql(true, query);
+            //ExecuteSql(true, query);
+            ExecuteTransaction(script, true);
             //ExecuteSql(true , GetSql("CreateBD.txt"));
         }
 
