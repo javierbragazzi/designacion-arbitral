@@ -1,14 +1,16 @@
-﻿<UserControl x:Class="DA.UI.Principales.Bitacora.AdmBitacora"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-            xmlns:dataGrid="clr-namespace:DA.UI.DataGrid"
-            mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="850"
-             IsVisibleChanged="UserControl_IsVisibleChanged">
+﻿<UserControl
+    x:Class="DA.UI.Principales.Bitacora.AdmBitacora"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dataGrid="clr-namespace:DA.UI.DataGrid"
+    xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="800"
+    d:DesignWidth="850"
+    IsVisibleChanged="UserControl_IsVisibleChanged"
+    mc:Ignorable="d">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -22,196 +24,276 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="80"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
-                <TextBlock Text="Bitácora" Tag="Bitácora" Style="{StaticResource MaterialDesignHeadline4TextBlock}" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
-            </Grid>
+        <Grid Grid.Row="0">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                Tag="Bitácora"
+                Text="Bitácora" />
+        </Grid>
 
-            <Grid Grid.Row="1">
-                <TextBlock Text="Registros" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="10 0 0 0" Tag="txtRegistros"  HorizontalAlignment="Left" VerticalAlignment="Center" ></TextBlock>
-            </Grid>
+        <Grid Grid.Row="1">
+            <TextBlock
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                Tag="txtRegistros"
+                Text="Registros" />
+        </Grid>
 
-            <Grid Grid.Row="2">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+        <Grid Grid.Row="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Orientation="Vertical" Margin="40 20 40 10">
-                        <StackPanel Orientation="Horizontal" >
+                <StackPanel
+                    Grid.Column="0"
+                    Margin="40,20,40,10"
+                    Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                        <dataGrid:SortableDataGrid Grid.Row="0" 
-                                                   dgx:DataGridFilter.IsAutoFilterEnabled="True" 
-                                                   Style="{StaticResource MaterialDesignDataGrid }" 
-                                                   ItemsSource="{Binding ColeccionBitacora.CurrentPageItems}" 
-                                                   FullItemsSource="{Binding ColeccionBitacora}"
-                                                   AutoGenerateColumns="False" 
-                                                   CanUserAddRows="false" 
-                                                   CanUserDeleteRows="False" >
+                            <dataGrid:SortableDataGrid
+                                Grid.Row="0"
+                                dgx:DataGridFilter.IsAutoFilterEnabled="True"
+                                AutoGenerateColumns="False"
+                                CanUserAddRows="false"
+                                CanUserDeleteRows="False"
+                                FullItemsSource="{Binding ColeccionBitacora}"
+                                ItemsSource="{Binding ColeccionBitacora.CurrentPageItems}"
+                                Style="{StaticResource MaterialDesignDataGrid}">
                                 <dataGrid:SortableDataGrid.Columns>
-                                    <DataGridTextColumn Binding="{Binding Usuario.NombreUsuario}"  Header="Usuario" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding TipoEvento.Descripcion}"  Header="Tipo de evento" IsReadOnly="True"/>
-                                    <DataGridTextColumn Binding="{Binding Descripcion}"  Header="Descripción" IsReadOnly="True"/>
-                                    <DataGridTextColumn Binding="{Binding Fecha, StringFormat=\{0:dd/MM/yyyy HH:mm:ss\}}"  Header="Fecha" IsReadOnly="True"/>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Usuario.NombreUsuario}"
+                                        Header="Usuario"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding TipoEvento.Descripcion}"
+                                        Header="Tipo de evento"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Descripcion}"
+                                        Header="Descripción"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Fecha, StringFormat=\{0:dd/MM/yyyy HH:mm:ss\}}"
+                                        Header="Fecha"
+                                        IsReadOnly="True" />
                                 </dataGrid:SortableDataGrid.Columns>
-                        </dataGrid:SortableDataGrid>
-                    
+                            </dataGrid:SortableDataGrid>
+
                             <Grid Grid.Row="1" HorizontalAlignment="Center">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel  Orientation="Horizontal" Margin="0,15,0,10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Margin="5,0,5,0" Tag="txtElementosPagina" Text="Elementos por página:" TextAlignment="Center" VerticalAlignment="Center"/>
+                                    <StackPanel
+                                        Margin="0,15,0,10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <TextBlock
+                                            Margin="5,0,5,0"
+                                            VerticalAlignment="Center"
+                                            Tag="txtElementosPagina"
+                                            Text="Elementos por página:"
+                                            TextAlignment="Center" />
                                         <!--<materialDesign:PackIcon Kind="Number5BoxMultipleOutline" Height="25" Width="25" />-->
-                                        <ComboBox ItemsSource="{Binding EntriesPerPageList}" SelectedItem="{Binding ColeccionBitacora.PageSize}"></ComboBox>
+                                        <ComboBox ItemsSource="{Binding EntriesPerPageList}" SelectedItem="{Binding ColeccionBitacora.PageSize}" />
                                     </StackPanel>
-                                </Grid >
-                            </Grid >
+                                </Grid>
+                            </Grid>
 
                             <Grid Grid.Row="2" HorizontalAlignment="Center">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel  Orientation="Horizontal" Margin="0,15,0,10" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                        <Button  ToolTip="Página anterior" Width="70" Command="{Binding GoToPreviousPageCommand}">
+                                    <StackPanel
+                                        Margin="0,15,0,10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Top"
+                                        Orientation="Horizontal">
+                                        <Button
+                                            Width="70"
+                                            Command="{Binding GoToPreviousPageCommand}"
+                                            ToolTip="Página anterior">
                                             <materialDesign:PackIcon
-                                                Kind="PagePreviousOutline"
+                                                Width="24"
                                                 Height="24"
-                                                Width="24" />
+                                                Kind="PagePreviousOutline" />
                                         </Button>
-                                        <TextBlock Margin="5,0,5,0" FontWeight="Bold" FontSize="13" TextAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock
+                                            Margin="5,0,5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="13"
+                                            FontWeight="Bold"
+                                            TextAlignment="Center">
                                             <Run Text="{Binding ColeccionBitacora.CurrentPageNumber, Mode=OneWay}" />
-                                            <Run Text=" de " Name="txtDe" Tag="txtDe"/>
-                                            <Run Text="{Binding ColeccionBitacora.TotalPagesNumber, Mode=OneWay}"/>
+                                            <Run
+                                                Name="txtDe"
+                                                Tag="txtDe"
+                                                Text=" de " />
+                                            <Run Text="{Binding ColeccionBitacora.TotalPagesNumber, Mode=OneWay}" />
                                         </TextBlock>
-                                        <Button ToolTip="Página siguiente" Width="70" Command="{Binding GoToNextPageCommand}">
+                                        <Button
+                                            Width="70"
+                                            Command="{Binding GoToNextPageCommand}"
+                                            ToolTip="Página siguiente">
                                             <materialDesign:PackIcon
-                                                Kind="PageNextOutline"
+                                                Width="24"
                                                 Height="24"
-                                                Width="24" />
+                                                Kind="PageNextOutline" />
                                         </Button>
                                     </StackPanel>
-                                </Grid >
-                            </Grid >
+                                </Grid>
+                            </Grid>
 
                         </Grid>
 
                     </StackPanel>
-                    </StackPanel>
-                    
-                    <GroupBox Grid.Column="1"
-                        Header="Buscar"
-                        Style="{DynamicResource MaterialDesignCardGroupBox}"
-                        Margin="16"
-                        MaxHeight="310" >
-                        <GroupBox.HeaderTemplate>
-                            <DataTemplate>
-                                <StackPanel
-                                    Orientation="Horizontal">
-                                    <materialDesign:PackIcon
-                                        Kind="Magnify"
-                                        Height="32"
-                                        Width="32"
-                                        VerticalAlignment="Center" />
-                                    <TextBlock
-                                        Margin="8,0,0,0"
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                        Text="{Binding}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </GroupBox.HeaderTemplate>
-                        <Grid>
-                            <StackPanel Margin="5 " Orientation="Vertical">
-                                <TextBox Name="txtNombreUsuario" Tag="txtNombreUsuario" Margin="0 0 0 0" Width="200" materialDesign:HintAssist.Hint="Nombre usuario" Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
-                                    <TextBox.Text>
-                                        <Binding
-                                            Path="NombreUsuario">
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <TextBox Name="txtDescripcion" Tag="txtDescripcion" Margin="0 5 0 0" Width="200" materialDesign:HintAssist.Hint="Descripción" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                                    <TextBox.Text>
-                                        <Binding
-                                            Path="Descripcion">
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <ComboBox Name="cmbTipoEvento" Tag="cmbTipoEvento" Margin="0 15 0 0" Width="200" 
-                                          materialDesign:HintAssist.Hint="Tipo de evento"
-                                          ItemsSource="{Binding TiposDeEventos}" 
-                                          SelectedItem="{Binding TipoEventoSeleccionado}"></ComboBox>
-                                <Grid Margin="0 10 0 0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <DatePicker Grid.Column="0" Name="dpFechaDesde" Tag="dpFechaDesde"
-                                                Margin="0 0 10 0" 
-                                                Width="100"
-                                        materialDesign:HintAssist.Hint="Fecha desde"
-                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                                        SelectedDate="{Binding FechaDesde, Mode=TwoWay}"/>
+                </StackPanel>
 
-                                    <DatePicker Grid.Column="1" Name="dpFechaHasta" Tag="dpFechaHasta"
-                                                Margin="0 0 0 0" 
-                                                Width="100"
-                                        materialDesign:HintAssist.Hint="Fecha hasta"
-                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
-                                        SelectedDate="{Binding FechaHasta, Mode=TwoWay}"/>
-                                </Grid>
-
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0">
-                                        <Button Name="btnBuscar" Tag="btnBuscar" Content="Buscar" 
-                                                Command="{Binding SearchCommand}"
-                                                Margin="0 20 10 0"  Style="{DynamicResource MaterialDesignFlatMidBgButton}" /> 
-                                    </Grid>
-                                    <Grid Grid.Column="1">
-                                        <Button Name="btnLimpiar" Tag="btnLimpiar" Content="Limpiar" IsEnabled="True" 
-                                                Command="{Binding CleanCommand}"
-                                                Margin="10 20 0 0" Style="{DynamicResource MaterialDesignFlatMidBgButton}">
-                                        </Button>
-                                    </Grid>
-                                </Grid>
+                <GroupBox
+                    Grid.Column="1"
+                    MaxHeight="310"
+                    Margin="16"
+                    Header="Buscar"
+                    Style="{DynamicResource MaterialDesignCardGroupBox}">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="32"
+                                    Height="32"
+                                    VerticalAlignment="Center"
+                                    Kind="Magnify" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                    Text="{Binding}" />
                             </StackPanel>
-                        </Grid>
-                    </GroupBox>
-                </Grid>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                    <Grid>
+                        <StackPanel Margin="5" Orientation="Vertical">
+                            <TextBox
+                                Name="txtNombreUsuario"
+                                Width="200"
+                                Margin="0,0,0,0"
+                                materialDesign:HintAssist.Hint="Nombre usuario"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Tag="txtNombreUsuario">
+                                <TextBox.Text>
+                                    <Binding Path="NombreUsuario" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox
+                                Name="txtDescripcion"
+                                Width="200"
+                                Margin="0,5,0,0"
+                                materialDesign:HintAssist.Hint="Descripción"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Tag="txtDescripcion">
+                                <TextBox.Text>
+                                    <Binding Path="Descripcion" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <ComboBox
+                                Name="cmbTipoEvento"
+                                Width="200"
+                                Margin="0,15,0,0"
+                                materialDesign:HintAssist.Hint="Tipo de evento"
+                                ItemsSource="{Binding TiposDeEventos}"
+                                SelectedItem="{Binding TipoEventoSeleccionado}"
+                                Tag="cmbTipoEvento" />
+                            <Grid Margin="0,10,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <DatePicker
+                                    Name="dpFechaDesde"
+                                    Grid.Column="0"
+                                    Width="100"
+                                    Margin="0,0,10,0"
+                                    materialDesign:HintAssist.Hint="Fecha desde"
+                                    SelectedDate="{Binding FechaDesde, Mode=TwoWay}"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                    Tag="dpFechaDesde" />
+
+                                <DatePicker
+                                    Name="dpFechaHasta"
+                                    Grid.Column="1"
+                                    Width="100"
+                                    Margin="0,0,0,0"
+                                    materialDesign:HintAssist.Hint="Fecha hasta"
+                                    SelectedDate="{Binding FechaHasta, Mode=TwoWay}"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                    Tag="dpFechaHasta" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Button
+                                        Name="btnBuscar"
+                                        Margin="0,20,10,0"
+                                        Command="{Binding SearchCommand}"
+                                        Content="Buscar"
+                                        Style="{DynamicResource MaterialDesignFlatMidBgButton}"
+                                        Tag="btnBuscar" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Button
+                                        Name="btnLimpiar"
+                                        Margin="10,20,0,0"
+                                        Command="{Binding CleanCommand}"
+                                        Content="Limpiar"
+                                        IsEnabled="True"
+                                        Style="{DynamicResource MaterialDesignFlatMidBgButton}"
+                                        Tag="btnLimpiar" />
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
             </Grid>
+        </Grid>
     </Grid>
 
 

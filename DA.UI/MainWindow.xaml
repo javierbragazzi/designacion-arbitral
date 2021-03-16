@@ -1,25 +1,29 @@
-﻿<Window x:Class="DA.UI.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:principales="clr-namespace:DA.UI.Principales"
-        xmlns:bitacora="clr-namespace:DA.UI.Principales.Bitacora"
-        xmlns:designacion="clr-namespace:DA.UI.Principales.Designacion"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:ui="clr-namespace:DA.UI"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="750" Width="1200"
-        WindowStyle="None"
-        AllowsTransparency="False"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Medium"
-        TextElement.FontSize="14"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        WindowStartupLocation="CenterScreen" 
-        Loaded="Window_Loaded" 
-        ContentRendered="Window_ContentRendered" PreviewKeyDown="Event_PreviewKeyDown"        >
+﻿<Window
+    x:Class="DA.UI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bitacora="clr-namespace:DA.UI.Principales.Bitacora"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:designacion="clr-namespace:DA.UI.Principales.Designacion"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:principales="clr-namespace:DA.UI.Principales"
+    xmlns:ui="clr-namespace:DA.UI"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    Title="MainWindow"
+    Width="1200"
+    Height="750"
+    AllowsTransparency="False"
+    ContentRendered="Window_ContentRendered"
+    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    Loaded="Window_Loaded"
+    PreviewKeyDown="Event_PreviewKeyDown"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -30,70 +34,210 @@
         </ResourceDictionary>
     </Window.Resources>
     <Window.Background>
-        <SolidColorBrush Color="White"></SolidColorBrush>
+        <SolidColorBrush Color="White" />
     </Window.Background>
-    <xctk:BusyIndicator Grid.Row="1" IsBusy="False"  BusyContent="Cargando...">
-        <materialDesign:DialogHost Identifier="dhMensajes" SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}" CloseOnClickAway="True" >
-            <materialDesign:DialogHost Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}" CloseOnClickAway="True" >
+    <xctk:BusyIndicator
+        Grid.Row="1"
+        BusyContent="Cargando..."
+        IsBusy="False">
+        <materialDesign:DialogHost
+            CloseOnClickAway="True"
+            Identifier="dhMensajes"
+            SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+            <materialDesign:DialogHost
+                CloseOnClickAway="True"
+                Identifier="RootDialog"
+                SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
                 <Border Background="Transparent" MouseLeftButtonDown="Border_OnMouseLeftButtonDown">
                     <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
                         <materialDesign:DrawerHost.LeftDrawerContent>
                             <DockPanel MinWidth="212">
-                                <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
-                                        DockPanel.Dock="Top"
-                                        HorizontalAlignment="Right" Margin="16"
-                                        IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"/>
-                                <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                                          VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" >
-                                    <ListBox x:Name="MenuItemsListBox" Margin="0 16 0 16" SelectedIndex="0"  >
+                                <ToggleButton
+                                    Margin="16"
+                                    HorizontalAlignment="Right"
+                                    DockPanel.Dock="Top"
+                                    IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"
+                                    Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                                <ScrollViewer
+                                    HorizontalScrollBarVisibility="Auto"
+                                    PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+                                    VerticalScrollBarVisibility="Auto">
+                                    <ListBox
+                                        x:Name="MenuItemsListBox"
+                                        Margin="0,16,0,16"
+                                        SelectedIndex="0">
                                         <ListBox.Resources>
-                                            <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
+                                            <Style BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" TargetType="ScrollBar" />
                                         </ListBox.Resources>
-                                        <TreeView Name="treeViewMenu" MinWidth="220" >
+                                        <TreeView Name="treeViewMenu" MinWidth="220">
                                             <TreeView.Resources>
-                                                <Style TargetType="TreeView" BasedOn="{StaticResource MaterialDesignTreeView}"/>
+                                                <Style BasedOn="{StaticResource MaterialDesignTreeView}" TargetType="TreeView" />
                                             </TreeView.Resources>
-                                            <TreeViewItem Name="itemAdministracion" Tag="6|Administración" Visibility="Collapsed" Header="Administración" >
-                                                <TreeViewItem Name="itemArbitros" Tag="12|Árbitros" Visibility="Collapsed" Header="Árbitros" PreviewMouseLeftButtonDown="ItemArbitros_PreviewMouseLeftButtonDown" GotFocus="HacerVisibleAdministracion"   />
-                                                <TreeViewItem Name="itemCampeonatos" Tag="13|Campeonatos" Visibility="Collapsed" Header="Campeonatos" PreviewMouseLeftButtonDown="ItemCampeonatos_PreviewMouseLeftButtonDown" GotFocus="HacerVisibleAdministracion"   />
-                                                <TreeViewItem Name="itemCategorias" Tag="14|Categorías" Visibility="Collapsed" Header="Categorías" PreviewMouseLeftButtonDown="ItemCategorias_PreviewMouseLeftButtonDown" GotFocus="HacerVisibleAdministracion"   />
-                                                <TreeViewItem Name="itemEquipos" Tag="15|Equipos" Visibility="Collapsed" Header="Equipos" PreviewMouseLeftButtonDown="ItemEquipos_PreviewMouseLeftButtonDown" GotFocus="HacerVisibleAdministracion"   />
-                                                <TreeViewItem Name="itemPartidos" Tag="16|Partidos" Visibility="Collapsed" Header="Partidos" PreviewMouseLeftButtonDown="ItemPartidos_PreviewMouseLeftButtonDown" GotFocus="HacerVisibleAdministracion"   />
+                                            <TreeViewItem
+                                                Name="itemAdministracion"
+                                                Header="Administración"
+                                                Tag="6|Administración"
+                                                Visibility="Collapsed">
+                                                <TreeViewItem
+                                                    Name="itemArbitros"
+                                                    GotFocus="HacerVisibleAdministracion"
+                                                    Header="Árbitros"
+                                                    PreviewMouseLeftButtonDown="ItemArbitros_PreviewMouseLeftButtonDown"
+                                                    Tag="12|Árbitros"
+                                                    Visibility="Collapsed" />
+                                                <TreeViewItem
+                                                    Name="itemCampeonatos"
+                                                    GotFocus="HacerVisibleAdministracion"
+                                                    Header="Campeonatos"
+                                                    PreviewMouseLeftButtonDown="ItemCampeonatos_PreviewMouseLeftButtonDown"
+                                                    Tag="13|Campeonatos"
+                                                    Visibility="Collapsed" />
+                                                <TreeViewItem
+                                                    Name="itemCategorias"
+                                                    GotFocus="HacerVisibleAdministracion"
+                                                    Header="Categorías"
+                                                    PreviewMouseLeftButtonDown="ItemCategorias_PreviewMouseLeftButtonDown"
+                                                    Tag="14|Categorías"
+                                                    Visibility="Collapsed" />
+                                                <TreeViewItem
+                                                    Name="itemEquipos"
+                                                    GotFocus="HacerVisibleAdministracion"
+                                                    Header="Equipos"
+                                                    PreviewMouseLeftButtonDown="ItemEquipos_PreviewMouseLeftButtonDown"
+                                                    Tag="15|Equipos"
+                                                    Visibility="Collapsed" />
+                                                <TreeViewItem
+                                                    Name="itemPartidos"
+                                                    GotFocus="HacerVisibleAdministracion"
+                                                    Header="Partidos"
+                                                    PreviewMouseLeftButtonDown="ItemPartidos_PreviewMouseLeftButtonDown"
+                                                    Tag="16|Partidos"
+                                                    Visibility="Collapsed" />
                                             </TreeViewItem>
-                                            <TreeViewItem Name="itemDesignación" Tag="7|Designación" Visibility="Collapsed"  Header="Designación">
-                                                <TreeViewItem Name="itemRealizarDesignación" Tag="17|Realizar designación" Visibility="Collapsed" Header="Realizar designación" PreviewMouseLeftButtonDown="ItemRealizarDesignación_PreviewMouseLeftButtonDown"  GotFocus="HacerVisibleDesignacion"   />
+                                            <TreeViewItem
+                                                Name="itemDesignación"
+                                                Header="Designación"
+                                                Tag="7|Designación"
+                                                Visibility="Collapsed">
+                                                <TreeViewItem
+                                                    Name="itemRealizarDesignación"
+                                                    GotFocus="HacerVisibleDesignacion"
+                                                    Header="Realizar designación"
+                                                    PreviewMouseLeftButtonDown="ItemRealizarDesignación_PreviewMouseLeftButtonDown"
+                                                    Tag="17|Realizar designación"
+                                                    Visibility="Collapsed" />
                                             </TreeViewItem>
-                                            <TreeViewItem  Name="itemEvaluación" Tag="8|Evaluación" Visibility="Collapsed" Header="Evaluación">
-                                                <TreeViewItem Name="itemCalificar" Tag="18|Calificar árbitros"  Visibility="Collapsed" Header="Calificar árbitros" PreviewMouseLeftButtonDown="ItemCalificar_PreviewMouseLeftButtonDown"  GotFocus="HacerVisibleEvaluacion"  />
-                                                <TreeViewItem Name="itemPromocionDescenso" Tag="19|Promoción/Descenso" Visibility="Collapsed" Header="Promoción/Descenso" PreviewMouseLeftButtonDown="ItemPromocionDescenso_PreviewMouseLeftButtonDown" GotFocus="HacerVisibleEvaluacion"   />
-                                                <TreeViewItem Name="itemAsignarNiveles" Tag="27|Asignar Niveles" Visibility="Collapsed" Header="Asignar Niveles" PreviewMouseLeftButtonDown="ItemAsignarNiveles_PreviewMouseLeftButtonDown" GotFocus="HacerVisibleEvaluacion"  />
+                                            <TreeViewItem
+                                                Name="itemEvaluación"
+                                                Header="Evaluación"
+                                                Tag="8|Evaluación"
+                                                Visibility="Collapsed">
+                                                <TreeViewItem
+                                                    Name="itemCalificar"
+                                                    GotFocus="HacerVisibleEvaluacion"
+                                                    Header="Calificar árbitros"
+                                                    PreviewMouseLeftButtonDown="ItemCalificar_PreviewMouseLeftButtonDown"
+                                                    Tag="18|Calificar árbitros"
+                                                    Visibility="Collapsed" />
+                                                <TreeViewItem
+                                                    Name="itemPromocionDescenso"
+                                                    GotFocus="HacerVisibleEvaluacion"
+                                                    Header="Promoción/Descenso"
+                                                    PreviewMouseLeftButtonDown="ItemPromocionDescenso_PreviewMouseLeftButtonDown"
+                                                    Tag="19|Promoción/Descenso"
+                                                    Visibility="Collapsed" />
+                                                <TreeViewItem
+                                                    Name="itemAsignarNiveles"
+                                                    GotFocus="HacerVisibleEvaluacion"
+                                                    Header="Asignar Niveles"
+                                                    PreviewMouseLeftButtonDown="ItemAsignarNiveles_PreviewMouseLeftButtonDown"
+                                                    Tag="27|Asignar Niveles"
+                                                    Visibility="Collapsed" />
                                             </TreeViewItem>
-                                            <TreeViewItem  Name="itemSeguridad" Tag="9|Seguridad" Visibility="Collapsed" Header="Seguridad">
-                                                <TreeViewItem Name="itemUsuarios" Tag="20|Usuarios" Visibility="Collapsed" Header="Usuarios" PreviewMouseLeftButtonDown="ItemUsuarios_PreviewMouseLeftButtonDown"  GotFocus="HacerVisibleSeguridad"   />
-                                                <TreeViewItem Name="itemGestionarPerfiles" Tag="21|Gestionar Perfiles" Visibility="Collapsed" Header="Gestionar Perfiles" PreviewMouseLeftButtonDown="ItemGestionarPerfiles_PreviewMouseLeftButtonDown" GotFocus="HacerVisibleSeguridad"/>
-                                                <TreeViewItem Name="itemCrearPerfiles" Tag="22|Crear Perfiles" Visibility="Collapsed" Header="Crear Perfiles" PreviewMouseLeftButtonDown="ItemCrearPerfiles_OnPreviewMouseLeftButtonDown" GotFocus="HacerVisibleSeguridad"/>
+                                            <TreeViewItem
+                                                Name="itemSeguridad"
+                                                Header="Seguridad"
+                                                Tag="9|Seguridad"
+                                                Visibility="Collapsed">
+                                                <TreeViewItem
+                                                    Name="itemUsuarios"
+                                                    GotFocus="HacerVisibleSeguridad"
+                                                    Header="Usuarios"
+                                                    PreviewMouseLeftButtonDown="ItemUsuarios_PreviewMouseLeftButtonDown"
+                                                    Tag="20|Usuarios"
+                                                    Visibility="Collapsed" />
+                                                <TreeViewItem
+                                                    Name="itemGestionarPerfiles"
+                                                    GotFocus="HacerVisibleSeguridad"
+                                                    Header="Gestionar Perfiles"
+                                                    PreviewMouseLeftButtonDown="ItemGestionarPerfiles_PreviewMouseLeftButtonDown"
+                                                    Tag="21|Gestionar Perfiles"
+                                                    Visibility="Collapsed" />
+                                                <TreeViewItem
+                                                    Name="itemCrearPerfiles"
+                                                    GotFocus="HacerVisibleSeguridad"
+                                                    Header="Crear Perfiles"
+                                                    PreviewMouseLeftButtonDown="ItemCrearPerfiles_OnPreviewMouseLeftButtonDown"
+                                                    Tag="22|Crear Perfiles"
+                                                    Visibility="Collapsed" />
                                             </TreeViewItem>
-                                            <TreeViewItem  Name="itemServicios" Tag="10|Servicios" Visibility="Collapsed" Header="Servicios">
-                                                <TreeViewItem Name="itemBackup" Tag="23|Backup" Visibility="Collapsed" Header="Resguardar" PreviewMouseLeftButtonDown="ItemBackup_OnPreviewMouseLeftButtonDown" GotFocus="HacerVisibleServicios"/>
-                                                <TreeViewItem Name="itemRestore" Tag="26|Restore" Visibility="Collapsed" Header="Restaurar"  GotFocus="HacerVisibleServicios" PreviewMouseLeftButtonDown="ItemRestore_PreviewMouseLeftButtonDown"/>
-                                                <TreeViewItem Name="itemBitacora" Tag="25|Bitácora" Visibility="Collapsed" Header="Bitácora" PreviewMouseLeftButtonDown="ItemBitacora_OnPreviewMouseLeftButtonDown" GotFocus="HacerVisibleServicios"/>
+                                            <TreeViewItem
+                                                Name="itemServicios"
+                                                Header="Servicios"
+                                                Tag="10|Servicios"
+                                                Visibility="Collapsed">
+                                                <TreeViewItem
+                                                    Name="itemBackup"
+                                                    GotFocus="HacerVisibleServicios"
+                                                    Header="Resguardar"
+                                                    PreviewMouseLeftButtonDown="ItemBackup_OnPreviewMouseLeftButtonDown"
+                                                    Tag="23|Backup"
+                                                    Visibility="Collapsed" />
+                                                <TreeViewItem
+                                                    Name="itemRestore"
+                                                    GotFocus="HacerVisibleServicios"
+                                                    Header="Restaurar"
+                                                    PreviewMouseLeftButtonDown="ItemRestore_PreviewMouseLeftButtonDown"
+                                                    Tag="26|Restore"
+                                                    Visibility="Collapsed" />
+                                                <TreeViewItem
+                                                    Name="itemBitacora"
+                                                    GotFocus="HacerVisibleServicios"
+                                                    Header="Bitácora"
+                                                    PreviewMouseLeftButtonDown="ItemBitacora_OnPreviewMouseLeftButtonDown"
+                                                    Tag="25|Bitácora"
+                                                    Visibility="Collapsed" />
                                             </TreeViewItem>
-                                            <TreeViewItem  Name="itemPersonalizar" Tag="11|Personalizar" Visibility="Collapsed" Header="Personalizar">
-                                                <TreeViewItem Name="itemIdioma" Tag="24|Idioma" Visibility="Collapsed" Header="Gestionar idiomas" PreviewMouseLeftButtonDown="ItemIdioma_PreviewMouseLeftButtonDown" GotFocus="HacerVisiblePersonalizar"/>
+                                            <TreeViewItem
+                                                Name="itemPersonalizar"
+                                                Header="Personalizar"
+                                                Tag="11|Personalizar"
+                                                Visibility="Collapsed">
+                                                <TreeViewItem
+                                                    Name="itemIdioma"
+                                                    GotFocus="HacerVisiblePersonalizar"
+                                                    Header="Gestionar idiomas"
+                                                    PreviewMouseLeftButtonDown="ItemIdioma_PreviewMouseLeftButtonDown"
+                                                    Tag="24|Idioma"
+                                                    Visibility="Collapsed" />
 
                                             </TreeViewItem>
-                                        </TreeView >
+                                        </TreeView>
                                         <TreeView Name="treeViewIdioma">
-                                            <TreeViewItem  Name="itemSelecIdioma" Tag="25|HeaderIdioma" Visibility="Visible" Header="Idioma">
-                                                 <ComboBox 
+                                            <TreeViewItem
+                                                Name="itemSelecIdioma"
+                                                Header="Idioma"
+                                                Tag="25|HeaderIdioma"
+                                                Visibility="Visible">
+                                                <ComboBox
                                                     Name="cmbIdioma"
-                                                    Tag="txtHintIdioma"
-                                                    materialDesign:HintAssist.Hint="Seleccione idioma"
                                                     MinWidth="72"
-                                                    Margin="5 0 0 0"
+                                                    Margin="5,0,0,0"
+                                                    materialDesign:HintAssist.Hint="Seleccione idioma"
                                                     DisplayMemberPath="Descripcion"
-                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
-                                                    SelectionChanged="CmbIdioma_SelectionChanged">
+                                                    SelectionChanged="CmbIdioma_SelectionChanged"
+                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                                    Tag="txtHintIdioma">
                                                     <ComboBox.ItemsPanel>
                                                         <ItemsPanelTemplate>
                                                             <VirtualizingStackPanel />
@@ -107,23 +251,51 @@
                             </DockPanel>
                         </materialDesign:DrawerHost.LeftDrawerContent>
                         <DockPanel>
-                            <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryDark" DockPanel.Dock="Top" PreviewMouseLeftButtonDown="ColorZone_PreviewMouseLeftButtonDown">
+                            <materialDesign:ColorZone
+                                Padding="16"
+                                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                DockPanel.Dock="Top"
+                                Mode="PrimaryDark"
+                                PreviewMouseLeftButtonDown="ColorZone_PreviewMouseLeftButtonDown">
                                 <DockPanel>
-                                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False" x:Name="MenuToggleButton"/>
-                                    <materialDesign:ColorZone DockPanel.Dock="Right" Mode="PrimaryDark" >
-                                        <StackPanel Orientation="Horizontal" Margin="0 0 0 0" >
-                                            <Button Name="btnAyuda" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="30" Height="30"  materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="0" Click="BtnAyuda_OnClick">
-                                                <materialDesign:PackIcon Kind="QuestionMarkCircle"></materialDesign:PackIcon>
+                                    <ToggleButton
+                                        x:Name="MenuToggleButton"
+                                        IsChecked="False"
+                                        Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                                    <materialDesign:ColorZone DockPanel.Dock="Right" Mode="PrimaryDark">
+                                        <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+                                            <Button
+                                                Name="btnAyuda"
+                                                Width="30"
+                                                Height="30"
+                                                Padding="0"
+                                                materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                                                Click="BtnAyuda_OnClick"
+                                                Style="{StaticResource MaterialDesignRaisedLightButton}">
+                                                <materialDesign:PackIcon Kind="QuestionMarkCircle" />
                                             </Button>
 
-                                            <StackPanel Orientation="Vertical" Margin="10 0 0 0"   >
-                                                <Button Name="btnSalir" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="30" Height="30"  materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="0" Click="BtnSalir_Click">
-                                                    <materialDesign:PackIcon Kind="WindowClose"></materialDesign:PackIcon>
+                                            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                                                <Button
+                                                    Name="btnSalir"
+                                                    Width="30"
+                                                    Height="30"
+                                                    Padding="0"
+                                                    materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                                                    Click="BtnSalir_Click"
+                                                    Style="{StaticResource MaterialDesignRaisedLightButton}">
+                                                    <materialDesign:PackIcon Kind="WindowClose" />
                                                 </Button>
                                             </StackPanel>
                                         </StackPanel>
                                     </materialDesign:ColorZone>
-                                    <TextBlock Tag="txtTituloMainWindow" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Designación Arbitral</TextBlock>
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="22"
+                                        Tag="txtTituloMainWindow">
+                                        Designación Arbitral
+                                    </TextBlock>
                                 </DockPanel>
                             </materialDesign:ColorZone>
                             <Grid>
@@ -135,27 +307,98 @@
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <Grid.Background>
-                                    <ImageBrush ImageSource="/Imagenes/Silbato.jpg" Stretch="None" Opacity="0.3" />
+                                    <ImageBrush
+                                        ImageSource="/Imagenes/Silbato.jpg"
+                                        Opacity="0.3"
+                                        Stretch="None" />
                                 </Grid.Background>
-                                <ScrollViewer Grid.Row="1"  Name="ScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" MouseLeftButtonDown="ScrollViewer_MouseLeftButtonDown"  Visibility ="Visible">
-                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
-                                        <principales:AdmUsuarios  x:Name="admUsuario"  Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                        <principales:AdmPerfiles  x:Name="admPerfiles" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <principales:AdmBackup  x:Name="admBackup" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <principales:AdmRestore  x:Name="admRestore" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <principales:AdmArbitros  x:Name="admArbitros" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <bitacora:AdmBitacora  x:Name="admBitacora" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <principales:AdmIdioma  x:Name="admIdioma" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 40 0 0" />
-                                        <designacion:UCDesignacion  x:Name="ucDesignacion" Visibility="Collapsed" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 0 0 0" />
-                                        <principales:UCAsignarNiveles  x:Name="ucAsignarNiveles" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 40 0 0" />
-                                        <principales:AdmGruposPermisos x:Name="admGruposPermisos" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 0" />
-                                        <principales:UCCalificacion x:Name="UcCalificacion" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 0" />
-                                        <principales:UCPromocionDescenso x:Name="UcPromocionDescenso" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 0" />
-                                        <ui:EnConstruccion x:Name="EnConstruccion" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 0" />
+                                <ScrollViewer
+                                    Name="ScrollViewer"
+                                    Grid.Row="1"
+                                    HorizontalScrollBarVisibility="Auto"
+                                    MouseLeftButtonDown="ScrollViewer_MouseLeftButtonDown"
+                                    VerticalScrollBarVisibility="Auto"
+                                    Visibility="Visible">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <principales:AdmUsuarios
+                                            x:Name="admUsuario"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Visibility="Collapsed" />
+                                        <principales:AdmPerfiles
+                                            x:Name="admPerfiles"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Visibility="Collapsed" />
+                                        <principales:AdmBackup
+                                            x:Name="admBackup"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Visibility="Collapsed" />
+                                        <principales:AdmRestore
+                                            x:Name="admRestore"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Visibility="Collapsed" />
+                                        <principales:AdmArbitros
+                                            x:Name="admArbitros"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Visibility="Collapsed" />
+                                        <bitacora:AdmBitacora
+                                            x:Name="admBitacora"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Visibility="Collapsed" />
+                                        <principales:AdmIdioma
+                                            x:Name="admIdioma"
+                                            Margin="0,40,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            Visibility="Collapsed" />
+                                        <designacion:UCDesignacion
+                                            x:Name="ucDesignacion"
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            Visibility="Collapsed" />
+                                        <principales:UCAsignarNiveles
+                                            x:Name="ucAsignarNiveles"
+                                            Margin="0,40,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            Visibility="Collapsed" />
+                                        <principales:AdmGruposPermisos
+                                            x:Name="admGruposPermisos"
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            Visibility="Collapsed" />
+                                        <principales:UCCalificacion
+                                            x:Name="UcCalificacion"
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            Visibility="Collapsed" />
+                                        <principales:UCPromocionDescenso
+                                            x:Name="UcPromocionDescenso"
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            Visibility="Collapsed" />
+                                        <ui:EnConstruccion
+                                            x:Name="EnConstruccion"
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            Visibility="Collapsed" />
                                     </StackPanel>
 
                                 </ScrollViewer>
-                                <materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}" x:Name="MainSnackbar" Grid.Row="1" />
+                                <materialDesign:Snackbar
+                                    x:Name="MainSnackbar"
+                                    Grid.Row="1"
+                                    MessageQueue="{materialDesign:MessageQueue}" />
                             </Grid>
                         </DockPanel>
                     </materialDesign:DrawerHost>

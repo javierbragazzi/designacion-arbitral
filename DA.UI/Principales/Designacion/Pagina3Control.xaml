@@ -1,14 +1,14 @@
-﻿<UserControl x:Class="DA.UI.Principales.Designacion.Pagina3Control"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DA.UI.Principales.Designacion"
-             xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:ui="clr-namespace:DA.UI"
-             mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="1100">
+﻿<UserControl
+    x:Class="DA.UI.Principales.Designacion.Pagina3Control"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
+    d:DesignHeight="650"
+    d:DesignWidth="1100"
+    mc:Ignorable="d">
     <UserControl.DataContext>
         <viewModel:Pagina3ControlViewModel />
     </UserControl.DataContext>
@@ -22,109 +22,124 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid >
+    <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="65"/>
-            <RowDefinition Height="550"/>
-     
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="65" />
+            <RowDefinition Height="550" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1100"/>
+            <ColumnDefinition Width="1100" />
         </Grid.ColumnDefinitions>
-        <TextBlock 
-            Grid.Column="0" Grid.Row="0" 
-            Margin="0 0 0 0"
-            HorizontalAlignment="Center" 
-            Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-            Text="Paso 3" VerticalAlignment="Center" />
-
-
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="0,0,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+            Text="Paso 3" />
         <Grid Grid.Row="1" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
-                <RowDefinition Height="550"/>
-     
+                <RowDefinition Height="550" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1100"/>
-            
+                <ColumnDefinition Width="1100" />
             </Grid.ColumnDefinitions>
-
-            <GroupBox Grid.Column="0"
-                            Header="Resultado de designación"
-                            Style="{DynamicResource MaterialDesignCardGroupBox}"
-                            Margin="9">
+            <GroupBox
+                Grid.Column="0"
+                Margin="9"
+                Header="Resultado de designación"
+                Style="{DynamicResource MaterialDesignCardGroupBox}">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
-                        <StackPanel
-                                        Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
                             <TextBlock
-                                            Margin="8,0,0,0"
-                                            VerticalAlignment="Center"
-                                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                            Text="{Binding}" />
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                Text="{Binding}" />
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
-                <Grid >
+                <Grid>
                     <Grid.RowDefinitions>
-           
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-            
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                  
-                    <DataGrid Grid.Column="0"  Style="{StaticResource MaterialDesignDataGrid }" 
-                              ItemsSource="{Binding PartidosDesignados}" 
-                              CanUserAddRows="false" CanUserDeleteRows="False" AutoGenerateColumns="False"  >
+                    <DataGrid
+                        Grid.Column="0"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="false"
+                        CanUserDeleteRows="False"
+                        ItemsSource="{Binding PartidosDesignados}"
+                        Style="{StaticResource MaterialDesignDataGrid}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Prioridad}"  Header="N°" IsReadOnly="True" />
-                            <DataGridTextColumn Binding="{Binding Equipo1.Nombre}"  Header="Local" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Equipo2.Nombre}"  Header="Visitante" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Fecha}"  Header="Fecha y hora" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Equipo1.Categoria.Descripcion}"  Header="Categoría" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding NombreArbitroPrincipal}"  Header="Abtro. Principal" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding NombreArbitroAsistente}"  Header="Abtro. Asistente" IsReadOnly="True"/>
+                            <DataGridTextColumn
+                                Binding="{Binding Prioridad}"
+                                Header="N°"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Binding="{Binding Equipo1.Nombre}"
+                                Header="Local"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Binding="{Binding Equipo2.Nombre}"
+                                Header="Visitante"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Binding="{Binding Fecha}"
+                                Header="Fecha y hora"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Binding="{Binding Equipo1.Categoria.Descripcion}"
+                                Header="Categoría"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Binding="{Binding NombreArbitroPrincipal}"
+                                Header="Abtro. Principal"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Binding="{Binding NombreArbitroAsistente}"
+                                Header="Abtro. Asistente"
+                                IsReadOnly="True" />
                         </DataGrid.Columns>
                     </DataGrid>
-
                 </Grid>
             </GroupBox>
-
-
-
         </Grid>
-
         <Grid Grid.Row="2">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="680"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="680" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-
-
-                <Button VerticalAlignment="Bottom" HorizontalAlignment="Left"  Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}" >
+                <!--<Button
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}">
                     <materialDesign:PackIcon
-                        Kind="ArrowLeftBoldCircle"
+                        Width="24"
                         Height="24"
-                        Width="24" />
-                </Button>
-                <Button VerticalAlignment="Bottom" Grid.Column="1" HorizontalAlignment="Right" Command="{x:Static materialDesign:Transitioner.MoveNextCommand}" >
+                        Kind="ArrowLeftBoldCircle" />
+                </Button>-->
+                <Button
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Command="{x:Static materialDesign:Transitioner.MoveNextCommand}">
                     <materialDesign:PackIcon
-                        Kind="ContentSave"
+                        Width="24"
                         Height="24"
-                        Width="24" />
+                        Kind="ContentSave" />
                 </Button>
-
-
             </Grid>
         </Grid>
-
     </Grid>
 </UserControl>

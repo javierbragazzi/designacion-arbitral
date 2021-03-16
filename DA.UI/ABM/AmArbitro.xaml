@@ -1,172 +1,283 @@
-﻿<UserControl x:Class="DA.UI.ABM.AmArbitro"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:ss="clr-namespace:DA.SS;assembly=DA.SS"
-             mc:Ignorable="d"
-             xmlns:ui="clr-namespace:DA.UI"
-             xmlns:principales="clr-namespace:DA.UI.Principales"
-             xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"    
-             Background="White"
-             >
+﻿<UserControl
+    x:Class="DA.UI.ABM.AmArbitro"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ss="clr-namespace:DA.SS;assembly=DA.SS"
+    xmlns:ui="clr-namespace:DA.UI"
+    xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
+    Background="White"
+    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    mc:Ignorable="d">
     <UserControl.DataContext>
         <viewModel:AmArbitroViewModel />
     </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid >
+    <Grid>
         <StackPanel Margin="5" Orientation="Vertical">
 
             <materialDesign:ColorZone
-                Mode="PrimaryDark" Padding="10" CornerRadius="4"
-                materialDesign:ShadowAssist.ShadowDepth="Depth2" Margin="2">
-                <StackPanel
-                    Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="AccountsAddOutline" Width="30" Height="30" Margin="0 5 10 0"/>
-                    <TextBlock Name="txtTitulo" Text="{Binding Titulo}" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0 10 10 0">ABM Arbitro</TextBlock>
+                Margin="2"
+                Padding="10"
+                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                CornerRadius="4"
+                Mode="PrimaryDark">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Width="30"
+                        Height="30"
+                        Margin="0,5,10,0"
+                        Kind="AccountsAddOutline" />
+                    <TextBlock
+                        Name="txtTitulo"
+                        Margin="0,10,10,0"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                        Text="{Binding Titulo}">
+                        ABM Arbitro
+                    </TextBlock>
                 </StackPanel>
             </materialDesign:ColorZone>
             <StackPanel Orientation="Vertical">
-                <GroupBox Header="Información Personal" Margin="5">
+                <GroupBox Margin="5" Header="Información Personal">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Name="txtNombre" Margin="0 5 10 0" Width="150" materialDesign:HintAssist.Hint="Nombre"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Text="{Binding Nombre}">
+                            <TextBox
+                                Name="txtNombre"
+                                Width="150"
+                                Margin="0,5,10,0"
+                                materialDesign:HintAssist.Hint="Nombre"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <TextBox.Text>
+                                    <Binding Path="Nombre" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <ss:SoloLetrasValidationRule ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
                             </TextBox>
-                            <TextBox Name="txtApellido" Margin="0 5 10 0" Width="150" materialDesign:HintAssist.Hint="Apellido"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Text="{Binding Apellido}">
+                            <TextBox
+                                Name="txtApellido"
+                                Width="150"
+                                Margin="0,5,10,0"
+                                materialDesign:HintAssist.Hint="Apellido"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <TextBox.Text>
+                                    <Binding Path="Apellido" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <ss:SoloLetrasValidationRule ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
                             </TextBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <!--<TextBox Name="txtGenero" Margin="0 15 10 0" Width="150" materialDesign:HintAssist.Hint="Genero"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Text="{Binding Genero}">
-                            </TextBox>-->
-                            <ComboBox Name="cmbGenero" HorizontalAlignment="Left"  Margin="0 15 10 0"  Width="150"  materialDesign:HintAssist.Hint="Seleccione genero"
-                                ItemsSource="{Binding Generos}" 
-                                SelectedItem="{Binding Genero}"
-                                DisplayMemberPath="Descripcion"
+
+                            <ComboBox
+                                Name="cmbGenero"
+                                Width="150"
                                 Height="28"
+                                Margin="0,15,10,0"
+                                HorizontalAlignment="Left"
+                                materialDesign:HintAssist.Hint="Seleccione genero"
+                                DisplayMemberPath="Descripcion"
                                 IsSynchronizedWithCurrentItem="True"
-                            />
+                                ItemsSource="{Binding Generos}"
+                                SelectedItem="{Binding Genero}" />
 
 
-                            <TextBox Name="txtDni" Margin="0 15 10 0" Width="150" materialDesign:HintAssist.Hint="DNI"
-                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding DNI}">
+                            <TextBox
+                                Name="txtDni"
+                                Width="150"
+                                Margin="0,15,10,0"
+                                materialDesign:HintAssist.Hint="DNI"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <TextBox.Text>
+                                    <Binding Path=".DNI" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <ss:DNIValidationRule ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
                             </TextBox>
-                            
+
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <DatePicker Name="dtpFechaNacimiento" materialDesign:HintAssist.Hint="Fecha de Nacimiento" 
-                            Margin="0 15 10 0" Width="150" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
-                            SelectedDate="{Binding Path=FechaNacimiento, Mode=TwoWay,TargetNullValue={x:Static System:DateTime.Now}}"/>
+                            <DatePicker
+                                Name="dtpFechaNacimiento"
+                                Width="150"
+                                Margin="0,15,10,0"
+                                materialDesign:HintAssist.Hint="Fecha de Nacimiento"
+                                SelectedDate="{Binding Path=FechaNacimiento, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"
+                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                         </StackPanel>
                     </StackPanel>
 
                 </GroupBox>
-                <GroupBox Header="Información Profesional" Margin="5">
+                <GroupBox Margin="5" Header="Información Profesional">
                     <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
-
-
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <ComboBox Name="cmbDeporte" HorizontalAlignment="Left"  Margin="0 5 10 0" Grid.Row="1" VerticalAlignment="Center" Width="150"  materialDesign:HintAssist.Hint="Seleccione Deporte"
-                          ItemsSource="{Binding Deportes}" 
-                          SelectedItem="{Binding Deporte}"
-                          DisplayMemberPath="Descripcion" Height="28"
-                          ui:SelectionChangedBehaviour.Command="{Binding SelectedItemChangedDeporteCommand}"
-                          IsSynchronizedWithCurrentItem="True" />
-                            <TextBox Name="txtAniosExperiencia" Margin="0 5 10 0" Width="150" materialDesign:HintAssist.Hint="Años de experiencia"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Text="{Binding AniosExperiencia}">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <ComboBox
+                                Name="cmbDeporte"
+                                Grid.Row="1"
+                                Width="150"
+                                Height="28"
+                                Margin="0,5,10,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                materialDesign:HintAssist.Hint="Seleccione Deporte"
+                                ui:SelectionChangedBehaviour.Command="{Binding SelectedItemChangedDeporteCommand}"
+                                DisplayMemberPath="Descripcion"
+                                IsSynchronizedWithCurrentItem="True"
+                                ItemsSource="{Binding Deportes}"
+                                SelectedItem="{Binding Deporte}" />
+                            <TextBox
+                                Name="txtAniosExperiencia"
+                                Width="150"
+                                Margin="0,5,10,0"
+                                materialDesign:HintAssist.Hint="Años de experiencia"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <TextBox.Text>
+                                    <Binding Path=".AniosExperiencia" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <ss:CeroANoventaYNueveValidationRule ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
                             </TextBox>
 
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <CheckBox Name="chkActivo" IsChecked="{Binding Path=Activo, Mode=TwoWay}" Margin="10 15 10 0" >
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <CheckBox
+                                Name="chkActivo"
+                                Margin="10,15,10,0"
+                                IsChecked="{Binding Path=Activo, Mode=TwoWay}"
+                                Visibility="Hidden"
+                                >
                                 <TextBlock>Activo</TextBlock>
                             </CheckBox>
-                            <CheckBox Name="chkTituloValidoArgentina" IsChecked="{Binding Path=TituloValidoArgentina, Mode=TwoWay}" Margin="10 15 10 0" >
+                            <CheckBox
+                                Name="chkTituloValidoArgentina"
+                                Margin="10,15,10,0"
+                                IsChecked="{Binding Path=TituloValidoArgentina, Mode=TwoWay}">
                                 <TextBlock>Titulo valido Argentina</TextBlock>
                             </CheckBox>
 
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                             <StackPanel Orientation="Horizontal">
-                                <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Default ToggleButton Style" Margin="10 15 10 0"  IsChecked="{Binding LicenciaInternacional, Mode=TwoWay}" />
-                                <TextBlock Margin="10 15 10 0">Licencia Internacional</TextBlock>
+                                <ToggleButton
+                                    Margin="10,15,10,0"
+                                    IsChecked="{Binding LicenciaInternacional, Mode=TwoWay}"
+                                    Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                    ToolTip="Default ToggleButton Style" />
+                                <TextBlock Margin="10,15,10,0">Licencia Internacional</TextBlock>
                             </StackPanel>
 
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <CheckBox Name="chkExamenFisico" IsChecked="{Binding Path=ExamenFisico, Mode=TwoWay}" Margin="10 15 10 0" >
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <CheckBox
+                                Name="chkExamenFisico"
+                                Margin="10,15,10,0"
+                                IsChecked="{Binding Path=ExamenFisico, Mode=TwoWay}">
                                 <TextBlock>Fisico aprobado</TextBlock>
                             </CheckBox>
-                            <CheckBox Name="chkExamenTeorico" IsChecked="{Binding Path=ExamenTeorico, Mode=TwoWay}" Margin="10 15 10 0" >
+                            <CheckBox
+                                Name="chkExamenTeorico"
+                                Margin="10,15,10,0"
+                                IsChecked="{Binding Path=ExamenTeorico, Mode=TwoWay}">
                                 <TextBlock>Teorico aprobado</TextBlock>
                             </CheckBox>
 
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBox Name="txtNotaAFA" Margin="0 5 10 0" Width="150" materialDesign:HintAssist.Hint="Nota AFA"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Text="{Binding NotaAFA}">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBox
+                                Name="txtNotaAFA"
+                                Width="150"
+                                Margin="0,5,10,0"
+                                materialDesign:HintAssist.Hint="Nota AFA"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <TextBox.Text>
+                                    <Binding Path=".NotaAFA" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <ss:UnoADiezValidationRule ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
                             </TextBox>
-                            <TextBox Name="txtRanking" Margin="0 5 10 0" Width="150" materialDesign:HintAssist.Hint="Ranking"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Text="{Binding Ranking}">
+                            <TextBox
+                                Name="txtRanking"
+                                Width="150"
+                                Margin="0,5,10,0"
+                                materialDesign:HintAssist.Hint="Ranking"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <TextBox.Text>
+                                    <Binding Path=".Ranking" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <ss:UnoANovecientosNoventaYNueveMilValidationRule ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
                             </TextBox>
                         </StackPanel>
 
                     </StackPanel>
-                    
+
                 </GroupBox>
             </StackPanel>
-
-
-
-
-            
-            
-
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <Button Name="btnAceptar" Content="Aceptar" Margin="0 5 0 0" 
-                            Command="{Binding RunGuardar}"
-                            Style="{DynamicResource MaterialDesignFlatButton}"  >
+                    <Button
+                        Name="btnAceptar"
+                        Margin="0,5,0,0"
+                        Command="{Binding RunGuardar}"
+                        Content="Aceptar">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="{x:Type Button}">
+                                <Setter Property="IsEnabled" Value="false" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=txtNombre, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=txtApellido, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=txtDni, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=txtAniosExperiencia, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=txtRanking, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=txtNotaAFA, Path=(Validation.HasError)}" Value="false" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="true" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
                 </Grid>
                 <Grid Grid.Column="1">
-                    <Button Name="btnCancelar" Content="Cerrar"
-                            Command="{Binding RunCancelar}"
-                            Margin="0 5 0 0" Style="{DynamicResource MaterialDesignFlatButton}">
-                    </Button>
+                    <Button
+                        Name="btnCancelar"
+                        Margin="0,5,0,0"
+                        Command="{Binding RunCancelar}"
+                        Content="Cerrar"
+                        Style="{DynamicResource MaterialDesignFlatButton}" />
                 </Grid>
             </Grid>
         </StackPanel>

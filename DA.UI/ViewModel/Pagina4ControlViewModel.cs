@@ -1,49 +1,168 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Windows.Forms;
-using System.Windows.Input;
-using DA.BLL;
-using DA.SS;
-using DA.UI.DataGrid;
-using DA.UI.Principales.Designacion;
-using GemBox.Spreadsheet;
-using MaterialDesignThemes.Wpf;
-using Arbitro = DA.BE.Arbitro;
-using SelectionType = GemBox.Spreadsheet.SelectionType;
-using TipoArbitro = DA.BE.TipoArbitro;
-
-
-namespace DA.UI.ViewModel
+﻿namespace DA.UI.ViewModel
 {
+    using DA.BLL;
+    using DA.SS;
+    using DA.UI.DataGrid;
+    using DA.UI.Principales.Designacion;
+    using GemBox.Spreadsheet;
+    using MaterialDesignThemes.Wpf;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.IO;
+    using System.Windows.Forms;
+    using System.Windows.Input;
+    using Arbitro = DA.BE.Arbitro;
+    using SelectionType = GemBox.Spreadsheet.SelectionType;
+    using TipoArbitro = DA.BE.TipoArbitro;
+
+    /// <summary>
+    /// Defines the <see cref="Pagina4ControlViewModel" />.
+    /// </summary>
     public class Pagina4ControlViewModel : ViewModelBaseLocal, ITransitionerViewModel
     {
-        private List<PartidoHelperUI> _partidosDesignados;
+        #region Fields
 
-        private bool _exportoExcel;
-
+        /// <summary>
+        /// Defines the _busyExportar.
+        /// </summary>
         private bool _busyExportar;
 
-        public bool BusyExportar
-        {
-            get => _busyExportar;
-            set => SetProperty(ref _busyExportar, value);
-        }
+        /// <summary>
+        /// Defines the _exportoExcel.
+        /// </summary>
+        private bool _exportoExcel;
 
-        public ICommand RunExportarPdfCommand { get; private set; }
-        
-        public ICommand RunExportarExcelCommand { get; private set; }
+        /// <summary>
+        /// Defines the _partidosDesignados.
+        /// </summary>
+        private List<PartidoHelperUI> _partidosDesignados;
 
-        public List<BE.Fecha> FechasDisponibles { get; set; }
+        #endregion
 
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Pagina4ControlViewModel"/> class.
+        /// </summary>
         public Pagina4ControlViewModel()
         {
             FechasDisponibles = new List<BE.Fecha>();
             RunExportarPdfCommand = new RelayCommand(ExecuteRunExportarPDF);
             RunExportarExcelCommand = new RelayCommand(ExecuteRunExportarExcel);
         }
-        
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether BusyExportar.
+        /// </summary>
+        public bool BusyExportar { get => _busyExportar; set => SetProperty(ref _busyExportar, value); }
+
+        /// <summary>
+        /// Gets or sets the FechasDisponibles.
+        /// </summary>
+        public List<BE.Fecha> FechasDisponibles { get; set; }
+
+        /// <summary>
+        /// Gets the RunExportarExcelCommand.
+        /// </summary>
+        public ICommand RunExportarExcelCommand { get; private set; }
+
+        /// <summary>
+        /// Gets the RunExportarPdfCommand.
+        /// </summary>
+        public ICommand RunExportarPdfCommand { get; private set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The Hidden.
+        /// </summary>
+        /// <param name="newViewModel">The newViewModel<see cref="ITransitionerViewModel"/>.</param>
+        public void Hidden(ITransitionerViewModel newViewModel)
+        {
+        }
+
+        /// <summary>
+        /// The Shown.
+        /// </summary>
+        /// <param name="previousViewModel">The previousViewModel<see cref="ITransitionerViewModel"/>.</param>
+        public void Shown(ITransitionerViewModel previousViewModel)
+        {
+            Pagina3ControlViewModel pag3Vm = (Pagina3ControlViewModel)previousViewModel;
+
+            FechasDisponibles = pag3Vm.FechasDisponibles;
+
+            _partidosDesignados = pag3Vm.PartidosDesignados;
+
+            _exportoExcel = false;
+
+            GuardarDesignacion();
+        }
+
+        /// <summary>
+        /// The ExcelToPdf.
+        /// </summary>
+        /// <param name="rutaExcel">The rutaExcel<see cref="string"/>.</param>
+        private void ExcelToPdf(string rutaExcel)
+        {
+        }
+
+        /// <summary>
+        /// The ExecuteRunExportarExcel.
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/>.</param>
+        private async void ExecuteRunExportarExcel(object obj)
+        {
+            try
+            {
+                string excelName = "Planilla de designaciones Fecha " + DateTime.Now.ToShortDateString().Replace('/', '-') + ".xlsx";
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.FileName = excelName;
+                saveFileDialog.Filter = "Archivo Excel (*.xlsx)|*.xlsx";
+                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string rutaExcel = ExportToExcel.ExportFutsal(_partidosDesignados[0].Equipo1.Categoria,
+                        _partidosDesignados[0].FechaDelCampeonato.Numero, _partidosDesignados,
+                        Path.GetDirectoryName(saveFileDialog.FileName), Path.GetFileName(saveFileDialog.FileName));
+
+
+                    _exportoExcel = true;
+
+                    var vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Exportar", "Se exporto la información a Excel");
+
+                    if (vieMensaje != null)
+                    {
+                        var result = await DialogHost.Show(vieMensaje, "dhMensajes");
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                var vieMensaje = new Mensaje(TipoMensaje.ERROR, "Exportar", "Ocurrió un error al exportar la información a Excel");
+
+                if (vieMensaje != null)
+                {
+                    var result = await DialogHost.Show(vieMensaje, "dhMensajes");
+                }
+
+                Logger.Log.Error(e);
+            }
+        }
+
+        /// <summary>
+        /// The ExecuteRunExportarPDF.
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/>.</param>
         private async void ExecuteRunExportarPDF(object obj)
         {
             try
@@ -70,9 +189,12 @@ namespace DA.UI.ViewModel
 
                 Logger.Log.Error(e);
             }
-
         }
 
+        /// <summary>
+        /// The ExportarAPdf.
+        /// </summary>
+        /// <returns>The <see cref="bool"/>.</returns>
         private bool ExportarAPdf()
         {
             BackgroundWorker worker = new BackgroundWorker();
@@ -91,7 +213,7 @@ namespace DA.UI.ViewModel
                 {
 
                     string rutaExcel = ExportToExcel.ExportFutsal(_partidosDesignados[0].Equipo1.Categoria,
-                        _partidosDesignados[0].FechaDelCampeonato.Numero, _partidosDesignados, 
+                        _partidosDesignados[0].FechaDelCampeonato.Numero, _partidosDesignados,
                         Path.GetDirectoryName(saveFileDialog.FileName), Path.GetFileName(saveFileDialog.FileName));
 
                     SpreadsheetInfo.SetLicense("FREE-LIMITED-KEY");
@@ -130,109 +252,11 @@ namespace DA.UI.ViewModel
             }
 
             return true;
-
         }
 
-        private async void ExecuteRunExportarExcel(object obj)
-        {
-            try
-            {
-               string excelName = "Planilla de designaciones Fecha " + DateTime.Now.ToShortDateString().Replace('/', '-') + ".xlsx";
-               
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.FileName = excelName;
-                saveFileDialog.Filter = "Archivo Excel (*.xlsx)|*.xlsx";
-                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string rutaExcel = ExportToExcel.ExportFutsal(_partidosDesignados[0].Equipo1.Categoria,
-                        _partidosDesignados[0].FechaDelCampeonato.Numero, _partidosDesignados, 
-                        Path.GetDirectoryName(saveFileDialog.FileName), Path.GetFileName(saveFileDialog.FileName));
-
-
-                    _exportoExcel = true;
-
-                    var vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Exportar", "Se exporto la información a Excel");
-
-                    if (vieMensaje != null)
-                    {
-                        var result = await DialogHost.Show(vieMensaje, "dhMensajes");
-                    }
-                }
-
-            }
-            catch (Exception e)
-            {
-                var vieMensaje = new Mensaje(TipoMensaje.ERROR, "Exportar", "Ocurrió un error al exportar la información a Excel");
-
-                if (vieMensaje != null)
-                {
-                    var result = await DialogHost.Show(vieMensaje, "dhMensajes");
-                }
-
-                Logger.Log.Error(e);
-            }
-
-        }
-
-        private void ExcelToPdf(string rutaExcel)
-        {
-            //Application app = new Application();
-            //Workbook wkb = app.Workbooks.Open(rutaExcel);
-
-            //string rutaPDF = rutaExcel.Replace(".xlsx", ".pdf");
-
-            //wkb.ExportAsFixedFormat(XlFixedFormatType.xlTypePDF, rutaPDF);
-
-            //Workbook workbook = new Workbook();
-
-            //workbook.LoadFromFile(rutaExcel, ExcelVersion.Version2016);
-
-            //string rutaPDF = rutaExcel.Replace(".xlsx", ".pdf");
-  
-            //workbook.SaveToFile(rutaPDF, Spire.Xls.FileFormat.PDF);
-
-
-            //workbook.LoadFromFile(rutaExcel);
-
-            //// Set PDF template
-            //PdfDocument pdfDocument = new PdfDocument();
-            //pdfDocument.PageSettings.Orientation = PdfPageOrientation.Landscape;
-            //pdfDocument.PageSettings.Width = 970;
-            //pdfDocument.PageSettings.Height = 850;
-            
-            ////Convert Excel to PDF using the template above
-            //PdfConverter pdfConverter = new PdfConverter(workbook);
-            //PdfConverterSettings settings = new PdfConverterSettings();
-            //settings.TemplateDocument = pdfDocument;
-            //pdfDocument = pdfConverter.Convert(settings);
-
-            //string rutaPDF = rutaExcel.Replace(".xlsx", ".pdf");
-
-            //// Save and preview PDF
-            //pdfDocument.SaveToFile(rutaPDF);
-            ////System.Diagnostics.Process.Start("sample.pdf");
-        }
-
-        public void Hidden(ITransitionerViewModel newViewModel)
-        {
-            
-        }
-
-        public void Shown(ITransitionerViewModel previousViewModel)
-        {
-            Pagina3ControlViewModel pag3Vm = (Pagina3ControlViewModel)previousViewModel;
-
-            FechasDisponibles = pag3Vm.FechasDisponibles;
-
-            _partidosDesignados = pag3Vm.PartidosDesignados;
-            
-            _exportoExcel = false;
-
-            GuardarDesignacion();
-        }
-
+        /// <summary>
+        /// The GuardarDesignacion.
+        /// </summary>
         private void GuardarDesignacion()
         {
             BLL.PartidoArbitro bllPartidoArbitro = new PartidoArbitro();
@@ -248,11 +272,10 @@ namespace DA.UI.ViewModel
                     partidoArbitro.TipoArbitro = designadoArbitrosYTipo.Value;
                     partidoArbitro.Procesado = false;
                     partidoArbitro.Calificacion = null;
+
+                    bllPartidoArbitro.Agregar(partidoArbitro);
                 }
                 
-
-                bllPartidoArbitro.Agregar(partidoArbitro);
-
             }
 
             foreach (BE.Fecha fechasDisponible in FechasDisponibles)
@@ -260,8 +283,8 @@ namespace DA.UI.ViewModel
                 fechasDisponible.Designado = true;
                 bllFecha.Editar(fechasDisponible);
             }
-            
-     
         }
+
+        #endregion
     }
 }

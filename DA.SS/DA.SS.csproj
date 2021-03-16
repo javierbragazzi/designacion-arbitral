@@ -82,6 +82,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ayuda.cs" />
+    <Compile Include="UnoADiezValidationRule.cs" />
+    <Compile Include="UnoANoventaYNueveValidationRule.cs" />
+    <Compile Include="CeroANoventaYNueveValidationRule.cs" />
+    <Compile Include="UnoANovecientosNoventaYNueveMilValidationRule.cs" />
+    <Compile Include="DNIValidationRule.cs" />
+    <Compile Include="SoloLetrasValidationRule.cs" />
     <Compile Include="Directorio.cs" />
     <Compile Include="ExportToExcel.cs" />
     <Compile Include="Filtro.cs" />

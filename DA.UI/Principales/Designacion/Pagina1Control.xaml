@@ -1,14 +1,16 @@
-﻿<UserControl x:Class="DA.UI.Principales.Designacion.Pagina1Control"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:ui="clr-namespace:DA.UI"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="1100">
+﻿<UserControl
+    x:Class="DA.UI.Principales.Designacion.Pagina1Control"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="clr-namespace:DA.UI"
+    xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    d:DesignHeight="400"
+    d:DesignWidth="1100"
+    mc:Ignorable="d">
     <UserControl.DataContext>
         <viewModel:Pagina1ControlViewModel />
     </UserControl.DataContext>
@@ -22,143 +24,170 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid >
+    <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="75*"/>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="300"/>
-            <RowDefinition Height="40"/>
-    
+            <RowDefinition Height="75*" />
+            <RowDefinition Height="60*" />
+            <RowDefinition Height="300" />
+            <RowDefinition Height="40" />
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1100"/>
+            <ColumnDefinition Width="1100" />
         </Grid.ColumnDefinitions>
         <!--<Border BorderBrush="Black" BorderThickness="1" Background="#80000000"   Visibility="{Binding Visibilidad}" Grid.RowSpan="5">
             <Grid>
                 <ui:Cargando></ui:Cargando>
             </Grid>
         </Border>-->
-        <TextBlock 
-            Grid.Column="0" Grid.Row="0" 
-            HorizontalAlignment="Center" 
-            Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-            Text="Paso 1" VerticalAlignment="Center" />
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+            Text="Paso 1" />
 
-        <ComboBox HorizontalAlignment="Left" Margin="20,15.8,0,16.2" Grid.Row="1" VerticalAlignment="Center" Width="150" 
-                  materialDesign:HintAssist.Hint="Seleccione deporte"
-                  ui:SelectionChangedBehaviour.Command="{Binding SelectedItemChangedCommand}"
-                  ItemsSource="{Binding Deportes}" 
-                  SelectedItem="{Binding DeporteSeleccionado}"
-                  DisplayMemberPath="Descripcion"
-                  
-                  Height="28"/>
+        <ComboBox
+            Grid.Row="1"
+            Width="150"
+            Height="28"
+            Margin="20,15.8,0,16.2"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            materialDesign:HintAssist.Hint="Seleccione deporte"
+            ui:SelectionChangedBehaviour.Command="{Binding SelectedItemChangedCommand}"
+            DisplayMemberPath="Descripcion"
+            ItemsSource="{Binding Deportes}"
+            SelectedItem="{Binding DeporteSeleccionado}" />
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="300" />
 
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="650"/>
-                <ColumnDefinition Width="450"/>
+                <ColumnDefinition Width="650" />
+                <ColumnDefinition Width="450" />
             </Grid.ColumnDefinitions>
 
-            <GroupBox Grid.Column="0"
-                            Header="Categorías y campeonatos disponibles"
-                            Tag="gbCatyCamp"
-                            Style="{DynamicResource MaterialDesignCardGroupBox}"
-                            Margin="9">
+            <GroupBox
+                Grid.Column="0"
+                Margin="9"
+                Header="Categorías y campeonatos disponibles"
+                Style="{DynamicResource MaterialDesignCardGroupBox}"
+                Tag="gbCatyCamp">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
-                        <StackPanel
-                                        Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
                             <TextBlock
-                                            Margin="8,0,0,0"
-                                            VerticalAlignment="Center"
-                                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                            Text="{Binding}" />
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                Text="{Binding}" />
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
-                <Grid >
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" 
-                                           TextWrapping="Wrap" 
-                                           Text="Categorías" 
-                                           VerticalAlignment="Center" Height="32" 
-                                />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Height="32"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                        Text="Categorías"
+                        TextWrapping="Wrap" />
 
-                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" 
-                                           TextWrapping="Wrap" 
-                                           Text="Campeonatos" 
-                                           VerticalAlignment="Center" Height="32" 
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Height="32"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                        Text="Campeonatos"
+                        TextWrapping="Wrap" />
 
-                                />
+                    <ListBox
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="10,0,10,10"
+                        DisplayMemberPath="Descripcion"
+                        FontSize="13"
+                        IsEnabled="False"
+                        ItemsSource="{Binding Categorias}" />
 
-                    <ListBox Grid.Row="1" Grid.Column="0" IsEnabled="False"
-                                         ItemsSource="{Binding Categorias}"
-                                         DisplayMemberPath="Descripcion"
-                                         Margin="10 0 10 10"
-                                         FontSize="13"
-
-                                ></ListBox>
-
-                    <ListBox Grid.Row="1" Grid.Column="1" IsEnabled="False"
-                                         Margin="10 0 10 10"
-                                         ItemsSource="{Binding Campeonatos}" 
-                                         DisplayMemberPath="Descripcion"
-                                         FontSize="13"
-                                ></ListBox>
+                    <ListBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="10,0,10,10"
+                        DisplayMemberPath="Descripcion"
+                        FontSize="13"
+                        IsEnabled="False"
+                        ItemsSource="{Binding Campeonatos}" />
 
                 </Grid>
             </GroupBox>
 
-            <GroupBox Grid.Row="0" Grid.Column="1"
-                            Header="Fechas disponibles para designación"
-                            Tag="gbCatyCamp"
-                            Style="{DynamicResource MaterialDesignCardGroupBox}"
-                            Margin="9">
+            <GroupBox
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="9"
+                Header="Fechas disponibles para designación"
+                Style="{DynamicResource MaterialDesignCardGroupBox}"
+                Tag="gbCatyCamp">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
-                        <StackPanel
-                                        Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
                             <TextBlock
-                                            Margin="8,0,0,0"
-                                            VerticalAlignment="Center"
-                                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                            Text="{Binding}" />
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                Text="{Binding}" />
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
-                <Grid >
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" 
-                                           TextWrapping="Wrap" 
-                                           Text="Fechas" 
-                                           VerticalAlignment="Center" Height="32" 
-                                />
-                    <xctk:BusyIndicator Grid.Row="1" IsBusy="{Binding BusyFechas}"  BusyContent="Cargando...">
-                        <ListBox Grid.Row="1" Grid.Column="0" IsEnabled="False" Margin="10 0 10 10 " 
-                                 ItemsSource="{Binding FechasDisponibles}" 
-                                 DisplayMemberPath="NombreParaMostrar"
-                                 FontSize="13"
-                        ></ListBox>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Height="32"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                        Text="Fechas"
+                        TextWrapping="Wrap" />
+                    <xctk:BusyIndicator
+                        Grid.Row="1"
+                        BusyContent="Cargando..."
+                        IsBusy="{Binding BusyFechas}">
+                        <ListBox
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="10,0,10,10"
+                            DisplayMemberPath="NombreParaMostrar"
+                            FontSize="13"
+                            IsEnabled="False"
+                            ItemsSource="{Binding FechasDisponibles}" />
                     </xctk:BusyIndicator>
-                
+
 
                 </Grid>
             </GroupBox>
@@ -168,22 +197,24 @@
         <Grid Grid.Row="3">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="680"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="680" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
 
-                <Button   HorizontalAlignment="Right"  
-                              Command="{x:Static materialDesign:Transitioner.MoveNextCommand}" 
-                              Margin="0,0,10,4"
-                              IsEnabled="{Binding Habilitado}" Grid.Column="1">
+                <Button
+                    Grid.Column="1"
+                    Margin="0,0,10,4"
+                    HorizontalAlignment="Right"
+                    Command="{x:Static materialDesign:Transitioner.MoveNextCommand}"
+                    IsEnabled="{Binding Habilitado}">
                     <materialDesign:PackIcon
-                            Kind="ArrowRightBoldCircle"
-                            Height="24"
-                            Width="24" />
+                        Width="24"
+                        Height="24"
+                        Kind="ArrowRightBoldCircle" />
                 </Button>
 
 

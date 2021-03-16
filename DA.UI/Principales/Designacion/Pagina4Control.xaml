@@ -1,15 +1,15 @@
-﻿<UserControl x:Class="DA.UI.Principales.Designacion.Pagina4Control"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DA.UI.Principales.Designacion"
-             xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:ui="clr-namespace:DA.UI"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="1000">
+﻿<UserControl
+    x:Class="DA.UI.Principales.Designacion.Pagina4Control"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    d:DesignHeight="650"
+    d:DesignWidth="1000"
+    mc:Ignorable="d">
     <UserControl.DataContext>
         <viewModel:Pagina4ControlViewModel />
     </UserControl.DataContext>
@@ -23,121 +23,127 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid >
+    <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="65"/>
-            <RowDefinition Height="550"/>
+            <RowDefinition Height="65" />
+            <RowDefinition Height="550" />
 
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1000"/>
+            <ColumnDefinition Width="1000" />
         </Grid.ColumnDefinitions>
-        <TextBlock 
-            Grid.Column="0" Grid.Row="0" 
-            Margin="0 0 0 0"
-            HorizontalAlignment="Center" 
-            Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-            Text="Paso 4" VerticalAlignment="Center" />
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="0,0,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+            Text="Paso 4" />
 
 
         <Grid Grid.Row="1" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
-                <RowDefinition Height="550"/>
+                <RowDefinition Height="550" />
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="900"/>
+                <ColumnDefinition Width="900" />
 
             </Grid.ColumnDefinitions>
 
-            <xctk:BusyIndicator IsBusy="{Binding BusyExportar}"  BusyContent="Cargando..." Tag="Cargando">
-                  <GroupBox Grid.Column="0"
-                            Header="Exportar"
-                            Style="{DynamicResource MaterialDesignCardGroupBox}"
-                            Margin="9">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock
-                                          
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                            Text="{Binding}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
-                <Grid >
-                    <Grid.RowDefinitions>
+            <xctk:BusyIndicator
+                BusyContent="Cargando..."
+                IsBusy="{Binding BusyExportar}"
+                Tag="Cargando">
+                <GroupBox
+                    Grid.Column="0"
+                    Margin="9"
+                    Header="Exportar"
+                    Style="{DynamicResource MaterialDesignCardGroupBox}">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                    Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
 
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
 
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="¡Designación guardada con éxito!" Margin="181,48,180.8,358" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="Si lo desea puede exportar la designación" Margin="10,118,5.8,289" />
+                        <TextBlock
+                            Margin="181,48,180.8,358"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            Text="¡Designación guardada con éxito!" />
+                        <TextBlock
+                            Margin="10,118,5.8,289"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            Text="Si lo desea puede exportar la designación" />
 
-                    <Button VerticalAlignment="Bottom"  Command="{Binding RunExportarPdfCommand}" Margin="499,0,237.8,162" Height="70"  >
-                        <materialDesign:PackIcon
-                            Kind="PdfBox"
-                            Height="50"
-                            Width="80" />
-                    </Button>
+                        <Button
+                            Height="70"
+                            Margin="499,0,237.8,162"
+                            VerticalAlignment="Bottom"
+                            Command="{Binding RunExportarPdfCommand}">
+                            <materialDesign:PackIcon
+                                Width="80"
+                                Height="50"
+                                Kind="PdfBox" />
+                        </Button>
 
-                    <Button VerticalAlignment="Bottom"  Command="{Binding RunExportarExcelCommand}" Margin="237,0,499,162" Height="70"  >
-                        <materialDesign:PackIcon
-                            Kind="FileExcel"
-                            Height="50"
-                            Width="80" />
-                    </Button>
+                        <Button
+                            Height="70"
+                            Margin="237,0,499,162"
+                            VerticalAlignment="Bottom"
+                            Command="{Binding RunExportarExcelCommand}">
+                            <materialDesign:PackIcon
+                                Width="80"
+                                Height="50"
+                                Kind="FileExcel" />
+                        </Button>
 
-                </Grid>
-            </GroupBox>
+                    </Grid>
+                </GroupBox>
             </xctk:BusyIndicator>
-           
-
-
-
         </Grid>
 
         <Grid Grid.Row="2">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="680"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="680" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-
-                <!--<Button VerticalAlignment="Bottom" HorizontalAlignment="Left"  Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}" >
+                <Button
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Command="{x:Static materialDesign:Transitioner.MoveFirstCommand}">
                     <materialDesign:PackIcon
-                        Kind="ArrowLeftBoldCircle"
+                        Width="24"
                         Height="24"
-                        Width="24" />
-                </Button>-->
-           
-                <Button VerticalAlignment="Bottom" Grid.Column="1" HorizontalAlignment="Right" Command="{x:Static materialDesign:Transitioner.MoveFirstCommand}" >
-                    <materialDesign:PackIcon
-                        Kind="CloseBox"
-                        Height="24"
-                        Width="24" />
+                        Kind="CloseBox" />
                 </Button>
-
 
             </Grid>
         </Grid>

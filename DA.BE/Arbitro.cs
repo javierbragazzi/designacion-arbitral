@@ -56,9 +56,9 @@ namespace DA.BE
             set;
         }
 
-        public int NotaAFA
+        public float NotaAFA
         {
-            [Columna("NotaAFA", "NotaAFA", typeof(int), false, false)]
+            [Columna("NotaAFA", "NotaAFA", typeof(float), false, false)]
             get;
             set;
         }

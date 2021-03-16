@@ -1,29 +1,144 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using DA.BE;
-using DA.SS;
-
-namespace DA.DAL
+﻿namespace DA.DAL
 {
+    using DA.SS;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+
+    /// <summary>
+    /// Defines the <see cref="Calificacion" />.
+    /// </summary>
     public class Calificacion
     {
+        #region Fields
+
         /// <summary>
-        /// Acceso a la base de datos
+        /// Acceso a la base de datos.
         /// </summary>
         private readonly AccesoBaseDeDatos _accesoBaseDeDatos = new AccesoBaseDeDatos();
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Actualiza un Calificacion.
+        /// </summary>
+        /// <param name="pCalificacion">Calificacion.</param>
+        /// <returns>.</returns>
+        public ResultadoBd Actualizar(BE.Calificacion pCalificacion)
+        {
+            return _accesoBaseDeDatos.Actualizar(pCalificacion);
+        }
+
+        /// <summary>
+        /// The ActualizarBaja.
+        /// </summary>
+        /// <param name="pPuntaje">The pPuntaje<see cref="PuntajeArbitro"/>.</param>
+        /// <returns>The <see cref="ResultadoBd"/>.</returns>
+        public ResultadoBd ActualizarBaja(PuntajeArbitro pPuntaje)
+        {
+            var pars = new IDbDataParameter[1];
+            pars[0] = _accesoBaseDeDatos.CrearParametro("@IdArbitro", pPuntaje.IdArbitro);
+
+            string query = @" Update PartidoArbitro
+                              Set Procesado = 1
+                              Where IdArbitro = @IdArbitro;
+
+                              Update Arbitro
+                              Set Habilitado = 0
+                              Where Id = @IdArbitro ; ";
+
+            ResultadoBd resultadoBd = _accesoBaseDeDatos.Ejecutar(query, pars);
+
+            if (resultadoBd == ResultadoBd.OK)
+            {
+                return ResultadoBd.OK;
+            }
+            else
+            {
+                return ResultadoBd.ERROR;
+            }
+        }
+
+        /// <summary>
+        /// The ActualizarNuevoNivel.
+        /// </summary>
+        /// <param name="pPuntaje">The pPuntaje<see cref="PuntajeArbitro"/>.</param>
+        /// <returns>The <see cref="ResultadoBd"/>.</returns>
+        public ResultadoBd ActualizarNuevoNivel(PuntajeArbitro pPuntaje)
+        {
+            var pars = new IDbDataParameter[2];
+            pars[0] = _accesoBaseDeDatos.CrearParametro("@IdArbitro", pPuntaje.IdArbitro);
+            pars[1] = _accesoBaseDeDatos.CrearParametro("@IdNivel", pPuntaje.IdNivelNuevo);
+
+            string query = @" Update PartidoArbitro
+                              Set Procesado = 1
+                              Where IdArbitro = @IdArbitro;
+
+                              Update Arbitro
+                              Set IdNivel = @IdNivel
+                              Where Id = @IdArbitro ; ";
+
+            ResultadoBd resultadoBd = _accesoBaseDeDatos.Ejecutar(query, pars);
+
+            if (resultadoBd == ResultadoBd.OK)
+            {
+                return ResultadoBd.OK;
+            }
+            else
+            {
+                return ResultadoBd.ERROR;
+            }
+        }
+
+        /// <summary>
+        /// The ActualizarProcesado.
+        /// </summary>
+        /// <param name="pPuntaje">The pPuntaje<see cref="PuntajeArbitro"/>.</param>
+        /// <returns>The <see cref="ResultadoBd"/>.</returns>
+        public ResultadoBd ActualizarProcesado(PuntajeArbitro pPuntaje)
+        {
+            var pars = new IDbDataParameter[1];
+            pars[0] = _accesoBaseDeDatos.CrearParametro("@IdArbitro", pPuntaje.IdArbitro);
+
+            string query = @" Update PartidoArbitro
+                              Set Procesado = 1
+                              Where IdArbitro = @IdArbitro;";
+
+            ResultadoBd resultadoBd = _accesoBaseDeDatos.Ejecutar(query, pars);
+
+            if (resultadoBd == ResultadoBd.OK)
+            {
+                return ResultadoBd.OK;
+            }
+            else
+            {
+                return ResultadoBd.ERROR;
+            }
+        }
+
+        /// <summary>
+        /// Borra un Calificacion.
+        /// </summary>
+        /// <param name="pCalificacion">Calificacion.</param>
+        /// <returns>.</returns>
+        public ResultadoBd Borrar(BE.Calificacion pCalificacion)
+        {
+            return _accesoBaseDeDatos.Borrar(pCalificacion);
+        }
 
         /// <summary>
         /// Inserta un Calificacion.
         /// </summary>
         /// <param name="pCalificacion">Calificacion.</param>
-        /// <param name="pPartido"></param>
-        /// <param name="idArbitro"></param>
-        /// <param name="idTipoArbitro"></param>
-        /// <returns></returns>
+        /// <param name="pPartido">.</param>
+        /// <param name="idArbitro">.</param>
+        /// <param name="idTipoArbitro">.</param>
+        /// <returns>.</returns>
         public ResultadoBd Insertar(BE.Calificacion pCalificacion, BE.Partido pPartido, int idArbitro, int idTipoArbitro)
         {
-            
+
             var pars = new IDbDataParameter[8];
             pars[0] = _accesoBaseDeDatos.CrearParametro("@ReglasPuntaje", pCalificacion.ReglasPuntaje);
             pars[1] = _accesoBaseDeDatos.CrearParametro("@DisciplinaPuntaje", pCalificacion.DisciplinaPuntaje);
@@ -33,8 +148,8 @@ namespace DA.DAL
             pars[5] = _accesoBaseDeDatos.CrearParametro("@IdPartido", pPartido.Id);
             pars[6] = _accesoBaseDeDatos.CrearParametro("@IdArbitro", idArbitro);
             pars[7] = _accesoBaseDeDatos.CrearParametro("@IdTipoArbitro", idTipoArbitro);
-            
-    
+
+
             string query = @"   INSERT INTO Calificacion (ReglasPuntaje, DisciplinaPuntaje, CondicionFisicaPuntaje, JugadasPuntaje, DificultadPartidoPuntaje)
                                 VALUES (@ReglasPuntaje,@DisciplinaPuntaje,@CondicionFisicaPuntaje,@JugadasPuntaje,@DificultadPartidoPuntaje);
                                 
@@ -54,35 +169,17 @@ namespace DA.DAL
             {
                 return ResultadoBd.ERROR;
             }
-
-
-        }
-
- 
-        /// <summary>
-        /// Actualiza un Calificacion.
-        /// </summary>
-        /// <param name="pCalificacion">Calificacion.</param>
-        /// <returns></returns>
-        public ResultadoBd Actualizar(BE.Calificacion pCalificacion)
-        {
-            return _accesoBaseDeDatos.Actualizar(pCalificacion); 
         }
 
         /// <summary>
-        /// Borra un Calificacion.
+        /// The ObtenerCalificacionPorId.
         /// </summary>
-        /// <param name="pCalificacion">Calificacion.</param>
-        /// <returns></returns>
-        public ResultadoBd Borrar(BE.Calificacion pCalificacion)
-        {
-            return _accesoBaseDeDatos.Borrar(pCalificacion);
-        }
-        
+        /// <param name="idCalificacion">The idCalificacion<see cref="int"/>.</param>
+        /// <returns>The <see cref="BE.Calificacion"/>.</returns>
         public BE.Calificacion ObtenerCalificacionPorId(int idCalificacion)
         {
-            var dtCalificacion = _accesoBaseDeDatos.Seleccionar(new BE.Calificacion(){Id = idCalificacion}, true, false);
-     
+            var dtCalificacion = _accesoBaseDeDatos.Seleccionar(new BE.Calificacion() { Id = idCalificacion }, true, false);
+
             if (dtCalificacion.Rows.Count == 0)
                 return null;
 
@@ -91,19 +188,22 @@ namespace DA.DAL
             {
                 Id = Convert.ToInt32(row["Id"]),
                 ReglasPuntaje = Convert.ToInt32(row["ReglasPuntaje"]),
-                DisciplinaPuntaje  = Convert.ToInt32(row["DisciplinaPuntaje"]),
+                DisciplinaPuntaje = Convert.ToInt32(row["DisciplinaPuntaje"]),
                 JugadasPuntaje = Convert.ToInt32(row["JugadasPuntaje"]),
                 CondicionFisicaPuntaje = Convert.ToInt32(row["CondicionFisicaPuntaje"]),
                 DificultadPartidoPuntaje = Convert.ToDouble(row["DificultadPartidoPuntaje"]),
-              
+
             };
 
             return aCalificacion;
-
         }
 
+        /// <summary>
+        /// The ObtenerPuntajeDeTemporada.
+        /// </summary>
+        /// <returns>The <see cref="List{PuntajeArbitro}"/>.</returns>
         public List<PuntajeArbitro> ObtenerPuntajeDeTemporada()
-        {   
+        {
             List<PuntajeArbitro> ls = new List<PuntajeArbitro>();
 
             string query = @"     Select pa.IdArbitro, 
@@ -125,7 +225,7 @@ namespace DA.DAL
                                       group by IdArbitro, ar.Nombre, ar.Apellido, (cast(datediff(dd,ar.FechaNacimiento,GETDATE()) / 365.25 as int)), niv.Id, niv.NombreNivel ";
 
             var dt = _accesoBaseDeDatos.Seleccionar(query);
-            
+
             foreach (DataRow row in dt.Rows)
             {
                 var aPuntaje = new PuntajeArbitro()
@@ -138,91 +238,15 @@ namespace DA.DAL
                     CantidadPartidos = Convert.ToInt32(row["CantidadPartidos"]),
                     PuntajePromedio = Convert.ToDouble(row["PuntajePromedio"]),
                     NombreNivel = row["NombreNivel"].ToString().Trim(),
-        
+
                 };
 
                 ls.Add(aPuntaje);
             }
 
             return ls;
-
         }
 
-        public ResultadoBd ActualizarNuevoNivel(PuntajeArbitro pPuntaje)
-        {
-            var pars = new IDbDataParameter[2];
-            pars[0] = _accesoBaseDeDatos.CrearParametro("@IdArbitro", pPuntaje.IdArbitro);
-            pars[1] = _accesoBaseDeDatos.CrearParametro("@IdNivel", pPuntaje.IdNivelNuevo);
-    
-            string query = @" Update PartidoArbitro
-                              Set Procesado = 1
-                              Where IdArbitro = @IdArbitro;
-
-                              Update Arbitro
-                              Set IdNivel = @IdNivel
-                              Where Id = @IdArbitro ; ";
-
-            ResultadoBd resultadoBd = _accesoBaseDeDatos.Ejecutar(query, pars);
-
-            if (resultadoBd == ResultadoBd.OK)
-            {
-                return ResultadoBd.OK;
-            }
-            else
-            {
-                return ResultadoBd.ERROR;
-            }
-
-        }
-
-        public ResultadoBd ActualizarBaja(PuntajeArbitro pPuntaje)
-        {
-            var pars = new IDbDataParameter[1];
-            pars[0] = _accesoBaseDeDatos.CrearParametro("@IdArbitro", pPuntaje.IdArbitro);
-    
-            string query = @" Update PartidoArbitro
-                              Set Procesado = 1
-                              Where IdArbitro = @IdArbitro;
-
-                              Update Arbitro
-                              Set Estado = 0
-                              Where Id = @IdArbitro ; ";
-
-            ResultadoBd resultadoBd = _accesoBaseDeDatos.Ejecutar(query, pars);
-
-            if (resultadoBd == ResultadoBd.OK)
-            {
-                return ResultadoBd.OK;
-            }
-            else
-            {
-                return ResultadoBd.ERROR;
-            }
-
-        }
-
-        public ResultadoBd ActualizarProcesado(PuntajeArbitro pPuntaje)
-        {
-            var pars = new IDbDataParameter[1];
-            pars[0] = _accesoBaseDeDatos.CrearParametro("@IdArbitro", pPuntaje.IdArbitro);
-    
-            string query = @" Update PartidoArbitro
-                              Set Procesado = 1
-                              Where IdArbitro = @IdArbitro;";
-
-            ResultadoBd resultadoBd = _accesoBaseDeDatos.Ejecutar(query, pars);
-
-            if (resultadoBd == ResultadoBd.OK)
-            {
-                return ResultadoBd.OK;
-            }
-            else
-            {
-                return ResultadoBd.ERROR;
-            }
-
-        }
-
-        
+        #endregion
     }
 }

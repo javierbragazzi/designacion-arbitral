@@ -1,50 +1,38 @@
-﻿using System.Collections.Generic;
-using DA.SS;
-
-namespace DA.BLL
+﻿namespace DA.BLL
 {
+    using DA.SS;
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// Defines the <see cref="Designacion" />.
+    /// </summary>
     public class Designacion
     {
+        #region Properties
+
         /// <summary>
-        /// Does the asignation.
+        /// Gets or sets the _arbitrosListaAux.
         /// </summary>
-        /// <param name="partidos">The Partidoes.</param>
-        /// <param name="arbitros">The Arbitros.</param>
-        /// <param name="deporte"></param>
-        /// <returns></returns>
-        public List<PartidoHelperUI> RealizarDesignacion(List<PartidoHelperUI> partidos, List<BE.Arbitro> arbitros, BE.Deporte deporte)
-        {
-            BLL.Arbitro logicalArbitro = new BLL.Arbitro();
+        private List<BE.Arbitro> _arbitrosListaAux { get; set; }
 
-            List<BE.Arbitro> arbitroListAux = new List<BE.Arbitro>(arbitros);
-            BLL.TipoArbitro logicalTipoArbitro = new BLL.TipoArbitro();
-            List<BE.TipoArbitro> tipoArbitros = logicalTipoArbitro.ObtenerTipoArbitros();
+        #endregion
 
-            Logger.Log.Info("-------COMIENZO DE LA ASIGNACION-------");
-            Logger.Log.Info("---------------------------------------");
-
-            foreach (BE.TipoArbitro tipoArbitro in tipoArbitros)
-            {
-                AsignarArbitros(partidos, arbitroListAux, logicalArbitro, tipoArbitro);
-            }
-            return partidos;
-        }
+        #region Methods
 
         /// <summary>
         /// Assigns the primary Arbitro.
         /// </summary>
         /// <param name="partidos">The Partidoes.</param>
-        /// <param name="arbitros">The Arbitros.</param>
         /// <param name="logicalArbitro">The logical Arbitro.</param>
-        /// <param name="tipoArbitro"></param>
-        public void AsignarArbitros(List<PartidoHelperUI> partidos, List<BE.Arbitro> arbitros, BLL.Arbitro logicalArbitro, BE.TipoArbitro tipoArbitro)
+        /// <param name="tipoArbitro">.</param>
+        public void AsignarArbitros(List<PartidoHelperUI> partidos, BLL.Arbitro logicalArbitro, BE.TipoArbitro tipoArbitro)
         {
             BLL.Partido logicalPartido = new BLL.Partido();
             BLL.PartidoArbitro bllPartidoArbitro = new PartidoArbitro();
 
             foreach (PartidoHelperUI partido in partidos)
             {
-                foreach (BE.Arbitro arbitro in arbitros)
+                foreach (BE.Arbitro arbitro in _arbitrosListaAux)
                 {
                     Logger.Log.Info("Partido: " + partido.Equipo1.Nombre + " vs. " + partido.Equipo2.Nombre);
                     Logger.Log.Info("Arbitro: " + arbitro.Apellido + " " + arbitro.Nombre);
@@ -57,11 +45,8 @@ namespace DA.BLL
                             Logger.Log.Info("---------------------------------------");
 
                             partido.ArbitrosYTipos.Add(arbitro, tipoArbitro);
-                            //ActualizarUltimosPartidosDirigidos(arbitro, partido);
-                            //ActualizarUltimosEquiposDirigidos(arbitro, partido);
-                            
-                            ////Descomentar para que guarde la asignacion.*************************************
 
+                            ////Descomentar para que guarde la asignacion.*************************************
                             //BE.PartidoArbitro partidoArbitro = new BE.PartidoArbitro();
                             //partidoArbitro.Partido = partido.ConvertirAPartido();
                             //partidoArbitro.Arbitro = arbitro;
@@ -70,7 +55,7 @@ namespace DA.BLL
                             //partidoArbitro.Calificacion = null;
 
                             //bllPartidoArbitro.Agregar(partidoArbitro);
-                            arbitros.Remove(arbitro);
+                            _arbitrosListaAux.Remove(arbitro);
                             break;
                         }
                     }
@@ -82,55 +67,34 @@ namespace DA.BLL
                 }
 
             }
-
         }
 
         /// <summary>
-        /// Updates the last Arbitrod teams.
+        /// Does the asignation.
         /// </summary>
-        /// <param name="arbitro">The Arbitro.</param>
-        /// <param name="partido">The Partido.</param>
-        //private void ActualizarUltimosEquiposDirigidos(BE.Arbitro arbitro, BE.Partido partido)
-        //{
-        //    if (arbitro.UltimosEquiposDirigidos.Count == 4)
-        //    {
-        //        arbitro.UltimosEquiposDirigidos.Dequeue();
-        //        arbitro.UltimosEquiposDirigidos.Dequeue();
-        //    }
-        //    arbitro.UltimosEquiposDirigidos.Enqueue(partido.Equipo1);
-        //    arbitro.UltimosEquiposDirigidos.Enqueue(partido.Equipo2);
-        //}
+        /// <param name="partidos">The Partidoes.</param>
+        /// <param name="arbitros">The Arbitros.</param>
+        /// <param name="deporte">.</param>
+        /// <returns>.</returns>
+        public List<PartidoHelperUI> RealizarDesignacion(List<PartidoHelperUI> partidos, List<BE.Arbitro> arbitros, BE.Deporte deporte)
+        {
+            BLL.Arbitro logicalArbitro = new BLL.Arbitro();
 
-        /// <summary>
-        /// Updates the last fifty days refered.
-        /// </summary>
-        /// <param name="arbitro">The Arbitro.</param>
-        /// <param name="partido">The Partido.</param>
-        //private void ActualizarUltimosPartidosDirigidos(BE.Arbitro arbitro, PartidoHelperUI partido)
-        //{
-        //    bool dropPartido = true;
-        //    TimeSpan ts;
-        //    while (dropPartido && arbitro.UltimosPartidosDirigidos != null)
-        //    {
-        //        if (arbitro.UltimosPartidosDirigidos.Count != 0)
-        //        {
-        //            BE.Partido oldPartido = arbitro.UltimosPartidosDirigidos.Peek();
-        //            ts = partido.Fecha - oldPartido.Fecha;
-        //            if ((ts.Days < 15) || (oldPartido == null))
-        //            {
-        //                dropPartido = false;
-        //            }
-        //            else
-        //            {
-        //                arbitro.UltimosPartidosDirigidos.Dequeue();
-        //            }
-        //        }
-        //        else
-        //        {
-        //            dropPartido = false;
-        //        }
-        //    }
-        //    arbitro.UltimosPartidosDirigidos.Enqueue(partido);
-        //}
+            //List<BE.Arbitro> arbitroListAux = new List<BE.Arbitro>(arbitros);
+            _arbitrosListaAux = new List<BE.Arbitro>(arbitros);
+            BLL.TipoArbitro logicalTipoArbitro = new BLL.TipoArbitro();
+            List<BE.TipoArbitro> tipoArbitros = logicalTipoArbitro.ObtenerTipoArbitros();
+
+            Logger.Log.Info("-------COMIENZO DE LA ASIGNACION-------");
+            Logger.Log.Info("---------------------------------------");
+
+            foreach (BE.TipoArbitro tipoArbitro in tipoArbitros)
+            {
+                AsignarArbitros(partidos, logicalArbitro, tipoArbitro);
+            }
+            return partidos;
+        }
+
+        #endregion
     }
 }

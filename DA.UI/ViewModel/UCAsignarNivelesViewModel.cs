@@ -1,32 +1,73 @@
-﻿using DA.BE;
-using DA.SS;
-using DA.UI.DataGrid;
-using MaterialDesignThemes.Wpf;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using System.Windows.Input;
-
-namespace DA.UI.ViewModel
+﻿namespace DA.UI.ViewModel
 {
+    using DA.BE;
+    using DA.SS;
+    using DA.UI.DataGrid;
+    using MaterialDesignThemes.Wpf;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Input;
+
+    /// <summary>
+    /// Defines the <see cref="UCAsignarNivelesViewModel" />.
+    /// </summary>
     public class UCAsignarNivelesViewModel : ViewModelBaseLocal
     {
-        private Visibility _visibilidad;
+        #region Fields
 
-        public Visibility Visibilidad
-        {
-            get => _visibilidad;
-            set => SetProperty(ref _visibilidad, value);
-        }
+        /// <summary>
+        /// Defines the _arbitro.
+        /// </summary>
+        private List<BE.Arbitro> _arbitro;
 
+        /// <summary>
+        /// Defines the _arbitroSeleccionado.
+        /// </summary>
+        private BE.Arbitro _arbitroSeleccionado;
+
+        /// <summary>
+        /// Defines the _arbitrosFiltrados.
+        /// </summary>
+        private List<BE.Arbitro> _arbitrosFiltrados;
+
+        /// <summary>
+        /// Defines the _coleccionArbitros.
+        /// </summary>
+        private SortablePageableCollection<BE.Arbitro> _coleccionArbitros;
+
+        /// <summary>
+        /// Defines the _coleccionNiveles.
+        /// </summary>
+        private SortablePageableCollection<BE.Nivel> _coleccionNiveles;
+
+        /// <summary>
+        /// Defines the _habilitadoAsignar.
+        /// </summary>
         private bool _habilitadoAsignar;
 
-        public bool HabilitadoAsignar
-        {
-            get => _habilitadoAsignar;
-            set => SetProperty(ref _habilitadoAsignar, value);
-        }
+        /// <summary>
+        /// Defines the _nivel.
+        /// </summary>
+        private List<BE.Nivel> _nivel;
 
+        /// <summary>
+        /// Defines the _nivelSeleccionado.
+        /// </summary>
+        private BE.Nivel _nivelSeleccionado;
+
+        /// <summary>
+        /// Defines the _visibilidad.
+        /// </summary>
+        private Visibility _visibilidad;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UCAsignarNivelesViewModel"/> class.
+        /// </summary>
         public UCAsignarNivelesViewModel()
         {
             CargarArbitros();
@@ -38,50 +79,35 @@ namespace DA.UI.ViewModel
             CleanCommand = new RelayCommand(ExecuteCleanCommand);
             SelectedItemChangedCommand = new RelayCommand(ExecuteSelectedItemChangedCommand);
             RunAsignarNiveles = new RelayCommand(ExecuteRunAsignarNiveles);
-
         }
 
-        private void CargarArbitros()
-        {
-            BLL.Arbitro bllArbitro = new BLL.Arbitro();
+        #endregion
 
-            Arbitros = bllArbitro.ObtenerArbitrosReducido();
-        }
+        #region Properties
 
-        private void CargarNiveles()
-        {
-            BLL.Nivel bllNivel = new BLL.Nivel();
-            Niveles = bllNivel.ObtenerNiveles();
-            Niveles.Add(new Nivel() { NombreNivel="Sin nivel" });
-        }
+        /// <summary>
+        /// Gets or sets the Arbitros.
+        /// </summary>
+        public List<BE.Arbitro> Arbitros { get => _arbitro; set => SetProperty(ref _arbitro, value); }
 
-        private async void ExecuteRunAsignarNiveles(object obj)
-        {
-            BLL.Nivel _nivelBLL = new BLL.Nivel();
-            Mensaje vieMensaje = null;
-            List < BE.Arbitro > lstNueva = _nivelBLL.AsignarNiveles(ArbitrosFiltrados);
+        /// <summary>
+        /// Gets or sets the ArbitroSeleccionado.
+        /// </summary>
+        public BE.Arbitro ArbitroSeleccionado { get => _arbitroSeleccionado; set => SetProperty(ref _arbitroSeleccionado, value); }
 
-            if (lstNueva != null)
-            {
-                ColeccionArbitros = new SortablePageableCollection<Arbitro>(lstNueva);
-                vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Niveles Asignados", "Operación finalizada correctamente");
-            }else
-            {
-                vieMensaje = new Mensaje(TipoMensaje.ERROR, "Niveles No Asignados", "Operación finalizada con errores");
-            }
+        /// <summary>
+        /// Gets or sets the ArbitrosFiltrados.
+        /// </summary>
+        public List<BE.Arbitro> ArbitrosFiltrados { get => _arbitrosFiltrados; set => SetProperty(ref _arbitrosFiltrados, value); }
 
-            if (vieMensaje != null)
-            {
-                var result = await DialogHost.Show(vieMensaje, "dhMensajes");
-            }
+        /// <summary>
+        /// Gets the CleanCommand.
+        /// </summary>
+        public ICommand CleanCommand { get; private set; }
 
-            //Limpiar();
-        }
-
-        #region Propiedades
-
-        private SortablePageableCollection<BE.Arbitro> _coleccionArbitros;
-
+        /// <summary>
+        /// Gets or sets the ColeccionArbitros.
+        /// </summary>
         public SortablePageableCollection<BE.Arbitro> ColeccionArbitros
         {
             get
@@ -98,8 +124,9 @@ namespace DA.UI.ViewModel
             }
         }
 
-        private SortablePageableCollection<BE.Nivel> _coleccionNiveles;
-
+        /// <summary>
+        /// Gets or sets the ColeccionNiveles.
+        /// </summary>
         public SortablePageableCollection<BE.Nivel> ColeccionNiveles
         {
             get
@@ -116,45 +143,9 @@ namespace DA.UI.ViewModel
             }
         }
 
-        private List<BE.Arbitro> _arbitro;
-        private List<BE.Arbitro> _arbitrosFiltrados;
-
-        public List<BE.Arbitro> Arbitros
-        {
-            get => _arbitro;
-            set => SetProperty(ref _arbitro, value);
-        }
-
-        public List<BE.Arbitro> ArbitrosFiltrados
-        {
-            get => _arbitrosFiltrados;
-            set => SetProperty(ref _arbitrosFiltrados, value);
-        }
-
-        private List<BE.Nivel> _nivel;
-
-        public List<BE.Nivel> Niveles
-        {
-            get => _nivel;
-            set => SetProperty(ref _nivel, value);
-        }
-
-        private BE.Arbitro _arbitroSeleccionado;
-
-        public BE.Arbitro ArbitroSeleccionado
-        {
-            get => _arbitroSeleccionado;
-            set => SetProperty(ref _arbitroSeleccionado, value);
-        }
-
-        private BE.Nivel _nivelSeleccionado;
-
-        public BE.Nivel NivelSeleccionado
-        {
-            get => _nivelSeleccionado;
-            set => SetProperty(ref _nivelSeleccionado, value);
-        }
-
+        /// <summary>
+        /// Gets the EntriesPerPageList.
+        /// </summary>
         public List<int> EntriesPerPageList
         {
             get
@@ -163,25 +154,109 @@ namespace DA.UI.ViewModel
             }
         }
 
-        #endregion
-
-        #region Commands
-
+        /// <summary>
+        /// Gets the GoToNextPageCommand.
+        /// </summary>
         public ICommand GoToNextPageCommand { get; private set; }
 
+        /// <summary>
+        /// Gets the GoToPreviousPageCommand.
+        /// </summary>
         public ICommand GoToPreviousPageCommand { get; private set; }
 
-        public ICommand CleanCommand { get; private set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether HabilitadoAsignar.
+        /// </summary>
+        public bool HabilitadoAsignar { get => _habilitadoAsignar; set => SetProperty(ref _habilitadoAsignar, value); }
 
-        public ICommand SelectedItemChangedCommand { get; private set; }
+        /// <summary>
+        /// Gets or sets the Niveles.
+        /// </summary>
+        public List<BE.Nivel> Niveles { get => _nivel; set => SetProperty(ref _nivel, value); }
 
+        /// <summary>
+        /// Gets or sets the NivelSeleccionado.
+        /// </summary>
+        public BE.Nivel NivelSeleccionado { get => _nivelSeleccionado; set => SetProperty(ref _nivelSeleccionado, value); }
+
+        /// <summary>
+        /// Gets the RunAsignarNiveles.
+        /// </summary>
         public ICommand RunAsignarNiveles { get; private set; }
 
+        /// <summary>
+        /// Gets the SelectedItemChangedCommand.
+        /// </summary>
+        public ICommand SelectedItemChangedCommand { get; private set; }
 
-
+        /// <summary>
+        /// Gets or sets the Visibilidad.
+        /// </summary>
+        public Visibility Visibilidad { get => _visibilidad; set => SetProperty(ref _visibilidad, value); }
 
         #endregion
 
+        #region Methods
+
+        /// <summary>
+        /// The ExecuteCleanCommand.
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/>.</param>
+        public void ExecuteCleanCommand(object obj)
+        {
+            Limpiar();
+        }
+
+        /// <summary>
+        /// The CargarArbitros.
+        /// </summary>
+        private void CargarArbitros()
+        {
+            BLL.Arbitro bllArbitro = new BLL.Arbitro();
+
+            Arbitros = bllArbitro.ObtenerArbitrosReducido();
+        }
+
+        /// <summary>
+        /// The CargarNiveles.
+        /// </summary>
+        private void CargarNiveles()
+        {
+            BLL.Nivel bllNivel = new BLL.Nivel();
+            Niveles = bllNivel.ObtenerNiveles();
+            Niveles.Add(new Nivel() { NombreNivel = "Sin nivel" });
+        }
+
+        /// <summary>
+        /// The ExecuteRunAsignarNiveles.
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/>.</param>
+        private async void ExecuteRunAsignarNiveles(object obj)
+        {
+            BLL.Nivel _nivelBLL = new BLL.Nivel();
+            Mensaje vieMensaje = null;
+            List<BE.Arbitro> lstNueva = _nivelBLL.AsignarNiveles(ArbitrosFiltrados);
+
+            if (lstNueva != null)
+            {
+                ColeccionArbitros = new SortablePageableCollection<Arbitro>(lstNueva);
+                vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Niveles Asignados", "Operación finalizada correctamente");
+            }
+            else
+            {
+                vieMensaje = new Mensaje(TipoMensaje.ERROR, "Niveles No Asignados", "Operación finalizada con errores");
+            }
+
+            if (vieMensaje != null)
+            {
+                var result = await DialogHost.Show(vieMensaje, "dhMensajes");
+            }
+        }
+
+        /// <summary>
+        /// The ExecuteSelectedItemChangedCommand.
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/>.</param>
         private void ExecuteSelectedItemChangedCommand(object obj)
         {
             if (NivelSeleccionado != null && NivelSeleccionado.NombreNivel != null)
@@ -201,14 +276,11 @@ namespace DA.UI.ViewModel
                 }
                 Visibilidad = Visibility.Visible;
             }
-
         }
 
-        public void ExecuteCleanCommand(object obj)
-        {
-            Limpiar();
-        }
-
+        /// <summary>
+        /// The Limpiar.
+        /// </summary>
         private void Limpiar()
         {
             ArbitroSeleccionado = null;
@@ -216,5 +288,6 @@ namespace DA.UI.ViewModel
             Visibilidad = Visibility.Collapsed;
         }
 
+        #endregion
     }
 }

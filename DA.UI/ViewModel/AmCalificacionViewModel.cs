@@ -1,175 +1,127 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Input;
-using DA.BE;
-using DA.SS;
-using DA.UI.DataGrid;
-using MaterialDesignThemes.Wpf;
-
-namespace DA.UI.ViewModel
+﻿namespace DA.UI.ViewModel
 {
+    using DA.BE;
+    using DA.SS;
+    using DA.UI.DataGrid;
+    using MaterialDesignThemes.Wpf;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Input;
+
+    /// <summary>
+    /// Defines the <see cref="AmCalificacionViewModel" />.
+    /// </summary>
     public class AmCalificacionViewModel : ViewModelBaseLocal
     {
-        #region Variables
+        #region Fields
 
-        private TipoMensaje _tipoMensaje;
-        private int _dificultadPuntajePrincipal;
-        private int _reglasPuntajePrincipal;
-        private int _disciplinaPuntajePrincipal;
-        private int _condicionPuntajePrincipal;
-        private int _jugadasPuntajePrincipal;
-        private int _dificultadPuntajeAsistente;
-        private int _reglasPuntajeAsistente;
-        private int _disciplinaPuntajeAsistente;
-        private int _condicionPuntajeAsistente;
-        private int _jugadasPuntajeAsistente;
-        private Visibility _visibilidad;
-        private Visibility _visibilidadPrincipal;
-        private Visibility _visibilidadAsistente;
+        /// <summary>
+        /// Defines the _arbitros.
+        /// </summary>
         private List<BE.Arbitro> _arbitros;
+
+        /// <summary>
+        /// Defines the _arbitroSeleccionado.
+        /// </summary>
         private BE.Arbitro _arbitroSeleccionado;
+
+        /// <summary>
+        /// Defines the _condicionPuntajeAsistente.
+        /// </summary>
+        private int _condicionPuntajeAsistente;
+
+        /// <summary>
+        /// Defines the _condicionPuntajePrincipal.
+        /// </summary>
+        private int _condicionPuntajePrincipal;
+
+        /// <summary>
+        /// Defines the _dificultadPuntajeAsistente.
+        /// </summary>
+        private int _dificultadPuntajeAsistente;
+
+        /// <summary>
+        /// Defines the _dificultadPuntajePrincipal.
+        /// </summary>
+        private int _dificultadPuntajePrincipal;
+
+        /// <summary>
+        /// Defines the _disciplinaPuntajeAsistente.
+        /// </summary>
+        private int _disciplinaPuntajeAsistente;
+
+        /// <summary>
+        /// Defines the _disciplinaPuntajePrincipal.
+        /// </summary>
+        private int _disciplinaPuntajePrincipal;
+
+        /// <summary>
+        /// Defines the _habilitado.
+        /// </summary>
         private bool _habilitado;
 
-        #endregion
+        /// <summary>
+        /// Defines the _jugadasPuntajeAsistente.
+        /// </summary>
+        private int _jugadasPuntajeAsistente;
 
-        #region Propiedades Binding
+        /// <summary>
+        /// Defines the _jugadasPuntajePrincipal.
+        /// </summary>
+        private int _jugadasPuntajePrincipal;
 
-        public Visibility VisibilidadPrincipal
-        {
-            get => _visibilidadPrincipal;
-            set => SetProperty(ref _visibilidadPrincipal, value);
-        }
+        /// <summary>
+        /// Defines the _reglasPuntajeAsistente.
+        /// </summary>
+        private int _reglasPuntajeAsistente;
 
-        public Visibility VisibilidadAsistente
-        {
-            get => _visibilidadAsistente;
-            set => SetProperty(ref _visibilidadAsistente, value);
-        }
+        /// <summary>
+        /// Defines the _reglasPuntajePrincipal.
+        /// </summary>
+        private int _reglasPuntajePrincipal;
 
-        public bool Habilitado
-        {
-            get => _habilitado;
-            set => SetProperty(ref _habilitado, value);
-        }
+        /// <summary>
+        /// Defines the _tipoMensaje.
+        /// </summary>
+        private TipoMensaje _tipoMensaje;
 
-        public TipoMensaje TipoMensaje
-        {
-            get => _tipoMensaje;
-            set => SetProperty(ref _tipoMensaje, value);
-        }
+        /// <summary>
+        /// Defines the _visibilidad.
+        /// </summary>
+        private Visibility _visibilidad;
 
-        public List<BE.Arbitro> Arbitros
-        {
-            get => _arbitros;
-            set => SetProperty(ref _arbitros, value);
-        }
+        /// <summary>
+        /// Defines the _visibilidadAsistente.
+        /// </summary>
+        private Visibility _visibilidadAsistente;
 
-        public BE.Arbitro ArbitroSeleccionado
-        {
-            get => _arbitroSeleccionado;
-            set => SetProperty(ref _arbitroSeleccionado, value);
-        }
-
-        public Visibility Visibilidad
-        {
-            get => _visibilidad;
-            set => SetProperty(ref _visibilidad, value);
-        }
-
-        public int DificultadPuntajePrincipal
-        {
-            get => _dificultadPuntajePrincipal;
-            set => SetProperty(ref _dificultadPuntajePrincipal, value);
-        }
-
-        public int ReglasPuntajePrincipal
-        {
-            get => _reglasPuntajePrincipal;
-            set => SetProperty(ref _reglasPuntajePrincipal, value);
-        }
-
-        public int DisciplinaPuntajePrincipal
-        {
-            get => _disciplinaPuntajePrincipal;
-            set => SetProperty(ref _disciplinaPuntajePrincipal, value);
-        }
-
-        public int CondicionPuntajePrincipal
-        {
-            get => _condicionPuntajePrincipal;
-            set => SetProperty(ref _condicionPuntajePrincipal, value);
-        }
-
-        public int JugadasPuntajePrincipal
-        {
-            get => _jugadasPuntajePrincipal;
-            set => SetProperty(ref _jugadasPuntajePrincipal, value);
-        }
-
-        public int DificultadPuntajeAsistente
-        {
-            get => _dificultadPuntajeAsistente;
-            set => SetProperty(ref _dificultadPuntajeAsistente, value);
-        }
-
-        public int ReglasPuntajeAsistente
-        {
-            get => _reglasPuntajeAsistente;
-            set => SetProperty(ref _reglasPuntajeAsistente, value);
-        }
-
-        public int DisciplinaPuntajeAsistente
-        {
-            get => _disciplinaPuntajeAsistente;
-            set => SetProperty(ref _disciplinaPuntajeAsistente, value);
-        }
-
-        public int CondicionPuntajeAsistente
-        {
-            get => _condicionPuntajeAsistente;
-            set => SetProperty(ref _condicionPuntajeAsistente, value);
-        }
-
-        public int JugadasPuntajeAsistente
-        {
-            get => _jugadasPuntajeAsistente;
-            set => SetProperty(ref _jugadasPuntajeAsistente, value);
-        }
+        /// <summary>
+        /// Defines the _visibilidadPrincipal.
+        /// </summary>
+        private Visibility _visibilidadPrincipal;
 
         #endregion
 
-        #region Propiedades
+        #region Constructors
 
-        public BE.Calificacion CalifTemporalPrincipal { get; set; }
-        
-        public BE.Calificacion CalifTemporalAsistente { get; set; }
-        
-        public BE.Partido Partido { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AmCalificacionViewModel"/> class.
+        /// </summary>
+        public AmCalificacionViewModel()
+        {
 
-        public bool SeGuardo { get;  set; }
-       
-        public Resultado ResultadoAltaModificacion { get;  set; }
+            RunGuardar = new RelayCommand(ExecuteRunGuardar);
+            RunCancelar = new RelayCommand(ExecuteRunCancelar);
+            SelectedItemChangedCommand = new RelayCommand(ExecuteSelectedItemChangedCommand);
+        }
 
-        public bool SeCancelo { get;  set; }
-
-        public bool Editar { get;  set; }
-
-        public BE.Arbitro ArbitroAnterior { get; set; }
-
-        #endregion
-
-        #region Commands
-
-        public ICommand RunGuardar { get; }
-
-        public ICommand RunCancelar { get; }
-
-        public ICommand SelectedItemChangedCommand { get; private set; }
-
-        #endregion
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AmCalificacionViewModel"/> class.
+        /// </summary>
+        /// <param name="partido">The partido<see cref="BE.Partido"/>.</param>
+        /// <param name="partidoArbitros">The partidoArbitros<see cref="List{BE.PartidoArbitro}"/>.</param>
         public AmCalificacionViewModel(BE.Partido partido, List<BE.PartidoArbitro> partidoArbitros)
         {
             Visibilidad = Visibility.Collapsed;
@@ -218,14 +170,164 @@ namespace DA.UI.ViewModel
 
                 }
             }
-            
+
             RunGuardar = new RelayCommand(ExecuteRunGuardar);
             RunCancelar = new RelayCommand(ExecuteRunCancelar);
             SelectedItemChangedCommand = new RelayCommand(ExecuteSelectedItemChangedCommand);
- 
-
         }
 
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the ArbitroAnterior.
+        /// </summary>
+        public BE.Arbitro ArbitroAnterior { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Arbitros.
+        /// </summary>
+        public List<BE.Arbitro> Arbitros { get => _arbitros; set => SetProperty(ref _arbitros, value); }
+
+        /// <summary>
+        /// Gets or sets the ArbitroSeleccionado.
+        /// </summary>
+        public BE.Arbitro ArbitroSeleccionado { get => _arbitroSeleccionado; set => SetProperty(ref _arbitroSeleccionado, value); }
+
+        /// <summary>
+        /// Gets or sets the CalifTemporalAsistente.
+        /// </summary>
+        public BE.Calificacion CalifTemporalAsistente { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CalifTemporalPrincipal.
+        /// </summary>
+        public BE.Calificacion CalifTemporalPrincipal { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CondicionPuntajeAsistente.
+        /// </summary>
+        public int CondicionPuntajeAsistente { get => _condicionPuntajeAsistente; set => SetProperty(ref _condicionPuntajeAsistente, value); }
+
+        /// <summary>
+        /// Gets or sets the CondicionPuntajePrincipal.
+        /// </summary>
+        public int CondicionPuntajePrincipal { get => _condicionPuntajePrincipal; set => SetProperty(ref _condicionPuntajePrincipal, value); }
+
+        /// <summary>
+        /// Gets or sets the DificultadPuntajeAsistente.
+        /// </summary>
+        public int DificultadPuntajeAsistente { get => _dificultadPuntajeAsistente; set => SetProperty(ref _dificultadPuntajeAsistente, value); }
+
+        /// <summary>
+        /// Gets or sets the DificultadPuntajePrincipal.
+        /// </summary>
+        public int DificultadPuntajePrincipal { get => _dificultadPuntajePrincipal; set => SetProperty(ref _dificultadPuntajePrincipal, value); }
+
+        /// <summary>
+        /// Gets or sets the DisciplinaPuntajeAsistente.
+        /// </summary>
+        public int DisciplinaPuntajeAsistente { get => _disciplinaPuntajeAsistente; set => SetProperty(ref _disciplinaPuntajeAsistente, value); }
+
+        /// <summary>
+        /// Gets or sets the DisciplinaPuntajePrincipal.
+        /// </summary>
+        public int DisciplinaPuntajePrincipal { get => _disciplinaPuntajePrincipal; set => SetProperty(ref _disciplinaPuntajePrincipal, value); }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Editar.
+        /// </summary>
+        public bool Editar { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Habilitado.
+        /// </summary>
+        public bool Habilitado { get => _habilitado; set => SetProperty(ref _habilitado, value); }
+
+        /// <summary>
+        /// Gets or sets the JugadasPuntajeAsistente.
+        /// </summary>
+        public int JugadasPuntajeAsistente { get => _jugadasPuntajeAsistente; set => SetProperty(ref _jugadasPuntajeAsistente, value); }
+
+        /// <summary>
+        /// Gets or sets the JugadasPuntajePrincipal.
+        /// </summary>
+        public int JugadasPuntajePrincipal { get => _jugadasPuntajePrincipal; set => SetProperty(ref _jugadasPuntajePrincipal, value); }
+
+        /// <summary>
+        /// Gets or sets the Partido.
+        /// </summary>
+        public BE.Partido Partido { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ReglasPuntajeAsistente.
+        /// </summary>
+        public int ReglasPuntajeAsistente { get => _reglasPuntajeAsistente; set => SetProperty(ref _reglasPuntajeAsistente, value); }
+
+        /// <summary>
+        /// Gets or sets the ReglasPuntajePrincipal.
+        /// </summary>
+        public int ReglasPuntajePrincipal { get => _reglasPuntajePrincipal; set => SetProperty(ref _reglasPuntajePrincipal, value); }
+
+        /// <summary>
+        /// Gets or sets the ResultadoAltaModificacion.
+        /// </summary>
+        public Resultado ResultadoAltaModificacion { get; set; }
+
+        /// <summary>
+        /// Gets the RunCancelar.
+        /// </summary>
+        public ICommand RunCancelar { get; }
+
+        /// <summary>
+        /// Gets the RunGuardar.
+        /// </summary>
+        public ICommand RunGuardar { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether SeCancelo.
+        /// </summary>
+        public bool SeCancelo { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether SeGuardo.
+        /// </summary>
+        public bool SeGuardo { get; set; }
+
+        /// <summary>
+        /// Gets the SelectedItemChangedCommand.
+        /// </summary>
+        public ICommand SelectedItemChangedCommand { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the TipoMensaje.
+        /// </summary>
+        public TipoMensaje TipoMensaje { get => _tipoMensaje; set => SetProperty(ref _tipoMensaje, value); }
+
+        /// <summary>
+        /// Gets or sets the Visibilidad.
+        /// </summary>
+        public Visibility Visibilidad { get => _visibilidad; set => SetProperty(ref _visibilidad, value); }
+
+        /// <summary>
+        /// Gets or sets the VisibilidadAsistente.
+        /// </summary>
+        public Visibility VisibilidadAsistente { get => _visibilidadAsistente; set => SetProperty(ref _visibilidadAsistente, value); }
+
+        /// <summary>
+        /// Gets or sets the VisibilidadPrincipal.
+        /// </summary>
+        public Visibility VisibilidadPrincipal { get => _visibilidadPrincipal; set => SetProperty(ref _visibilidadPrincipal, value); }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The EstablecerCalificaciones.
+        /// </summary>
+        /// <param name="tipoArbitro">The tipoArbitro<see cref="string"/>.</param>
         private void EstablecerCalificaciones(string tipoArbitro)
         {
             if (tipoArbitro.Equals("Principal"))
@@ -283,47 +385,23 @@ namespace DA.UI.ViewModel
                 JugadasPuntajeAsistente = CalifTemporalAsistente.JugadasPuntaje;
 
             }
-
         }
 
-        public AmCalificacionViewModel()
+        /// <summary>
+        /// The ExecuteRunCancelar.
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/>.</param>
+        private void ExecuteRunCancelar(object obj)
         {
-            
-            RunGuardar = new RelayCommand(ExecuteRunGuardar);
-            RunCancelar = new RelayCommand(ExecuteRunCancelar);
-            SelectedItemChangedCommand = new RelayCommand(ExecuteSelectedItemChangedCommand);
+            SeCancelo = true;
 
+            DialogHost.CloseDialogCommand.Execute(null, null);
         }
-        
-        private void ExecuteSelectedItemChangedCommand(object obj)
-        {
-            if (ArbitroSeleccionado != null )
-            {
-                BLL.PartidoArbitro partidoArbitro = new BLL.PartidoArbitro();
 
-                //BE.TipoArbitro tipoArbitroSelec = Partido.ArbitrosYTipos.FirstOrDefault(x => ((BE.Arbitro) x.Key).Id == ArbitroSeleccionado.Id).Value;
-                BE.TipoArbitro tipoArbitroSelec =
-                    partidoArbitro.ObtenerPartidoArbitroPorPartidoIdYArbitroId(Partido.Id, ArbitroSeleccionado.Id).TipoArbitro;
-
-                if (tipoArbitroSelec.Descripcion.Equals("Principal"))
-                {
-                    VisibilidadAsistente = Visibility.Collapsed;
-                    VisibilidadPrincipal = Visibility.Visible;
-                }
-                else
-                {
-                    VisibilidadAsistente = Visibility.Visible;
-                    VisibilidadPrincipal = Visibility.Collapsed;
-                }
-
-                  
-            }
-                
-
-            Visibilidad = Visibility.Visible;
-            Habilitado = true;
-        }
-           
+        /// <summary>
+        /// The ExecuteRunGuardar.
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/>.</param>
         private async void ExecuteRunGuardar(object obj)
         {
 
@@ -331,7 +409,7 @@ namespace DA.UI.ViewModel
             BLL.PartidoArbitro bllPartidoArbitro = new BLL.PartidoArbitro();
 
             List<BE.PartidoArbitro> partidoArbitros = bllPartidoArbitro.ObtenerPartidoArbitroPorPartidoId(Partido.Id);
-          
+
             //BE.Arbitro arbitro = Arbitros.FirstOrDefault(x => (x.NombreCompletoTipoArbitro.Contains("Principal")));
             //BE.TipoArbitro tipoArbitroSelec = Partido.ArbitrosYTipos.FirstOrDefault(x => arbitro != null && ((BE.Arbitro) x.Key).Id == arbitro.Id).Value;
 
@@ -369,8 +447,8 @@ namespace DA.UI.ViewModel
                 ResultadoAltaModificacion =
                     bllCalificacion.Agregar(cal, Partido, arbitro.Id, tipoArbitroSelec.Id);
 
-             arbitro = partidoArbitros.FirstOrDefault(x => x.TipoArbitro.Descripcion.Contains("Asistente"))?.Arbitro;
-             tipoArbitroSelec = partidoArbitros.FirstOrDefault(x => x.TipoArbitro.Descripcion.Contains("Asistente"))?.TipoArbitro;
+            arbitro = partidoArbitros.FirstOrDefault(x => x.TipoArbitro.Descripcion.Contains("Asistente"))?.Arbitro;
+            tipoArbitroSelec = partidoArbitros.FirstOrDefault(x => x.TipoArbitro.Descripcion.Contains("Asistente"))?.TipoArbitro;
 
             cal.DisciplinaPuntaje = DisciplinaPuntajeAsistente;
             cal.CondicionFisicaPuntaje = CondicionPuntajeAsistente;
@@ -403,7 +481,7 @@ namespace DA.UI.ViewModel
 
             SeGuardo = !ResultadoAltaModificacion.HayError;
             this.TipoMensaje = ResultadoAltaModificacion.HayError == false ? TipoMensaje.CORRECTO : TipoMensaje.ERROR;
-   
+
             if (SeGuardo)
             {
 
@@ -427,18 +505,41 @@ namespace DA.UI.ViewModel
                     DialogHost.CloseDialogCommand.Execute(null, vieMensaje);
                 }
             }
-
-
         }
 
-        private void ExecuteRunCancelar(object obj)
+        /// <summary>
+        /// The ExecuteSelectedItemChangedCommand.
+        /// </summary>
+        /// <param name="obj">The obj<see cref="object"/>.</param>
+        private void ExecuteSelectedItemChangedCommand(object obj)
         {
-            SeCancelo = true;
+            if (ArbitroSeleccionado != null)
+            {
+                BLL.PartidoArbitro partidoArbitro = new BLL.PartidoArbitro();
 
-            DialogHost.CloseDialogCommand.Execute(null,null);
+                //BE.TipoArbitro tipoArbitroSelec = Partido.ArbitrosYTipos.FirstOrDefault(x => ((BE.Arbitro) x.Key).Id == ArbitroSeleccionado.Id).Value;
+                BE.TipoArbitro tipoArbitroSelec =
+                    partidoArbitro.ObtenerPartidoArbitroPorPartidoIdYArbitroId(Partido.Id, ArbitroSeleccionado.Id).TipoArbitro;
 
+                if (tipoArbitroSelec.Descripcion.Equals("Principal"))
+                {
+                    VisibilidadAsistente = Visibility.Collapsed;
+                    VisibilidadPrincipal = Visibility.Visible;
+                }
+                else
+                {
+                    VisibilidadAsistente = Visibility.Visible;
+                    VisibilidadPrincipal = Visibility.Collapsed;
+                }
+
+
+            }
+
+
+            Visibilidad = Visibility.Visible;
+            Habilitado = true;
         }
 
-
+        #endregion
     }
 }

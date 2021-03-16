@@ -1,16 +1,17 @@
-﻿<UserControl x:Class="DA.UI.Principales.AdmArbitros"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:dataGrid="clr-namespace:DA.UI.DataGrid"
-             xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
-             xmlns:converters="clr-namespace:DA.UI.Converters"
-             mc:Ignorable="d" 
-             IsVisibleChanged="UserControl_IsVisibleChanged" >
+﻿<UserControl
+    x:Class="DA.UI.Principales.AdmArbitros"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:DA.UI.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dataGrid="clr-namespace:DA.UI.DataGrid"
+    xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:DA.UI.ViewModel"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    IsVisibleChanged="UserControl_IsVisibleChanged"
+    mc:Ignorable="d">
     <UserControl.DataContext>
         <viewModel:AdmArbitroViewModel />
     </UserControl.DataContext>
@@ -22,141 +23,211 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converters:BooleanToYesNoConverter x:Key="BooleanToYesNoConverter"/>
+            <converters:BooleanToYesNoConverter x:Key="BooleanToYesNoConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <xctk:BusyIndicator IsBusy="{Binding BusyIndicator}"  BusyContent="Cargando...">
-    <Grid >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="75*"/>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="58*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1000*"/>
+    <xctk:BusyIndicator BusyContent="Cargando..." IsBusy="{Binding BusyIndicator}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75*" />
+                <RowDefinition Height="60*" />
+                <RowDefinition Height="58*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1000*" />
 
-        </Grid.ColumnDefinitions>
-        <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" TextWrapping="Wrap">Administración de árbitros</TextBlock>
-        <Grid Grid.Row="3">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="880*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
-
-                <StackPanel Grid.Column="0" 
-                                Visibility="{Binding Visibilidad}"
-                                Orientation="Vertical" Margin="40 20 40 10">
-                    <StackPanel Orientation="Horizontal" >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <dataGrid:SortableDataGrid Grid.Column="0" dgx:DataGridFilter.IsAutoFilterEnabled="True" Style="{StaticResource MaterialDesignDataGrid }" 
-                                                       ItemsSource="{Binding ColeccionArbitro.CurrentPageItems}" 
-                                                       FullItemsSource="{Binding ColeccionArbitro}" 
-                                                       CanUserAddRows="false" CanUserDeleteRows="False" AutoGenerateColumns="False" 
-                                                       SelectedItem="{Binding ArbitroSeleccionado}">
-                                <DataGrid.InputBindings>
-                                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding RunEditarArbitro}" />
-                                </DataGrid.InputBindings>
-                                <dataGrid:SortableDataGrid.Columns>
-                                    <DataGridTextColumn Binding="{Binding Nombre}"  Header="Nombre" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding Apellido}"  Header="Apellido" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding FechaNacimiento, StringFormat=\{0:dd/MM/yyyy\}}"  Header="Fecha Nac" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding Nivel.Id}"  Header="Nivel" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding Genero.Descripcion}"  Header="Genero" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding Deporte.Descripcion}"  Header="Deporte" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding Habilitado, Converter={StaticResource BooleanToYesNoConverter}}"  Header="Habilitado" IsReadOnly="True" />
-                                    <!--<DataGridTextColumn Binding="{Binding TituloValidoArgentina}" Header="TituloValidoArgentina" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding ExamenFisico}"  Header="ExamenFisico" IsReadOnly="True" />
-                                    <DataGridTextColumn Binding="{Binding ExamenTeorico}" Header="ExamenTeorico" IsReadOnly="True" />-->
-                                </dataGrid:SortableDataGrid.Columns>
-                            </dataGrid:SortableDataGrid>
+            </Grid.ColumnDefinitions>
+            <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" TextWrapping="Wrap">Administración de árbitros</TextBlock>
+            <Grid Grid.Row="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="880*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
 
+                    <StackPanel
+                        Grid.Column="0"
+                        Margin="40,20,40,10"
+                        Orientation="Vertical"
+                        Visibility="{Binding Visibilidad}">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="1" HorizontalAlignment="Center">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel  Orientation="Horizontal" Margin="0,15,0,10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Margin="5,0,5,0" Tag="txtElementosPagina" Text="Elementos por página:" TextAlignment="Center" VerticalAlignment="Center"/>
-                                        <ComboBox ItemsSource="{Binding EntriesPerPageList}" SelectedItem="{Binding ColeccionArbitro.PageSize}"></ComboBox>
-                                    </StackPanel>
-                                </Grid >
-                            </Grid >
+                                <dataGrid:SortableDataGrid
+                                    Grid.Column="0"
+                                    dgx:DataGridFilter.IsAutoFilterEnabled="True"
+                                    AutoGenerateColumns="False"
+                                    CanUserAddRows="false"
+                                    CanUserDeleteRows="False"
+                                    FullItemsSource="{Binding ColeccionArbitro}"
+                                    ItemsSource="{Binding ColeccionArbitro.CurrentPageItems}"
+                                    SelectedItem="{Binding ArbitroSeleccionado}"
+                                    Style="{StaticResource MaterialDesignDataGrid}">
+                                    <DataGrid.InputBindings>
+                                        <MouseBinding Command="{Binding RunEditarArbitro}" MouseAction="LeftDoubleClick" />
+                                    </DataGrid.InputBindings>
+                                    <dataGrid:SortableDataGrid.Columns>
+                                        <DataGridTextColumn
+                                            Binding="{Binding Nombre}"
+                                            Header="Nombre"
+                                            IsReadOnly="True" />
+                                        <DataGridTextColumn
+                                            Binding="{Binding Apellido}"
+                                            Header="Apellido"
+                                            IsReadOnly="True" />
+                                        <DataGridTextColumn
+                                            Binding="{Binding FechaNacimiento, StringFormat=\{0:dd/MM/yyyy\}}"
+                                            Header="Fecha Nac"
+                                            IsReadOnly="True" />
+                                        <DataGridTextColumn
+                                            Binding="{Binding Nivel.Id}"
+                                            Header="Nivel"
+                                            IsReadOnly="True" />
+                                        <DataGridTextColumn
+                                            Binding="{Binding Genero.Descripcion}"
+                                            Header="Genero"
+                                            IsReadOnly="True" />
+                                        <DataGridTextColumn
+                                            Binding="{Binding Deporte.Descripcion}"
+                                            Header="Deporte"
+                                            IsReadOnly="True" />
+                                        <DataGridTextColumn
+                                            Binding="{Binding Habilitado, Converter={StaticResource BooleanToYesNoConverter}}"
+                                            Header="Habilitado"
+                                            IsReadOnly="True" />
+                                        </dataGrid:SortableDataGrid.Columns>
+                                </dataGrid:SortableDataGrid>
 
-                            <Grid Grid.Row="2" HorizontalAlignment="Center">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel  Orientation="Horizontal" Margin="0,15,0,10" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                        <Button  ToolTip="Página anterior" Width="70" Command="{Binding GoToPreviousPageCommand}">
-                                            <materialDesign:PackIcon
-                                                Kind="PagePreviousOutline"
-                                                Height="24"
-                                                Width="24" />
-                                        </Button>
-                                        <TextBlock Margin="5,0,5,0" FontWeight="Bold" FontSize="13" TextAlignment="Center" VerticalAlignment="Center">
-                                            <Run Text="{Binding ColeccionArbitro.CurrentPageNumber, Mode=OneWay}" />
-                                            <Run Text=" de " Name="txtDe" Tag="txtDe"/>
-                                            <Run Text="{Binding ColeccionArbitro.TotalPagesNumber, Mode=OneWay}"/>
-                                        </TextBlock>
-                                            <Button ToolTip="Página siguiente" Width="70" Command="{Binding GoToNextPageCommand}">
-                                            <materialDesign:PackIcon
-                                                Kind="PageNextOutline"
-                                                Height="24"
-                                                Width="24" />
-                                        </Button>
-                                    </StackPanel>
-                                </Grid >
-                            </Grid >
 
-                        </Grid>
 
+                                <Grid Grid.Row="1" HorizontalAlignment="Center">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel
+                                            Margin="0,15,0,10"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                            <TextBlock
+                                                Margin="5,0,5,0"
+                                                VerticalAlignment="Center"
+                                                Tag="txtElementosPagina"
+                                                Text="Elementos por página:"
+                                                TextAlignment="Center" />
+                                            <ComboBox ItemsSource="{Binding EntriesPerPageList}" SelectedItem="{Binding ColeccionArbitro.PageSize}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid Grid.Row="2" HorizontalAlignment="Center">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel
+                                            Margin="0,15,0,10"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            Orientation="Horizontal">
+                                            <Button
+                                                Width="70"
+                                                Command="{Binding GoToPreviousPageCommand}"
+                                                ToolTip="Página anterior">
+                                                <materialDesign:PackIcon
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="PagePreviousOutline" />
+                                            </Button>
+                                            <TextBlock
+                                                Margin="5,0,5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="13"
+                                                FontWeight="Bold"
+                                                TextAlignment="Center">
+                                                <Run Text="{Binding ColeccionArbitro.CurrentPageNumber, Mode=OneWay}" />
+                                                <Run
+                                                    Name="txtDe"
+                                                    Tag="txtDe"
+                                                    Text=" de " />
+                                                <Run Text="{Binding ColeccionArbitro.TotalPagesNumber, Mode=OneWay}" />
+                                            </TextBlock>
+                                            <Button
+                                                Width="70"
+                                                Command="{Binding GoToNextPageCommand}"
+                                                ToolTip="Página siguiente">
+                                                <materialDesign:PackIcon
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="PageNextOutline" />
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+
+                            </Grid>
+
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
 
-                <materialDesign:PopupBox Grid.Column="1" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
-                                                                                
-                                     HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                                     Margin="32" >
-                    <StackPanel>
-                        <Button Name="btnGuardar" ToolTip="Editar"  Command="{Binding RunEditarArbitro}"  >
-                            <materialDesign:PackIcon Kind="UserEdit" Height="20" Width="20" />
-                        </Button>
-                        <Button Name="btnAgregar" ToolTip="Agregar"  Command="{Binding RunAltaArbitro}"  >
-                            <materialDesign:PackIcon Kind="AddCircle" Height="20" Width="20" />
-                        </Button>
+                    <materialDesign:PopupBox
+                        Grid.Column="1"
+                        Margin="32"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}">
+                        <StackPanel>
+                            <Button
+                                Name="btnAgregar"
+                                Command="{Binding RunAltaArbitro}"
+                                ToolTip="Inscribir nuevo árbitro">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Kind="AddCircle" />
+                            </Button>
+                            <Button
+                                Name="btnGuardar"
+                                Command="{Binding RunEditarArbitro}"
+                                ToolTip="Modificar árbitro">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Kind="UserEdit" />
+                            </Button>
 
-                        <Button Name="btnEliminar" ToolTip="Eliminar" Command="{Binding RunEliminarArbitro}" >
-                            <materialDesign:PackIcon Kind="Delete" />
-                        </Button>
-                    </StackPanel>
-                </materialDesign:PopupBox>
+
+                            <Button
+                                Name="btnEliminar"
+                                Command="{Binding RunEliminarArbitro}"
+                                ToolTip="Dar de baja árbitro">
+                                <materialDesign:PackIcon Kind="Delete" />
+                            </Button>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                </Grid>
             </Grid>
         </Grid>
-    </Grid>
 
     </xctk:BusyIndicator>
 </UserControl>

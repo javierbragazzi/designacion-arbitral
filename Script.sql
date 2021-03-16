@@ -1,4 +1,4 @@
-USE [DesignacionArbitral]
+USE [DesignacionArbitral3]
 GO
 /****** Object:  Table [dbo].[Arbitro]    Script Date: 10/3/2021 22:25:18 ******/
 SET ANSI_NULLS ON

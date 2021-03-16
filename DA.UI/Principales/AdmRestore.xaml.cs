@@ -71,18 +71,30 @@ namespace DA.UI.Principales
         private void BtnRestore_OnClick(object sender, RoutedEventArgs e)
         {
             Restore();
+
+            
         }
 
         private async Task Restore()
         {
             BLL.Sistema bllSistema = new BLL.Sistema();
 
-            if (bllSistema.Restore("DesignacionArbitral", _resguardoSeleccionado.Directorio,
-                _resguardoSeleccionado.NombreArchivo))
+            if (bllSistema.Restore("DesignacionArbitral", _resguardoSeleccionado.Directorio, _resguardoSeleccionado.NombreArchivo))
             {
-                Mensaje vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Restore", "Se realizó el restore con éxito");
+                //Mensaje vieMensaje = new Mensaje(TipoMensaje.CORRECTO, "Restore", "Se realizó el restore con éxito");
 
-                await DialogHost.Show(vieMensaje, "dhMensajes");
+                //await DialogHost.Show(vieMensaje, "dhMensajes");
+
+                string messageBoxText = "Se realizó la restauración con éxito. La aplicación se cerrará. Por favor vuelva a iniciarla nuevamente.";
+                string caption = "Restauración";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Information;
+
+                // Display message box
+                MessageBox.Show(messageBoxText, caption, button, icon);
+
+                System.Windows.Application.Current.Shutdown();
+
             }
             else
             {

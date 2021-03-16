@@ -1,74 +1,119 @@
-﻿using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Configuration.Install;
-using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Security.Permissions;
-using System.Windows.Forms;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
-
-namespace DA.UI
+﻿namespace DA.UI
 {
+    using Microsoft.SqlServer.Management.Common;
+    using Microsoft.SqlServer.Management.Smo;
+    using System;
+    using System.Collections;
+    using System.ComponentModel;
+    using System.Configuration.Install;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.IO;
+    using System.Reflection;
+    using System.Security.Permissions;
+    using System.Windows.Forms;
+
+    /// <summary>
+    /// Defines the <see cref="SetupInstaller" />.
+    /// </summary>
     [RunInstaller(true)]
     public partial class SetupInstaller : Installer
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SetupInstaller"/> class.
+        /// </summary>
         public SetupInstaller()
         {
             InitializeComponent();
         }
 
-        private string GetSql(string name)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The ExecuteTransaction.
+        /// </summary>
+        /// <param name="script">The script<see cref="string"/>.</param>
+        /// <param name="isMaster">The isMaster<see cref="bool"/>.</param>
+        public void ExecuteTransaction(string script, bool isMaster)
         {
-
-            try
+            using (Microsoft.Data.SqlClient.SqlConnection connection = new Microsoft.Data.SqlClient.SqlConnection(isMaster ? Properties.Settings.Default.ConnStringWithSA : Properties.Settings.Default.ConnStringToRefereeDB))
             {
-
-              //  Debugger.Break();
-                // Gets the current assembly.
-                Assembly asm = Assembly.GetExecutingAssembly();
-
-                // Resources are named using a fully qualified name.
-                Stream strm = asm.GetManifestResourceStream(asm.GetName().Name + "." + name);
-
-                // Reads the contents of the embedded file.
-                StreamReader reader = new StreamReader(strm);
-
-                return reader.ReadToEnd();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(@"Error al obtener el SQL. Error: " + ex.Message,"Instalación",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                throw ex;
+                Server server = new Server(new ServerConnection(connection));
+                try
+                {
+                    server.ConnectionContext.BeginTransaction();
+                    server.ConnectionContext.ExecuteNonQuery(script);
+                    server.ConnectionContext.CommitTransaction();
+                }
+                catch (Exception ex)
+                {
+                    server.ConnectionContext.RollBackTransaction();
+                    MessageBox.Show(@"Error al restaurar la base por script. Error: " + ex.Message, "Instalación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw;
+                }
             }
         }
 
-        private string GetExecutionDirectory()
+        /// <summary>
+        /// The Install.
+        /// </summary>
+        /// <param name="stateSaver">The stateSaver<see cref="IDictionary"/>.</param>
+        public override void Install(IDictionary stateSaver)
         {
+            string dataBaseName = Properties.Settings.Default.DataBaseName;
 
-            try
-            {
+            //if (Debugger.IsAttached == false)
+            //    Debugger.Launch();
 
-                //Debugger.Break();
-                // Gets the current assembly.
-                Assembly asm = Assembly.GetExecutingAssembly();
+            base.Install(stateSaver);
 
-                return Path.GetDirectoryName(asm.Location);
+            //Debugger.Break();
 
+            string query = "USE MASTER \n";
+            query += "CREATE DATABASE " + dataBaseName + " \n";
+            query += "RESTORE DATABASE " + dataBaseName + " FROM DISK = '" + GetExecutionDirectory() + "\\" + dataBaseName + ".bak" + "' WITH REPLACE;";
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(@"Error al obtener el SQL. Error: " + ex.Message, "Instalación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw ex;
-            }
+            string script = File.ReadAllText(GetExecutionDirectory() + "\\Script.sql");
+            // MessageBox.Show(query, "Instalación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //GetExecutionDirectory();
+            //ExecuteSql(true, query);
+            ExecuteTransaction(script, true);
         }
 
+        /// <summary>
+        /// The Uninstall.
+        /// </summary>
+        /// <param name="savedState">The savedState<see cref="IDictionary"/>.</param>
+        [SecurityPermission(SecurityAction.Demand)]
+        public override void Uninstall(IDictionary savedState)
+        {
+            //if (Debugger.IsAttached == false)
+            //    Debugger.Launch();
+
+            //Debugger.Break();
+
+
+            string dataBaseName = Properties.Settings.Default.DataBaseName;
+
+            base.Uninstall(savedState);
+
+            string query = "USE MASTER \n";
+            query += "ALTER DATABASE " + dataBaseName + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE \n";
+            query += "DROP DATABASE " + dataBaseName + " \n";
+
+            ExecuteSql(true, query);
+        }
+
+        /// <summary>
+        /// The ExecuteSql.
+        /// </summary>
+        /// <param name="isMaster">The isMaster<see cref="bool"/>.</param>
+        /// <param name="query">The query<see cref="string"/>.</param>
         private void ExecuteSql(bool isMaster, string query)
         {
 
@@ -98,71 +143,64 @@ namespace DA.UI
                 MessageBox.Show(@"Error al restaurar la base. Error: " + ex.Message, "Instalación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }
-
         }
 
-        public void ExecuteTransaction(string script, bool isMaster)
+        /// <summary>
+        /// The GetExecutionDirectory.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
+        private string GetExecutionDirectory()
         {
-            using (Microsoft.Data.SqlClient.SqlConnection connection = new Microsoft.Data.SqlClient.SqlConnection(isMaster ? Properties.Settings.Default.ConnStringWithSA : Properties.Settings.Default.ConnStringToRefereeDB))
+
+            try
             {
-                Server server = new Server(new ServerConnection(connection));
-                try
-                {
-                    server.ConnectionContext.BeginTransaction();
-                    server.ConnectionContext.ExecuteNonQuery(script);
-                    server.ConnectionContext.CommitTransaction();
-                }
-                catch (Exception ex)
-                {
-                    server.ConnectionContext.RollBackTransaction();
-                    MessageBox.Show(@"Error al restaurar la base por script. Error: " + ex.Message, "Instalación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    throw;
-                }
+
+                //Debugger.Break();
+                // Gets the current assembly.
+                Assembly asm = Assembly.GetExecutingAssembly();
+
+                return Path.GetDirectoryName(asm.Location);
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(@"Error al obtener el SQL. Error: " + ex.Message, "Instalación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
             }
         }
 
-        public override void Install(IDictionary stateSaver)
+        /// <summary>
+        /// The GetSql.
+        /// </summary>
+        /// <param name="name">The name<see cref="string"/>.</param>
+        /// <returns>The <see cref="string"/>.</returns>
+        private string GetSql(string name)
         {
-            string dataBaseName = Properties.Settings.Default.DataBaseName;
 
-            //if (Debugger.IsAttached == false)
-            //    Debugger.Launch();
+            try
+            {
 
-            base.Install(stateSaver);
+                //  Debugger.Break();
+                // Gets the current assembly.
+                Assembly asm = Assembly.GetExecutingAssembly();
 
-            //Debugger.Break();
+                // Resources are named using a fully qualified name.
+                Stream strm = asm.GetManifestResourceStream(asm.GetName().Name + "." + name);
 
-            string query = "USE MASTER \n";
-            query += "CREATE DATABASE " + dataBaseName + " \n";
-            query += "RESTORE DATABASE " + dataBaseName + " FROM DISK = '" + GetExecutionDirectory() + "\\" + dataBaseName + ".bak" + "' WITH REPLACE;";
+                // Reads the contents of the embedded file.
+                StreamReader reader = new StreamReader(strm);
 
-            string script = File.ReadAllText(GetExecutionDirectory() + "\\Script.sql");
-            // MessageBox.Show(query, "Instalación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return reader.ReadToEnd();
 
-            //GetExecutionDirectory();
-            //ExecuteSql(true, query);
-            ExecuteTransaction(script, true);
-            //ExecuteSql(true , GetSql("CreateBD.txt"));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(@"Error al obtener el SQL. Error: " + ex.Message, "Instalación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
+            }
         }
 
-        [SecurityPermission(SecurityAction.Demand)]
-        public override void Uninstall(IDictionary savedState)
-        {
-            //if (Debugger.IsAttached == false)
-            //    Debugger.Launch();
-
-            //Debugger.Break();
-
-
-            string dataBaseName = Properties.Settings.Default.DataBaseName;
-
-            base.Uninstall(savedState);
-
-            string query = "USE MASTER \n";
-            query += "ALTER DATABASE " + dataBaseName + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE \n";
-            query += "DROP DATABASE " + dataBaseName + " \n";
-
-            ExecuteSql(true, query);
-        }
+        #endregion
     }
 }
